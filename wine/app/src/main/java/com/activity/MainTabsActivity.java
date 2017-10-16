@@ -1,27 +1,160 @@
 package com.activity;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.androidyuan.frame.base.activity.BaseCommActivity;
+import com.config.Constants;
+import com.fragment.ClassifyFragment;
+import com.fragment.HomeFragment;
+import com.fragment.MineFragment;
+import com.fragment.ServiceFragment;
+import com.fragment.ShoppingCartFragment;
+import com.presenter.MainTabsPresenter;
 import com.widget.TabChooser;
+import com.widget.TabChooserBean;
+import com.widget.TabSelectListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import zjw.wine.R;
+
 
 /**
  * Created by mac on 2017/10/16.
  */
 
-public class MainTabsActivity extends BaseCommActivity {
+public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
+
+    public static final int HOME_FRAGMENT = 0;
+    public static final int CLASS_FRAGMENT = 1;
+    public static final int LIVE_FRAGMETN = 2;
+    public static final int SHOPCART_FRAGMENT = 3;
+    public static final int MY_FRAGMENT = 4;
+
+    private String[] titleArr;
+    private TabChooser tab_bar;
+    private List<TabChooserBean> list = new ArrayList<>();
+
+    private Fragment newFragment;
+    private Fragment oldFragment;
+
+    private HomeFragment fragmentHome;
+    private ClassifyFragment fragmentClass;
+    private ServiceFragment fragmentDiscover;
+    //    private LiveListFragment liveFragment;
+    private MineFragment fragmentMy;
+    private ShoppingCartFragment fragmentShoppingCart;
+
+    protected boolean bActive = true;
+
+    private List<Fragment> fragments = new ArrayList<>();
+
+    private int[] imgArr = new int[]{R.drawable.select_home, R.drawable.select_classification, R.drawable.select_discover, R.drawable.select_buycart, R.drawable.select_my};
+
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_tabs_main;
     }
 
     @Override
     protected void initAllWidget() {
         titleArr = getResources().getStringArray(R.array.home_tabs);
-        tab_bar = (TabChooser)findViewById(R.id.tab_bar);
+        tab_bar = (TabChooser) findViewById(R.id.tab_bar);
+        tab_bar.setTabSelectListener(new TabSelectListener() {
+            @Override
+            public void select(int position) {
+                switch (position) {
+                    case 0:
+                        oldFragment = newFragment;
+                        switchFragment(oldFragment, fragmentHome);
+                        newFragment = fragmentHome;
+
+                        break;
+                    case 1:
+                        oldFragment = newFragment;
+                        switchFragment(oldFragment, fragmentClass);
+                        newFragment = fragmentClass;
+
+                        break;
+                    case 2:
+                        oldFragment = newFragment;
+                        switchFragment(oldFragment, fragmentDiscover);
+                        newFragment = fragmentDiscover;
+
+                        break;
+                    case 3:
+                        oldFragment = newFragment;
+                        switchFragment(oldFragment, fragmentShoppingCart);
+                        newFragment = fragmentShoppingCart;
+
+                        break;
+                    case 4:
+                        oldFragment = newFragment;
+                        switchFragment(oldFragment, fragmentMy);
+                        newFragment = fragmentMy;
+                        //StatusBarCompat.setStatusBarColor(MainActivity.this, Color.parseColor("#FFB300"), false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        fragmentHome = new HomeFragment();
+        fragmentClass = new ClassifyFragment();
+//        liveFragment = new LiveListFragment();
+        fragmentDiscover = new ServiceFragment();
+
+//
+        fragmentMy = new MineFragment();
+
+//        fragmentMy.setUrl(OdyApplication.H5URL + "/test.html");
+        fragmentShoppingCart = new ShoppingCartFragment();
+        fragments.add(fragmentHome);
+        fragments.add(fragmentClass);
+        fragments.add(fragmentDiscover);
+//        fragments.add(liveFragment);
+        fragments.add(fragmentShoppingCart);
+        fragments.add(fragmentMy);
+        for (int i = 0; i < titleArr.length; i++) {
+            TabChooserBean bean = new TabChooserBean();
+            bean.imagesrc = imgArr[i];
+            bean.tabcontent = titleArr[i];
+            list.add(bean);
+        }
+        newFragment = fragmentHome;
+        addFragment(newFragment);
+        tab_bar.setTabList(list);
+
     }
+
+    public void switchFragment(Fragment from, Fragment to) {
+        if (!bActive) return;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (to.isAdded() || fragmentManager.getFragments().contains(to)) {
+            // 隐藏当前的fragment，显示下一个
+            fragmentManager.beginTransaction().hide(from).show(to).commitAllowingStateLoss();
+        } else {
+            // 隐藏当前的fragment，add下一个到Activity中
+            fragmentManager.beginTransaction().hide(from).add(R.id.centerlayout, to).commitAllowingStateLoss();
+        }
+    }
+
+    public void addFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (!fragment.isAdded()) {
+            fragmentManager.beginTransaction().add(R.id.centerlayout, fragment).commitAllowingStateLoss();
+        }
+    }
+
 
     @Override
     protected void clickView(View v) {
@@ -36,5 +169,52 @@ public class MainTabsActivity extends BaseCommActivity {
     @Override
     public void showProgressBar() {
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        int chooseItem = intent.getIntExtra(Constants.GO_MAIN, 0);
+        setFragment(chooseItem);
+
+
+    }
+
+    public void setFragment(int code) {
+        switch (code) {
+            case HOME_FRAGMENT:
+                tab_bar.setCurrentItem(0);
+                oldFragment = newFragment;
+                switchFragment(oldFragment, fragmentHome);
+                newFragment = fragmentHome;
+                break;
+            case CLASS_FRAGMENT:
+                tab_bar.setCurrentItem(1);
+                oldFragment = newFragment;
+                switchFragment(oldFragment, fragmentClass);
+                newFragment = fragmentClass;
+                break;
+            case LIVE_FRAGMETN:
+                tab_bar.setCurrentItem(2);
+                oldFragment = newFragment;
+                switchFragment(oldFragment, fragmentDiscover);
+                newFragment = fragmentDiscover;
+                break;
+            case SHOPCART_FRAGMENT:
+                tab_bar.setCurrentItem(3);
+                oldFragment = newFragment;
+                switchFragment(oldFragment, fragmentShoppingCart);
+                newFragment = fragmentShoppingCart;
+                break;
+            case MY_FRAGMENT:
+                tab_bar.setCurrentItem(4);
+                oldFragment = newFragment;
+                switchFragment(oldFragment, fragmentMy);
+                newFragment = fragmentMy;
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -11,11 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ody.p2p.R;
-import com.ody.p2p.utils.UiUtils;
+
+import com.utils.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import zjw.wine.R;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -65,7 +67,12 @@ public class TabChooser extends LinearLayout {
         layout.index = index;
         layout.tv_tab.setText(tabList.get(index).tabcontent);
         layout.tv_tab.setGravity(Gravity.CENTER);
-        layout.iv_tab.setImageResource(tabList.get(index).imagesrc);
+        if(index!=2){
+            layout.iv_tab.setImageResource(tabList.get(index).imagesrc);
+        }else{
+            layout.iv_tab.setBackgroundColor(getResources().getColor(R.color.white));
+        }
+
         layout.setOnClickListener(mTabClickListener);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
         mTabLayout.addView(layout, params);

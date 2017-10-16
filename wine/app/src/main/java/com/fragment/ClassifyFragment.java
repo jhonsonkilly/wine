@@ -3,15 +3,18 @@ package com.fragment;
 import android.view.View;
 
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
+import com.presenter.ClassifyPresenter;
+
+import zjw.wine.R;
 
 /**
  * Created by mac on 2017/10/16.
  */
 
-public class ClassifyFragment extends BaseCommFragment {
+public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> {
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.frg_classify;
     }
 
     @Override
