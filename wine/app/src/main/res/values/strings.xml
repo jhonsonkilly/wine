@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">wine</string>
+
+
+    <array name="home_tabs">
+        <item>首页</item>
+        <item>分类</item>
+        <item>客服</item>
+        <item>购物车</item>
+        <item>我的</item>
+    </array>
+
+    <string name="othermore">99+</string>
+
+    <string name="get_app_version_fail_">获取应用程序版本失败，原因：</string>
+    <string name="get_system_core_fail_">获取系统内核版本失败，原因：</string>
 </resources>
