@@ -133,7 +133,7 @@ public abstract class BaseCommActivity<P extends BaseCommPresenter> extends AppC
 
         super.onCreate(savedInstanceState);
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       // getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(getLayoutId());
         presenter.initData(savedInstanceState);
 

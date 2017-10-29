@@ -11,6 +11,8 @@ public class WineApplication extends Application {
 
     private static Context instance;
 
+    public static final boolean isDebug = false;
+
 
     public static Context gainContext() {
         return instance;

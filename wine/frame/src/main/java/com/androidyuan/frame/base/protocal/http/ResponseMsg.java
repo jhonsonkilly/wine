@@ -1,6 +1,7 @@
 package com.androidyuan.frame.base.protocal.http;
 
 import android.text.TextUtils;
+
 import com.alibaba.fastjson.JSONObject;
 import com.androidyuan.frame.cores.log.CommonLogger;
 import com.androidyuan.frame.cores.utils.FastJSONHelper;
@@ -46,48 +47,38 @@ public abstract class ResponseMsg<T> {
 
         try {
             fastjsonObject = JSONObject.parseObject(response);
-        }
-        catch (Exception e) {
-            setResponsetNotJson();
+        } catch (Exception e) {
+
         }
 
 
-        if (fastjsonObject.containsKey(getCodeKey())) {
-            result = fastjsonObject.getIntValue(getCodeKey());
+        if (fastjsonObject.containsKey("code")) {
+            result = fastjsonObject.getIntValue("code");
         }
-        if (fastjsonObject.containsKey(getMsgKey())) {
-            msg = fastjsonObject.getString(getMsgKey());
+        if (fastjsonObject.containsKey("msg")) {
+            msg = fastjsonObject.getString("msg");
         }
 
         try {
             if (!TextUtils.isEmpty(response)) {//此处不判断 是否解析成功 让子类可以手动重写convertData
                 convertData();
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
         }
     }
 
-
-    public boolean isNotLogin() {
-
-        return result == getNoLoginCode();
-    }
-
-    protected abstract String getMsgKey();
-
-    protected abstract String getCodeKey();
 
     /**
      * 这个方法在子类中重写 进行json解析判断
      * 由于json解析是个耗时操作 所以 这个方法尽量不要执行多次
      */
-    public void convertData() {
+    public T convertData() {
 
         if (fastjsonObject != null && fastjsonObject.containsKey("data")) {
             Class<T> cls = ((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
-            data = (T) FastJSONHelper.parseToObject(fastjsonObject, cls);
+            return data = (T) FastJSONHelper.parseToObject(fastjsonObject, cls);
         }
+        return null;
     }
 
 
@@ -112,9 +103,6 @@ public abstract class ResponseMsg<T> {
     protected abstract int getSucCode();
 
 
-    protected abstract int getNoLoginCode();
-
-
     //一堆 get set 方法
     public int getResult() {
 
@@ -135,12 +123,6 @@ public abstract class ResponseMsg<T> {
 
         this.msg = msg;
     }
-
-    public abstract void setNetworkNotAvalid();
-
-    public abstract void setRequestIsCancel();
-
-    public abstract void setResponsetNotJson();
 
 
 }
