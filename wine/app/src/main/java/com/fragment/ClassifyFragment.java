@@ -1,8 +1,11 @@
 package com.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.adapter.ParentCategoryAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.iview.ILeftClassifyView;
 import com.model.LeftClassifyModel;
@@ -18,7 +21,10 @@ import zjw.wine.R;
  * Created by mac on 2017/10/16.
  */
 
-public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implements ILeftClassifyView{
+public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implements ILeftClassifyView {
+
+    private RecyclerView recyclerView;
+
     @Override
     protected int getLayoutId() {
         return R.layout.frg_classify;
@@ -26,7 +32,10 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
 
     @Override
     protected void initAllWidget(View view) {
-        presenter.getLeftMes();
+        recyclerView = view.findViewById(R.id.parentRv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
     }
 
     @Override
@@ -36,6 +45,7 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
 
     @Override
     public void showData(List<LeftClassifyModel.Data> list) {
-        Log.i("haha","1");
+
+        recyclerView.setAdapter(new ParentCategoryAdapter(list));
     }
 }

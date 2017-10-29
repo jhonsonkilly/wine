@@ -8,12 +8,12 @@ import java.util.List;
  */
 
 public class LeftClassifyModel implements Serializable {
-    public String code;
+   public String code;
     public String message;
     public List<Data> result;
 
-    public class Data implements Serializable {
-        public String name;
+    public class  Data implements Serializable{
+      public String name;
 
         public String id;
         public String guid;

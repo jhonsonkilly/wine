@@ -8,6 +8,8 @@ import com.iview.ILeftClassifyView;
 import com.model.LeftClassifyModel;
 import com.msg.LeftClassifyReqMsg;
 import com.msg.LeftClassifyResMsg;
+import com.msg.RightClassifyReqMsg;
+import com.msg.RightClassifyResMsg;
 
 import java.util.List;
 
@@ -20,9 +22,11 @@ public class ClassifyPresenter extends BaseCommPresenter<ILeftClassifyView> {
 
     private static final int RES_LEFT_MES = 0x1022;
 
+    private static final int RES_RIGHT_MES = 0x1023;
+
     @Override
     public void initData(Bundle saveInstnce) {
-
+        getLeftMes();
     }
 
     @Override
@@ -31,9 +35,15 @@ public class ClassifyPresenter extends BaseCommPresenter<ILeftClassifyView> {
         switch (msg.what) {
 
             case RES_LEFT_MES:
-                if (msg.obj != null && msg.obj instanceof LeftClassifyModel) {
+                if (msg.obj != null) {
 
                     handleResult((LeftClassifyResMsg) msg.obj);
+                }
+                break;
+            case RES_RIGHT_MES:
+                if (msg.obj != null) {
+
+                    handleRightResult((RightClassifyResMsg) msg.obj);
                 }
                 break;
 
@@ -46,6 +56,12 @@ public class ClassifyPresenter extends BaseCommPresenter<ILeftClassifyView> {
         sendHttpGet(req, res);
     }
 
+    public void getRightMes(String id) {
+        RightClassifyReqMsg req = new RightClassifyReqMsg(id);
+        RightClassifyResMsg res = new RightClassifyResMsg(RES_LEFT_MES);
+        sendHttpGet(req, res);
+    }
+
     public void handleResult(LeftClassifyResMsg res) {
 
 
@@ -53,6 +69,18 @@ public class ClassifyPresenter extends BaseCommPresenter<ILeftClassifyView> {
             if (res.getData() != null) {
 
                 iView.showData(res.getData().result);
+
+            }
+        }
+    }
+
+    public void handleRightResult(RightClassifyResMsg res) {
+
+
+        if (res.isSuc()) {
+            if (res.getData() != null) {
+
+                iView.showRightData(res.getData().result);
 
             }
         }

@@ -1,19 +1,15 @@
 package com.msg;
 
 import com.androidyuan.frame.base.protocal.http.ResponseMsg;
-import com.androidyuan.frame.cores.utils.FastJSONHelper;
 import com.model.LeftClassifyModel;
+import com.model.RightClassifyModel;
 
 /**
  * Created by mac on 2017/10/29.
  */
 
-public class LeftClassifyResMsg extends ResponseMsg<LeftClassifyModel> {
-
-
-    public LeftClassifyResMsg(int what) {
+public class RightClassifyResMsg extends ResponseMsg<RightClassifyModel> {
+    public RightClassifyResMsg(int what) {
         super(what);
     }
-
-
 }

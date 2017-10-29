@@ -51,13 +51,13 @@ public abstract class ResponseMsg<T> {
 
         }
 
+        if (fastjsonObject != null) {
 
-        if (fastjsonObject.containsKey("code")) {
-            result = fastjsonObject.getIntValue("code");
+            if (fastjsonObject.containsKey("msg")) {
+                msg = fastjsonObject.getString("msg");
+            }
         }
-        if (fastjsonObject.containsKey("msg")) {
-            msg = fastjsonObject.getString("msg");
-        }
+
 
         try {
             if (!TextUtils.isEmpty(response)) {//此处不判断 是否解析成功 让子类可以手动重写convertData
@@ -74,7 +74,7 @@ public abstract class ResponseMsg<T> {
      */
     public T convertData() {
 
-        if (fastjsonObject != null && fastjsonObject.containsKey("data")) {
+        if (fastjsonObject != null && fastjsonObject.containsKey("result")) {
             Class<T> cls = ((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
             return data = (T) FastJSONHelper.parseToObject(fastjsonObject, cls);
         }
@@ -97,10 +97,10 @@ public abstract class ResponseMsg<T> {
     //这个可以重写有时候会有多种状态 都代表成功
     public boolean isSuc() {
 
-        return result == getSucCode();
+        return result == 200;
     }
 
-    protected abstract int getSucCode();
+
 
 
     //一堆 get set 方法
