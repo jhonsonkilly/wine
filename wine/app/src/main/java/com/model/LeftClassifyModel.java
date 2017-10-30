@@ -17,5 +17,7 @@ public class LeftClassifyModel implements Serializable {
 
         public String id;
         public String guid;
+
+
     }
 }
