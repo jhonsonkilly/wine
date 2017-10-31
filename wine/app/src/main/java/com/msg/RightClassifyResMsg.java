@@ -9,6 +9,8 @@ import com.model.RightClassifyModel;
  */
 
 public class RightClassifyResMsg extends ResponseMsg<RightClassifyModel> {
+
+
     public RightClassifyResMsg(int what) {
         super(what);
     }

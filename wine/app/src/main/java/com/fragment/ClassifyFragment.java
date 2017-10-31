@@ -2,13 +2,16 @@ package com.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.SimpleOnItemTouchListener;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.adapter.ParentCategoryAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.iview.ILeftClassifyView;
 import com.model.LeftClassifyModel;
+import com.model.RightClassifyModel;
 import com.msg.LeftClassifyReqMsg;
 import com.msg.LeftClassifyResMsg;
 import com.presenter.ClassifyPresenter;
@@ -21,9 +24,11 @@ import zjw.wine.R;
  * Created by mac on 2017/10/16.
  */
 
-public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implements ILeftClassifyView {
+public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implements ILeftClassifyView, ParentCategoryAdapter.OnLeftClickListener{
 
     private RecyclerView recyclerView;
+    private RecyclerView mRightRecycleView;
+    private ParentCategoryAdapter mParentCategoryAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -34,6 +39,9 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
     protected void initAllWidget(View view) {
         recyclerView = view.findViewById(R.id.parentRv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRightRecycleView = view.findViewById(R.id.subRv);
+        mRightRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
 
     }
@@ -45,7 +53,20 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
 
     @Override
     public void showData(List<LeftClassifyModel.Data> list) {
+        mParentCategoryAdapter = new ParentCategoryAdapter(list);
+        recyclerView.setAdapter(mParentCategoryAdapter);
+        mParentCategoryAdapter.setOnLeftClickListener(this);
+    }
 
-        recyclerView.setAdapter(new ParentCategoryAdapter(list));
+    @Override
+    public void showRightData(List<RightClassifyModel.Data> list) {
+        mParentCategoryAdapter = new ParentCategoryAdapter(list);
+    }
+
+
+
+    @Override
+    public void leftClick(String id) {
+        presenter.getRightMes(id);
     }
 }

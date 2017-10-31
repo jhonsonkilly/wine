@@ -58,7 +58,7 @@ public class ClassifyPresenter extends BaseCommPresenter<ILeftClassifyView> {
 
     public void getRightMes(String id) {
         RightClassifyReqMsg req = new RightClassifyReqMsg(id);
-        RightClassifyResMsg res = new RightClassifyResMsg(RES_LEFT_MES);
+        RightClassifyResMsg res = new RightClassifyResMsg(RES_RIGHT_MES);
         sendHttpGet(req, res);
     }
 

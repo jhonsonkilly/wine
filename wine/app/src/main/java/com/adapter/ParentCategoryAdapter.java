@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -25,14 +26,27 @@ public class ParentCategoryAdapter extends RecyclerView.Adapter<ParentCategoryAd
 
     List<LeftClassifyModel.Data> datalist;
 
+    OnLeftClickListener onLeftClickListener;
+
+
+
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_left_list, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(Holder holder, final int position) {
         holder.category_name.setText(datalist.get(position).name.toString());
+        holder.rel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onLeftClickListener!=null){
+                    onLeftClickListener.leftClick(datalist.get(position).guid);
+                }
+
+            }
+        });
     }
 
 
@@ -52,13 +66,27 @@ public class ParentCategoryAdapter extends RecyclerView.Adapter<ParentCategoryAd
 
         TextView category_name;
 
-
+        RelativeLayout rel;
 
         public Holder(View convertView) {
 
             super(convertView);
             category_name = BaseViewHolder.get(convertView, R.id.category_name);
+            rel=BaseViewHolder.get(convertView,R.id.root);
+
 
         }
+    }
+
+    public interface OnLeftClickListener {
+
+
+
+        void leftClick(String id);
+    }
+
+
+    public void setOnLeftClickListener(OnLeftClickListener onLeftClickListener) {
+        this.onLeftClickListener = onLeftClickListener;
     }
 }

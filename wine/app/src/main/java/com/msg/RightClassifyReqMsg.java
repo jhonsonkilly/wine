@@ -17,7 +17,7 @@ public class RightClassifyReqMsg extends RequestMsg {
 
     @Override
     public String getUrl() {
-        return Urls.m_rightlist + "?parent" + guid;
+        return Urls.m_rightlist + "?parent=" + guid;
     }
 
 }
