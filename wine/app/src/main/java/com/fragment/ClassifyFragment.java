@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.adapter.ParentCategoryAdapter;
+import com.adapter.SubCategoryAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.iview.ILeftClassifyView;
 import com.model.LeftClassifyModel;
@@ -29,6 +30,8 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
     private RecyclerView recyclerView;
     private RecyclerView mRightRecycleView;
     private ParentCategoryAdapter mParentCategoryAdapter;
+    private SubCategoryAdapter mSubCategoryAdapter;
+
 
     @Override
     protected int getLayoutId() {
@@ -60,13 +63,16 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
 
     @Override
     public void showRightData(List<RightClassifyModel.Data> list) {
-        mParentCategoryAdapter = new ParentCategoryAdapter(list);
+        mSubCategoryAdapter = new SubCategoryAdapter(list);
+        mRightRecycleView.setAdapter(mSubCategoryAdapter);
     }
 
 
 
     @Override
     public void leftClick(String id) {
+
+
         presenter.getRightMes(id);
     }
 }

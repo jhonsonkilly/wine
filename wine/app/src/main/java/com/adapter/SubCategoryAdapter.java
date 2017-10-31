@@ -1,6 +1,7 @@
 package com.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -20,13 +21,15 @@ import zjw.wine.R;
 
 public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.Holder> {
 
+    List<RightClassifyModel.Data> datalist;
+
     public SubCategoryAdapter(List<RightClassifyModel.Data> list) {
 
         this.datalist = list;
     }
     @Override
     public SubCategoryAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        return new SubCategoryAdapter.Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_left_list, parent, false));
     }
 
     @Override
@@ -36,7 +39,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     @Override
     public int getItemCount() {
-        return 0;
+        return datalist == null ? 0 : datalist.size();
     }
 
     class Holder extends RecyclerView.ViewHolder {
