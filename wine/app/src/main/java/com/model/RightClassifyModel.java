@@ -13,13 +13,13 @@ public class RightClassifyModel implements Serializable {
     public String message;
     public List<Data> result;
 
-    public class Data implements Serializable {
+    public static class Data implements Serializable {
         public List<Products> products;
         public String name;
 
         public String pic;
 
-        public class Products implements Serializable {
+        public static class Products implements Serializable {
             public String name;
             public String image;
         }

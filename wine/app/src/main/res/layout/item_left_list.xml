@@ -4,7 +4,7 @@
     android:id="@+id/root"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="59dp">
+    android:layout_height="50dp">
 
     <View
         android:id="@+id/selected"

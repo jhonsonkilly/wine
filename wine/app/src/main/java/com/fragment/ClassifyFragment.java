@@ -17,6 +17,7 @@ import com.msg.LeftClassifyReqMsg;
 import com.msg.LeftClassifyResMsg;
 import com.presenter.ClassifyPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import zjw.wine.R;
@@ -63,7 +64,9 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
 
     @Override
     public void showRightData(List<RightClassifyModel.Data> list) {
-        mSubCategoryAdapter = new SubCategoryAdapter(list);
+
+
+        mSubCategoryAdapter = new SubCategoryAdapter(list,getContext());
         mRightRecycleView.setAdapter(mSubCategoryAdapter);
     }
 
