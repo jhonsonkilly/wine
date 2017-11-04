@@ -57,7 +57,7 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
 
     @Override
     public void showData(List<LeftClassifyModel.Data> list) {
-        mParentCategoryAdapter = new ParentCategoryAdapter(list);
+        mParentCategoryAdapter = new ParentCategoryAdapter(list,getContext());
         recyclerView.setAdapter(mParentCategoryAdapter);
         mParentCategoryAdapter.setOnLeftClickListener(this);
     }

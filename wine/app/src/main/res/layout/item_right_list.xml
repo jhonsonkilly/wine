@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@color/divider_color"
+        android:textColor="@color/main_title_color"
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="5dp"

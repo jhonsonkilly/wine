@@ -9,7 +9,7 @@
         android:layout_height="75dp" />
 
     <TextView
-        android:textColor="@color/c_ff690"
+        android:textColor="@color/sub_title_color"
         android:id="@+id/text_1"
         android:paddingTop="5dp"
         android:layout_width="wrap_content"
