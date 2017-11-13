@@ -5,6 +5,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="none"
     android:background="@color/background_color">
 
     <LinearLayout
@@ -27,9 +28,10 @@
                 android:src="@mipmap/w0_03" />
 
             <ImageView
+
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-
+                android:id="@+id/setting"
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@+id/img_03"
                 android:src="@mipmap/w0_06" />
@@ -57,7 +59,7 @@
                 android:textColor="@color/theme_color" />
 
             <ImageView
-
+                android:id="@+id/huiyuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/img_03"
@@ -75,6 +77,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white">
@@ -88,10 +91,14 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/quanbu_dingdan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_margin="15dp"
+
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:drawablePadding="10dp"
                     android:drawableRight="@mipmap/w0_37"
                     android:text="全部订单"
@@ -106,13 +113,16 @@
             </RelativeLayout>
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:background="@color/white">
 
                 <TextView
+                    android:id="@+id/dai_fukuan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
                     android:drawableTop="@mipmap/w0_26"
@@ -121,8 +131,10 @@
                     android:textColor="@color/main_title_color" />
 
                 <TextView
+                    android:id="@+id/dai_peisong"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
                     android:drawableTop="@mipmap/w0_21"
@@ -131,8 +143,10 @@
                     android:textColor="@color/main_title_color" />
 
                 <TextView
+                    android:id="@+id/pei_songzhong"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
                     android:drawableTop="@mipmap/w0_23"
@@ -141,8 +155,10 @@
                     android:textColor="@color/main_title_color" />
 
                 <TextView
+                    android:id="@+id/dai_pingjia"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
                     android:drawableTop="@mipmap/w0_15"
@@ -151,9 +167,10 @@
                     android:textColor="@color/main_title_color" />
 
                 <TextView
-
+                    android:id="@+id/tuikuan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
                     android:drawableTop="@mipmap/w0_18"
@@ -169,7 +186,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="120dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:orientation="vertical">
@@ -194,49 +211,53 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/mine_jiubi_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/mine_jiubi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="600"
                         android:textColor="@color/sub_title_color"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="酒币"
                         android:textColor="@color/sub_title_color"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/mine_number_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/mine_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3"
                         android:textColor="@color/sub_title_color"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="优惠券"
                         android:textColor="@color/sub_title_color"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -244,12 +265,14 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/mine_dizhi"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@color/white">
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/w0_34"
@@ -275,6 +298,7 @@
             android:text="" />
 
         <RelativeLayout
+            android:id="@+id/mine_pingjia"
             android:layout_width="match_parent"
             android:layout_height="40dp"
 
@@ -306,6 +330,7 @@
             android:text="" />
 
         <RelativeLayout
+            android:id="@+id/mine_shoucang"
             android:layout_width="match_parent"
             android:layout_height="40dp"
 
@@ -337,6 +362,7 @@
             android:text="" />
 
         <RelativeLayout
+            android:id="@+id/mine_yaoqing"
             android:layout_width="match_parent"
             android:layout_height="40dp"
 
@@ -368,6 +394,7 @@
             android:text="" />
 
         <RelativeLayout
+            android:id="@+id/liulan_history"
             android:layout_width="match_parent"
             android:layout_height="40dp"
 
@@ -393,6 +420,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/mine_tiezi"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
@@ -415,7 +443,9 @@
                 android:src="@mipmap/w0_37" />
 
         </RelativeLayout>
+
         <RelativeLayout
+            android:id="@+id/mine_huifu"
             android:layout_width="match_parent"
             android:layout_height="40dp"
 
@@ -438,7 +468,9 @@
                 android:src="@mipmap/w0_37" />
 
         </RelativeLayout>
+
         <RelativeLayout
+            android:id="@+id/huifu_mine"
             android:layout_width="match_parent"
             android:layout_height="40dp"
 
@@ -461,7 +493,9 @@
                 android:src="@mipmap/w0_37" />
 
         </RelativeLayout>
+
         <RelativeLayout
+            android:id="@+id/door"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
