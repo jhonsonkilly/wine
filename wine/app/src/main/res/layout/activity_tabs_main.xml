@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.widget.TabChooser
         android:id="@+id/tab_bar"
@@ -25,12 +24,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/view_bottom_line" />
+
     <ImageView
-        android:layout_centerInParent="true"
-        android:src="@mipmap/home_nav_btn_global_s"
-        android:layout_alignParentBottom="true"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="25dp"
-        />
+        android:src="@mipmap/kefu" />
 </RelativeLayout>
