@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView.SimpleOnItemTouchListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.adapter.ParentCategoryAdapter;
 import com.adapter.SubCategoryAdapter;
@@ -26,7 +27,7 @@ import zjw.wine.R;
  * Created by mac on 2017/10/16.
  */
 
-public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implements ILeftClassifyView, ParentCategoryAdapter.OnLeftClickListener{
+public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implements View.OnClickListener, ILeftClassifyView, ParentCategoryAdapter.OnLeftClickListener {
 
     private RecyclerView recyclerView;
     private RecyclerView mRightRecycleView;
@@ -45,19 +46,23 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRightRecycleView = view.findViewById(R.id.subRv);
         mRightRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        view.findViewById(R.id.search_product).setOnClickListener(this);
 
 
     }
 
     @Override
     protected void clickView(View v) {
-
+        switch (v.getId()) {
+            case R.id.search_product:
+                Toast.makeText(getContext(), "跳转到搜索", Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 
     @Override
     public void showData(List<LeftClassifyModel.Data> list) {
-        mParentCategoryAdapter = new ParentCategoryAdapter(list,getContext());
+        mParentCategoryAdapter = new ParentCategoryAdapter(list, getContext());
         recyclerView.setAdapter(mParentCategoryAdapter);
         mParentCategoryAdapter.setOnLeftClickListener(this);
     }
@@ -66,10 +71,9 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
     public void showRightData(List<RightClassifyModel.Data> list) {
 
 
-        mSubCategoryAdapter = new SubCategoryAdapter(list,getContext());
+        mSubCategoryAdapter = new SubCategoryAdapter(list, getContext());
         mRightRecycleView.setAdapter(mSubCategoryAdapter);
     }
-
 
 
     @Override

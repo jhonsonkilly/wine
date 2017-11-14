@@ -30,4 +30,8 @@ public class Urls {
     //右侧列表接口
     public static final String m_rightlist = getBaseUrl() + "/eshop/app/goods/getProductClassByParent";
 
+    public static final String m_homebannerlist = getBaseUrl() + "/eshop/app/goods/getSlidShowList";
+
+
+
 }
