@@ -2,6 +2,7 @@ package com.iview;
 
 import com.androidyuan.frame.base.view.IBaseCommView;
 import com.model.BannerModel;
+import com.model.HorlistModel;
 import com.model.LeftClassifyModel;
 
 import java.util.List;
@@ -13,4 +14,7 @@ import java.util.List;
 public interface IHomeView extends IBaseCommView {
 
     void showBannerList(List<BannerModel.BannerData> list);
+
+
+    void showHorList(List<HorlistModel.HorData> list);
 }

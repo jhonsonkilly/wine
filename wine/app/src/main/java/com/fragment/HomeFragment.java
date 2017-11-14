@@ -9,6 +9,7 @@ import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.iview.IHomeView;
 import com.model.BannerModel;
+import com.model.HorlistModel;
 import com.presenter.HomePresenter;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -67,5 +68,10 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
         pager.setAdapter(adapter);
         indicator.setViewPager(pager);
+    }
+
+    @Override
+    public void showHorList(List<HorlistModel.HorData> list) {
+
     }
 }

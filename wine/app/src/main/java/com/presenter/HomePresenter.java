@@ -8,6 +8,8 @@ import com.iview.IHomeView;
 import com.iview.ILeftClassifyView;
 import com.msg.BannerReqMsq;
 import com.msg.BannerResMsg;
+import com.msg.HorListReqMsg;
+import com.msg.HorListResMsg;
 import com.msg.LeftClassifyReqMsg;
 import com.msg.LeftClassifyResMsg;
 import com.msg.RightClassifyResMsg;
@@ -21,9 +23,12 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
     private static final int RES_BANNER_MES = 0x1022;
 
+    private static final int RES_HORLIST_MES = 0x1023;
+
     @Override
     public void initData(Bundle saveInstnce) {
-        getBannerList();
+        getList();
+
     }
 
     @Override
@@ -36,15 +41,25 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
                     handleResult((BannerResMsg) msg.obj);
                 }
                 break;
+            case RES_HORLIST_MES:
+                if (msg.obj != null) {
+
+                    handleHorResult((HorListResMsg) msg.obj);
+                }
+                break;
 
 
         }
     }
 
-    public void getBannerList() {
+    public void getList() {
         BannerReqMsq req = new BannerReqMsq();
         BannerResMsg res = new BannerResMsg(RES_BANNER_MES);
         sendHttpGet(req, res);
+
+        HorListReqMsg req1 = new HorListReqMsg();
+        HorListResMsg res2 = new HorListResMsg(RES_HORLIST_MES);
+        sendHttpGet(req1, res2);
     }
 
     public void handleResult(BannerResMsg res) {
@@ -54,6 +69,18 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
             if (res.getData() != null) {
 
                 iView.showBannerList(res.getData().result);
+
+            }
+        }
+    }
+
+    public void handleHorResult(HorListResMsg res) {
+
+
+        if (res.isSuc()) {
+            if (res.getData() != null) {
+
+                iView.showHorList(res.getData().result);
 
             }
         }

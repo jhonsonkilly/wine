@@ -32,6 +32,8 @@ public class Urls {
 
     public static final String m_homebannerlist = getBaseUrl() + "/eshop/app/goods/getSlidShowList";
 
+    public static final String m_horlist = getBaseUrl() + "/eshop/app/goods/getFirstGradeGoodsClass";
+
 
 
 }
