@@ -73,7 +73,14 @@
         </activity>
         <activity
             android:name="com.activity.LoginActivity"
-            android:launchMode="singleTask"
+
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name="com.activity.SweepActivity"
+
             android:screenOrientation="portrait">
 
         </activity>

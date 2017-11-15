@@ -2,6 +2,7 @@ package com.fragment;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.activity.SweepActivity;
 import com.adapter.BannerAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
@@ -77,7 +79,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                     public void onLocationChanged(LocationManager.MapLocation location) {
                         if (location != null) {
 
-                            Toast.makeText(getContext(),location.address,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), location.address, Toast.LENGTH_LONG).show();
                         }
                     }
                 }).setOnceLocation(true)
@@ -94,10 +96,10 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                             @Override
                             public void call(Boolean granted) {
                                 if (granted) {
-
+                                    startActivity(new Intent(getContext(), SweepActivity.class));
                                 } else {
 
-                                    Toast.makeText(getContext(),"为了更好的使用体验，请开启相机使用权限!",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "为了更好的使用体验，请开启相机使用权限!", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -126,11 +128,10 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     }
 
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (locationManager != null){
+        if (locationManager != null) {
             locationManager.stopLocation();
         }
     }

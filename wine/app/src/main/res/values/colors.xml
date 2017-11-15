@@ -27,4 +27,8 @@
 
 
     <color name="white80">#ccffffff</color>
+
+    <color name="scan_background">#60000000</color>
+
+    <color name="scan_border">#ff09BB07</color>
 </resources>
