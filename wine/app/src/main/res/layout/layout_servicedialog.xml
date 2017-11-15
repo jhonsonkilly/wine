@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="160dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+
+        >
+
+        <TextView
+            android:id="@+id/kefu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:text="客服"
+            android:textColor="@color/theme_color"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/kefu"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="13621649735"
+            android:textColor="@color/sub_title_color"
+            android:textSize="14dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/phone"
+            android:layout_marginTop="20dp"
+            android:background="@color/background_color" />
+
+        <TextView
+            android:id="@+id/text_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="取消"
+            android:textColor="@color/sub_title_color"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

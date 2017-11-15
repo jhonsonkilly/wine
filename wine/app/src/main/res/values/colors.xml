@@ -31,4 +31,6 @@
     <color name="scan_background">#60000000</color>
 
     <color name="scan_border">#ff09BB07</color>
+
+    <color name="transparent">#00000000</color>
 </resources>

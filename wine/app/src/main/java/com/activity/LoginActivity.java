@@ -4,6 +4,8 @@ import android.view.View;
 
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 
+import zjw.wine.R;
+
 /**
  * Created by mac on 2017/10/16.
  */
@@ -11,7 +13,8 @@ import com.androidyuan.frame.base.activity.BaseCommActivity;
 public class LoginActivity  extends BaseCommActivity{
     @Override
     protected int getLayoutId() {
-        return 0;
+
+        return R.layout.layout_login;
     }
 
     @Override

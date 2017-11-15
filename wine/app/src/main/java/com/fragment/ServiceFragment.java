@@ -1,6 +1,8 @@
 package com.fragment;
 
+import android.app.Dialog;
 import android.view.View;
+import android.widget.TextView;
 
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.presenter.ServicePresenter;
@@ -19,7 +21,13 @@ public class ServiceFragment extends BaseCommFragment<ServicePresenter> {
 
     @Override
     protected void initAllWidget(View view) {
+        final Dialog dialog = new Dialog(getContext(), R.style.MyDialog);
 
+        dialog.setContentView(R.layout.layout_servicedialog);
+
+        ((TextView)dialog.findViewById(R.id.kefu)).setText("提示");
+
+        dialog.show();
     }
 
     @Override

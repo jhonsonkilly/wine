@@ -1,12 +1,15 @@
 package com.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.TextView;
 
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.config.Constants;
@@ -59,6 +62,8 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
     private List<Fragment> fragments = new ArrayList<>();
 
     private int[] imgArr = new int[]{R.drawable.select_home, R.drawable.select_classification, R.drawable.select_discover, R.drawable.select_buycart, R.drawable.select_my};
+    private Dialog dialog;
+    private TextView view;
 
     @Override
     protected int getLayoutId() {
@@ -86,10 +91,6 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
 
                         break;
                     case 2:
-                        oldFragment = newFragment;
-                        switchFragment(oldFragment, fragmentDiscover);
-                        newFragment = fragmentDiscover;
-
                         break;
                     case 3:
                         oldFragment = newFragment;
@@ -120,7 +121,6 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
         fragmentShoppingCart = new ShoppingCartFragment();
         fragments.add(fragmentHome);
         fragments.add(fragmentClass);
-        fragments.add(fragmentDiscover);
 //        fragments.add(liveFragment);
         fragments.add(fragmentShoppingCart);
         fragments.add(fragmentMy);
@@ -133,6 +133,8 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
         newFragment = fragmentHome;
         addFragment(newFragment);
         tab_bar.setTabList(list);
+        findViewById(R.id.img_kefu).setOnClickListener(this);
+
 
     }
 
@@ -158,7 +160,36 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
 
     @Override
     protected void clickView(View v) {
+        switch (v.getId()) {
+            case R.id.img_kefu:
+                if (dialog == null) {
+                    dialog = new Dialog(this, R.style.MyDialog);
 
+                    dialog.setContentView(R.layout.layout_servicedialog);
+
+                    ((TextView) dialog.findViewById(R.id.text_cancel)).setOnClickListener(this);
+                    view = (TextView) dialog.findViewById(R.id.phone);
+                    view.setOnClickListener(this);
+
+                    dialog.show();
+                } else {
+                    dialog.show();
+                }
+
+                break;
+            case R.id.text_cancel:
+                if (dialog != null) {
+                    dialog.dismiss();
+                    dialog = null;
+                }
+                break;
+            case R.id.phone:
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+view.getText().toString()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                dialog.dismiss();
+                break;
+        }
     }
 
     @Override

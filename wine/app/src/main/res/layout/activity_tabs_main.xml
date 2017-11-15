@@ -26,6 +26,7 @@
         android:layout_above="@id/view_bottom_line" />
 
     <ImageView
+        android:id="@+id/img_kefu"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
