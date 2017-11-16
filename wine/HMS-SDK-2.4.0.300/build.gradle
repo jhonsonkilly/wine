@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('HMS-SDK-2.4.0.300.aar'))

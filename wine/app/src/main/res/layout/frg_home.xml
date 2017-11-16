@@ -56,12 +56,11 @@
     </LinearLayout>
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="150dp">
 
-        <android.support.v4.view.ViewPager
+        <com.androidyuan.frame.cores.widget.bugfixview.FixReBackViewPager
 
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
@@ -81,6 +80,28 @@
             app:strokeWidth="0dp" />
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/hor_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                
+                android:text="热门活动"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

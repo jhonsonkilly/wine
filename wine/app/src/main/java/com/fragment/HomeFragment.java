@@ -7,18 +7,23 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.activity.SweepActivity;
 import com.adapter.BannerAdapter;
+import com.adapter.HorListAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
+import com.androidyuan.frame.cores.widget.bugfixview.FixReBackViewPager;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.iview.IHomeView;
 import com.model.BannerModel;
 import com.model.HorlistModel;
+import com.model.QiangGouModel;
 import com.presenter.HomePresenter;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.utils.LocationManager;
@@ -44,7 +49,7 @@ import zjw.wine.R;
 
 public class HomeFragment extends BaseCommFragment<HomePresenter> implements View.OnClickListener, IHomeView {
 
-    private ViewPager pager;
+    private FixReBackViewPager pager;
 
     List<View> mlist = new ArrayList<>();
 
@@ -53,6 +58,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     private CirclePageIndicator indicator;
 
     LocationManager locationManager;
+    private RecyclerView horRecycle;
 
     @Override
     protected int getLayoutId() {
@@ -65,6 +71,11 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         view.findViewById(R.id.img_scan).setOnClickListener(this);
         pager = view.findViewById(R.id.viewPager);
         indicator = view.findViewById(R.id.indicator);
+
+        horRecycle = view.findViewById(R.id.hor_recycle);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        horRecycle.setLayoutManager(linearLayoutManager);
 
         locationManager = new LocationManager(getContext());
 
@@ -124,6 +135,11 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
     @Override
     public void showHorList(List<HorlistModel.HorData> list) {
+        horRecycle.setAdapter(new HorListAdapter(getContext(), list));
+    }
+
+    @Override
+    public void showQiangGouList(List<QiangGouModel.QiangGouData> list) {
 
     }
 

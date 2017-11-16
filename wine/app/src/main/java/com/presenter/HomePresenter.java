@@ -12,6 +12,8 @@ import com.msg.HorListReqMsg;
 import com.msg.HorListResMsg;
 import com.msg.LeftClassifyReqMsg;
 import com.msg.LeftClassifyResMsg;
+import com.msg.QiangGouReqMsg;
+import com.msg.QiangGouResMsg;
 import com.msg.RightClassifyResMsg;
 
 /**
@@ -24,6 +26,8 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
     private static final int RES_BANNER_MES = 0x1022;
 
     private static final int RES_HORLIST_MES = 0x1023;
+
+    private static final int RES_QIANGGOU_MES = 0x1024;
 
     @Override
     public void initData(Bundle saveInstnce) {
@@ -47,12 +51,19 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
                     handleHorResult((HorListResMsg) msg.obj);
                 }
                 break;
+            case RES_QIANGGOU_MES:
+                if (msg.obj != null) {
+
+                    handleQiangGouResult((QiangGouResMsg) msg.obj);
+                }
+                break;
 
 
         }
     }
 
     public void getList() {
+
         BannerReqMsq req = new BannerReqMsq();
         BannerResMsg res = new BannerResMsg(RES_BANNER_MES);
         sendHttpGet(req, res);
@@ -60,6 +71,12 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
         HorListReqMsg req1 = new HorListReqMsg();
         HorListResMsg res2 = new HorListResMsg(RES_HORLIST_MES);
         sendHttpGet(req1, res2);
+
+        QiangGouReqMsg req3 = new QiangGouReqMsg();
+        QiangGouResMsg res4 = new QiangGouResMsg(RES_QIANGGOU_MES);
+        //sendHttpGet(req3, res4);
+
+
     }
 
     public void handleResult(BannerResMsg res) {
@@ -81,6 +98,18 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
             if (res.getData() != null) {
 
                 iView.showHorList(res.getData().result);
+
+            }
+        }
+    }
+
+    public void handleQiangGouResult(QiangGouResMsg res) {
+
+
+        if (res.isSuc()) {
+            if (res.getData() != null) {
+
+                iView.showQiangGouList(res.getData().result);
 
             }
         }

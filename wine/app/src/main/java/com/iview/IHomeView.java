@@ -4,6 +4,7 @@ import com.androidyuan.frame.base.view.IBaseCommView;
 import com.model.BannerModel;
 import com.model.HorlistModel;
 import com.model.LeftClassifyModel;
+import com.model.QiangGouModel;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface IHomeView extends IBaseCommView {
 
 
     void showHorList(List<HorlistModel.HorData> list);
+
+    void showQiangGouList(List<QiangGouModel.QiangGouData> list);
 }
