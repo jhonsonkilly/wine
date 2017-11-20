@@ -11,11 +11,7 @@ android {
         }
     }
 
-    repositories {
-        flatDir {
-            dirs 'libs'   // aar目录
-        }
-    }
+   
     packagingOptions {
         exclude 'typedefs.txt'
     }
@@ -57,5 +53,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':frame')
 
-    compile project(':HMS-SDK-2.4.0.300')
+
 }

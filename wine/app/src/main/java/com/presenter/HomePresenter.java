@@ -10,6 +10,8 @@ import com.msg.BannerReqMsq;
 import com.msg.BannerResMsg;
 import com.msg.HorListReqMsg;
 import com.msg.HorListResMsg;
+import com.msg.JingXuanReqMsg;
+import com.msg.JingXuanResMsg;
 import com.msg.LeftClassifyReqMsg;
 import com.msg.LeftClassifyResMsg;
 import com.msg.QiangGouReqMsg;
@@ -28,6 +30,8 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
     private static final int RES_HORLIST_MES = 0x1023;
 
     private static final int RES_QIANGGOU_MES = 0x1024;
+
+    private static final int RES_JINGXUAN_MES = 0x1025;
 
     @Override
     public void initData(Bundle saveInstnce) {
@@ -57,6 +61,12 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
                     handleQiangGouResult((QiangGouResMsg) msg.obj);
                 }
                 break;
+            case RES_JINGXUAN_MES:
+                if (msg.obj != null) {
+
+                    handleJingXuanResult((JingXuanResMsg) msg.obj);
+                }
+                break;
 
 
         }
@@ -75,6 +85,10 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
         QiangGouReqMsg req3 = new QiangGouReqMsg();
         QiangGouResMsg res4 = new QiangGouResMsg(RES_QIANGGOU_MES);
         //sendHttpGet(req3, res4);
+
+        JingXuanReqMsg req5 = new JingXuanReqMsg();
+        JingXuanResMsg res6 = new JingXuanResMsg(RES_JINGXUAN_MES);
+        sendHttpGet(req5, res6);
 
 
     }
@@ -110,6 +124,18 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
             if (res.getData() != null) {
 
                 iView.showQiangGouList(res.getData().result);
+
+            }
+        }
+    }
+
+    public void handleJingXuanResult(JingXuanResMsg res) {
+
+
+        if (res.isSuc()) {
+            if (res.getData() != null) {
+
+                iView.showJingXuanList(res.getData().result);
 
             }
         }

@@ -11,11 +11,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.activity.SweepActivity;
 import com.adapter.BannerAdapter;
 import com.adapter.HorListAdapter;
+import com.adapter.JingXuanAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.androidyuan.frame.cores.widget.bugfixview.FixReBackViewPager;
@@ -23,6 +25,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.iview.IHomeView;
 import com.model.BannerModel;
 import com.model.HorlistModel;
+import com.model.JingXuanModel;
 import com.model.QiangGouModel;
 import com.presenter.HomePresenter;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -60,6 +63,10 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     LocationManager locationManager;
     private RecyclerView horRecycle;
 
+
+    private ListView listView;
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.frg_home;
@@ -76,6 +83,9 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         horRecycle.setLayoutManager(linearLayoutManager);
+
+
+        listView = view.findViewById(R.id.jingxuan_list);
 
         locationManager = new LocationManager(getContext());
 
@@ -141,6 +151,11 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     @Override
     public void showQiangGouList(List<QiangGouModel.QiangGouData> list) {
 
+    }
+
+    @Override
+    public void showJingXuanList(List<JingXuanModel.Data> list) {
+        listView.setAdapter(new JingXuanAdapter(getContext(), list));
     }
 
 

@@ -1,2 +1,2 @@
-include ':app', ':HMS-SDK-2.4.0.300'
+include ':app'
 include ':frame'

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HMS-SDK-2.4.0.300/HMS-SDK-2.4.0.300.iml" filepath="$PROJECT_DIR$/HMS-SDK-2.4.0.300/HMS-SDK-2.4.0.300.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/frame/frame.iml" filepath="$PROJECT_DIR$/frame/frame.iml" />
       <module fileurl="file://$PROJECT_DIR$/wine.iml" filepath="$PROJECT_DIR$/wine.iml" />

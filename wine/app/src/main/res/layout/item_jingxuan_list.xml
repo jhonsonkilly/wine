@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/lin_ll"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_gravity="center"
+            android:id="@+id/jingxuan_img"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:background="@mipmap/icon_sweep_back" />
+
+        <TextView
+
+            android:id="@+id/jingxuan_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="haha"
+            android:textColor="@color/sub_title_color" />
+
+        <TextView
+
+            android:id="@+id/jingxuan_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_toRightOf="@id/lin_ll"
+        android:layout_width="0.5dp"
+        android:layout_height="200dp"
+        android:background="@color/divider_color" />
+</RelativeLayout>

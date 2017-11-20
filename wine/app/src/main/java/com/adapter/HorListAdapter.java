@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.HorlistModel;
 import com.model.LeftClassifyModel;
@@ -25,7 +26,7 @@ import zjw.wine.R;
 
 public class HorListAdapter extends RecyclerView.Adapter<HorListAdapter.Holder> {
 
-    List<RightClassifyModel.Data.Products> list = new ArrayList<>();
+
     Context context;
     List<HorlistModel.HorData> datalist;
 
@@ -36,6 +37,7 @@ public class HorListAdapter extends RecyclerView.Adapter<HorListAdapter.Holder> 
         this.context = context;
 
     }
+
     @Override
     public HorListAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new HorListAdapter.Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hor_list, parent, false));
@@ -43,7 +45,13 @@ public class HorListAdapter extends RecyclerView.Adapter<HorListAdapter.Holder> 
 
     @Override
     public void onBindViewHolder(HorListAdapter.Holder holder, int position) {
-        holder.hor_text.setText(datalist.get(position).name.toString());
+        try {
+            holder.hor_text.setText(datalist.get(position).name.toString());
+            FrescoUtils.displayUrl(holder.hor_img, datalist.get(position).pic);
+        } catch (Exception e) {
+
+        }
+
     }
 
     @Override
