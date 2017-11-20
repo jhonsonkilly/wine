@@ -8,17 +8,18 @@ android {
             keyPassword '123456'
             storeFile file('keystore/wine.jks')
             storePassword '123456'
+
         }
     }
 
-   
-    packagingOptions {
-        exclude 'typedefs.txt'
-    }
+
+
 
 
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
+
+
     defaultConfig {
         applicationId "zjw.wine"
         minSdkVersion 15
@@ -27,13 +28,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+
     buildTypes {
         release {
             signingConfig  signingConfigs.release
-
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
     }
+
+
 
 
 }
