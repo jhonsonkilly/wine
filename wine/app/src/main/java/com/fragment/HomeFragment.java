@@ -70,6 +70,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     private ListView listView;
 
     private ListView productListView;
+    private ProductListAdapter productAdapter;
 
 
     @Override
@@ -167,7 +168,15 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
     @Override
     public void showProductList(List<ProductModel.Result> list) {
-        productListView.setAdapter(new ProductListAdapter(getContext(), list));
+        productAdapter = new ProductListAdapter(getContext(), list);
+        productListView.setAdapter(productAdapter);
+        productAdapter.setOnAddCartClickListener(new ProductListAdapter.OnAddCartClickListener() {
+            @Override
+            public void addCart(String id) {
+                  presenter.initData();
+            }
+        });
+
     }
 
 

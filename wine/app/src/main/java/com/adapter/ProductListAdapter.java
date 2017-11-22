@@ -6,10 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.fragment.HomeFragment;
 import com.model.JingXuanModel;
 import com.model.ProductModel;
 
@@ -32,6 +34,10 @@ public class ProductListAdapter extends BaseAdapter {
     TextView textView;
     TextView saleText;
 
+    ImageView addImg;
+
+    OnAddCartClickListener onAddCartClickListener;
+
     public ProductListAdapter(Context context, List<ProductModel.Result> list) {
         this.context = context;
         this.list = list;
@@ -53,7 +59,7 @@ public class ProductListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         try {
             if (convertView == null) {
                 convertView = View.inflate(context, R.layout.item_list, null);
@@ -63,6 +69,15 @@ public class ProductListAdapter extends BaseAdapter {
             textView = convertView.findViewById(R.id.text_1);
             textPrice = convertView.findViewById(R.id.price);
             saleText = convertView.findViewById(R.id.sale);
+            addImg=convertView.findViewById(R.id.cart);
+            addImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onAddCartClickListener!=null){
+                        onAddCartClickListener.addCart(list.get(position).guid);
+                    }
+                }
+            });
 
             FrescoUtils.displayUrl(img, list.get(position).image);
             textView.setText(list.get(position).name);
@@ -70,10 +85,25 @@ public class ProductListAdapter extends BaseAdapter {
             saleText.setText("销量:  " + list.get(position).salenum);
 
 
+
             return convertView;
 
         } catch (Exception e) {
             return null;
         }
+    }
+
+
+    public interface OnAddCartClickListener {
+
+
+        void addCart(String id);
+
+
+    }
+
+
+    public void setOnAddCartClickListener(OnAddCartClickListener onAddCartClickListener) {
+        this.onAddCartClickListener = onAddCartClickListener;
     }
 }
