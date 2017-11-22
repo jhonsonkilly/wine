@@ -5,18 +5,16 @@ import android.os.Message;
 
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.iview.IHomeView;
-import com.iview.ILeftClassifyView;
-import com.msg.BannerReqMsq;
+import com.msg.BannerReqMsg;
 import com.msg.BannerResMsg;
 import com.msg.HorListReqMsg;
 import com.msg.HorListResMsg;
 import com.msg.JingXuanReqMsg;
 import com.msg.JingXuanResMsg;
-import com.msg.LeftClassifyReqMsg;
-import com.msg.LeftClassifyResMsg;
+import com.msg.ProductReqMsg;
+import com.msg.ProductResMsg;
 import com.msg.QiangGouReqMsg;
 import com.msg.QiangGouResMsg;
-import com.msg.RightClassifyResMsg;
 
 /**
  * Created by mac on 2017/10/16.
@@ -33,6 +31,8 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
     private static final int RES_JINGXUAN_MES = 0x1025;
 
+    private static final int RES_PRODUCT_MES = 0x1026;
+
     @Override
     public void initData(Bundle saveInstnce) {
         getList();
@@ -44,27 +44,14 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
         switch (msg.what) {
 
             case RES_BANNER_MES:
-                if (msg.obj != null) {
-
-                    handleResult((BannerResMsg) msg.obj);
-                }
-                break;
             case RES_HORLIST_MES:
-                if (msg.obj != null) {
-
-                    handleHorResult((HorListResMsg) msg.obj);
-                }
-                break;
             case RES_QIANGGOU_MES:
-                if (msg.obj != null) {
-
-                    handleQiangGouResult((QiangGouResMsg) msg.obj);
-                }
-                break;
             case RES_JINGXUAN_MES:
+            case RES_PRODUCT_MES:
+
                 if (msg.obj != null) {
 
-                    handleJingXuanResult((JingXuanResMsg) msg.obj);
+                    handleResult(msg.obj);
                 }
                 break;
 
@@ -74,7 +61,7 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
     public void getList() {
 
-        BannerReqMsq req = new BannerReqMsq();
+        BannerReqMsg req = new BannerReqMsg();
         BannerResMsg res = new BannerResMsg(RES_BANNER_MES);
         sendHttpGet(req, res);
 
@@ -90,54 +77,58 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
         JingXuanResMsg res6 = new JingXuanResMsg(RES_JINGXUAN_MES);
         sendHttpGet(req5, res6);
 
+        ProductReqMsg req7 = new ProductReqMsg();
+        ProductResMsg res8 = new ProductResMsg(RES_PRODUCT_MES);
+        sendHttpGet(req7, res8);
+
 
     }
 
-    public void handleResult(BannerResMsg res) {
+    public void handleResult(Object res) {
 
+        if (res instanceof BannerResMsg) {
+            BannerResMsg msg = (BannerResMsg) res;
+            if (msg.getData() != null) {
 
-        if (res.isSuc()) {
-            if (res.getData() != null) {
-
-                iView.showBannerList(res.getData().result);
+                iView.showBannerList(msg.getData().result);
 
             }
         }
-    }
+        if (res instanceof HorListResMsg) {
+            HorListResMsg msg = (HorListResMsg) res;
+            if (msg.getData() != null) {
 
-    public void handleHorResult(HorListResMsg res) {
-
-
-        if (res.isSuc()) {
-            if (res.getData() != null) {
-
-                iView.showHorList(res.getData().result);
+                iView.showHorList(msg.getData().result);
 
             }
         }
-    }
+        if (res instanceof QiangGouResMsg) {
+            QiangGouResMsg msg = (QiangGouResMsg) res;
+            if (msg.getData() != null) {
 
-    public void handleQiangGouResult(QiangGouResMsg res) {
-
-
-        if (res.isSuc()) {
-            if (res.getData() != null) {
-
-                iView.showQiangGouList(res.getData().result);
+                iView.showQiangGouList(msg.getData().result);
 
             }
         }
-    }
+        if (res instanceof JingXuanResMsg) {
+            JingXuanResMsg msg = (JingXuanResMsg) res;
+            if (msg.getData() != null) {
 
-    public void handleJingXuanResult(JingXuanResMsg res) {
-
-
-        if (res.isSuc()) {
-            if (res.getData() != null) {
-
-                iView.showJingXuanList(res.getData().result);
+                iView.showJingXuanList(msg.getData().result);
 
             }
         }
+        if (res instanceof ProductResMsg) {
+            ProductResMsg msg = (ProductResMsg) res;
+            if (msg.getData() != null) {
+
+                iView.showProductList(msg.getData().result);
+
+            }
+        }
+
+
     }
+
+
 }

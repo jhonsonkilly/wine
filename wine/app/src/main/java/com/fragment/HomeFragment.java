@@ -18,6 +18,8 @@ import com.activity.SweepActivity;
 import com.adapter.BannerAdapter;
 import com.adapter.HorListAdapter;
 import com.adapter.JingXuanAdapter;
+import com.adapter.ProductAdapter;
+import com.adapter.ProductListAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.androidyuan.frame.cores.widget.bugfixview.FixReBackViewPager;
@@ -26,6 +28,7 @@ import com.iview.IHomeView;
 import com.model.BannerModel;
 import com.model.HorlistModel;
 import com.model.JingXuanModel;
+import com.model.ProductModel;
 import com.model.QiangGouModel;
 import com.presenter.HomePresenter;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -66,6 +69,8 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
     private ListView listView;
 
+    private ListView productListView;
+
 
     @Override
     protected int getLayoutId() {
@@ -86,6 +91,8 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
 
         listView = view.findViewById(R.id.jingxuan_list);
+
+        productListView = view.findViewById(R.id.product_list);
 
         locationManager = new LocationManager(getContext());
 
@@ -156,6 +163,11 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     @Override
     public void showJingXuanList(List<JingXuanModel.Data> list) {
         listView.setAdapter(new JingXuanAdapter(getContext(), list));
+    }
+
+    @Override
+    public void showProductList(List<ProductModel.Result> list) {
+        productListView.setAdapter(new ProductListAdapter(getContext(), list));
     }
 
 

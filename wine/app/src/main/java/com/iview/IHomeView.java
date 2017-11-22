@@ -5,6 +5,7 @@ import com.model.BannerModel;
 import com.model.HorlistModel;
 import com.model.JingXuanModel;
 import com.model.LeftClassifyModel;
+import com.model.ProductModel;
 import com.model.QiangGouModel;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface IHomeView extends IBaseCommView {
     void showQiangGouList(List<QiangGouModel.QiangGouData> list);
 
     void showJingXuanList(List<JingXuanModel.Data> list);
+
+    void showProductList(List<ProductModel.Result> list);
 }

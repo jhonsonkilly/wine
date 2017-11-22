@@ -170,7 +170,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:padding="5dp"
             android:text="精选"
@@ -178,7 +178,26 @@
 
 
         <com.androidyuan.frame.cores.widget.FixHeightListView
+            android:layout_marginTop="5dp"
             android:id="@+id/jingxuan_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="产品"
+
+            android:textColor="@color/main_title_color" />
+
+
+        <com.androidyuan.frame.cores.widget.FixHeightListView
+            android:layout_marginTop="5dp"
+            android:id="@+id/product_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white" />

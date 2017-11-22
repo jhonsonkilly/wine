@@ -38,6 +38,8 @@ public class Urls {
 
     public static final String m_jingxuanlist = getBaseUrl() + "/eshop/app/goods/get919ChoiceGoodsList";
 
+    public static final String m_productlist = getBaseUrl() + "/eshop/app/goods/get919ProductList";
+
 
 
 }

@@ -11,7 +11,6 @@
     <color name="divider_color">#dddddd</color>
 
 
-
     <color name="background_color">#f5f5f5</color>
 
     <color name="main_title_color">#333333</color>
@@ -33,4 +32,6 @@
     <color name="scan_border">#ff09BB07</color>
 
     <color name="transparent">#00000000</color>
+
+    <color name="red">#FF0000</color>
 </resources>
