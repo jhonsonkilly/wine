@@ -1,25 +1,19 @@
 package com.fragment;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.activity.MainTabsActivity;
 import com.activity.SweepActivity;
 import com.adapter.BannerAdapter;
 import com.adapter.HorListAdapter;
 import com.adapter.JingXuanAdapter;
-import com.adapter.ProductAdapter;
 import com.adapter.ProductListAdapter;
+import com.adapter.QiangGouAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.androidyuan.frame.cores.widget.bugfixview.FixReBackViewPager;
@@ -35,14 +29,6 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 import com.utils.LocationManager;
 import com.viewpagerindicator.CirclePageIndicator;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +58,10 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     private ListView productListView;
     private ProductListAdapter productAdapter;
 
+    RecyclerView recyclerView;
+
+    HorListAdapter horListAdapter;
+
 
     @Override
     protected int getLayoutId() {
@@ -95,7 +85,18 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
         productListView = view.findViewById(R.id.product_list);
 
+        recyclerView = view.findViewById(R.id.qianggou_recycle);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
+        linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager2);
+
         locationManager = new LocationManager(getContext());
+
+        view.findViewById(R.id.img_1).setOnClickListener(this);
+        view.findViewById(R.id.img_2).setOnClickListener(this);
+        view.findViewById(R.id.img_3).setOnClickListener(this);
+        view.findViewById(R.id.img_4).setOnClickListener(this);
+        view.findViewById(R.id.huodong_rl).setOnClickListener(this);
 
     }
 
@@ -133,6 +134,16 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                             }
                         });
                 break;
+            case R.id.img_1:
+                break;
+            case R.id.img_2:
+                break;
+            case R.id.img_3:
+                break;
+            case R.id.img_4:
+                break;
+            case R.id.huodong_rl:
+                break;
         }
     }
 
@@ -142,7 +153,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         for (int i = 0; i < list.size(); i++) {
             View view = View.inflate(getContext(), R.layout.banner_item, null);
             SimpleDraweeView img1 = view.findViewById(R.id.img_1);
-            FrescoUtils.displayUrl(img1, "http://cdn.oudianyun.com/lyf/prod/back-cms/1510578072575_1644_101.jpg@base@tag=imgScale&q=80");
+            FrescoUtils.displayUrl(img1, list.get(i).image);
             mlist.add(view);
         }
         adapter = new BannerAdapter(mlist);
@@ -153,12 +164,22 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
     @Override
     public void showHorList(List<HorlistModel.HorData> list) {
-        horRecycle.setAdapter(new HorListAdapter(getContext(), list));
+        horListAdapter = new HorListAdapter(getContext(), list);
+        horRecycle.setAdapter(horListAdapter);
+        horListAdapter.setOnfenleiClickListener(new HorListAdapter.OnfenleiClickListener() {
+            @Override
+            public void jump(String id, int pos) {
+                // presenter.addtoCart(id, "1");
+                MainTabsActivity activity = (MainTabsActivity) getContext();
+                activity.switchFragment(id, pos);
+            }
+        });
+
     }
 
     @Override
     public void showQiangGouList(List<QiangGouModel.QiangGouData> list) {
-
+        recyclerView.setAdapter(new QiangGouAdapter(getContext(), list));
     }
 
     @Override
@@ -180,6 +201,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
             @Override
             public void addCart(String id) {
                 presenter.addtoCart(id, "1");
+                //getContext().startActivity(new Intent(getContext(), WebViewActivity.class));
             }
         });
 

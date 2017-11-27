@@ -5,17 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.HorlistModel;
-import com.model.LeftClassifyModel;
-import com.model.RightClassifyModel;
 import com.utils.BaseViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import zjw.wine.R;
@@ -29,6 +25,8 @@ public class HorListAdapter extends RecyclerView.Adapter<HorListAdapter.Holder> 
 
     Context context;
     List<HorlistModel.HorData> datalist;
+
+    OnfenleiClickListener onfenleiClickListener;
 
 
     public HorListAdapter(Context context, List<HorlistModel.HorData> list) {
@@ -44,10 +42,18 @@ public class HorListAdapter extends RecyclerView.Adapter<HorListAdapter.Holder> 
     }
 
     @Override
-    public void onBindViewHolder(HorListAdapter.Holder holder, int position) {
+    public void onBindViewHolder(final HorListAdapter.Holder holder, final int position) {
         try {
             holder.hor_text.setText(datalist.get(position).name.toString());
             FrescoUtils.displayUrl(holder.hor_img, datalist.get(position).pic);
+            holder.hor_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onfenleiClickListener != null) {
+                        onfenleiClickListener.jump(datalist.get(position).guid, position);
+                    }
+                }
+            });
         } catch (Exception e) {
 
         }
@@ -57,6 +63,18 @@ public class HorListAdapter extends RecyclerView.Adapter<HorListAdapter.Holder> 
     @Override
     public int getItemCount() {
         return datalist == null ? 0 : datalist.size();
+    }
+
+    public void setOnfenleiClickListener(OnfenleiClickListener onfenleiClickListener) {
+        this.onfenleiClickListener = onfenleiClickListener;
+    }
+
+    public interface OnfenleiClickListener {
+
+
+        void jump(String id, int pos);
+
+
     }
 
     class Holder extends RecyclerView.ViewHolder {
@@ -71,8 +89,6 @@ public class HorListAdapter extends RecyclerView.Adapter<HorListAdapter.Holder> 
             super(convertView);
             hor_img = BaseViewHolder.get(convertView, R.id.hor_img);
             hor_text = BaseViewHolder.get(convertView, R.id.hor_text);
-
-
         }
     }
 }

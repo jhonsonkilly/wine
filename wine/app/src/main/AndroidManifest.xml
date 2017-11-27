@@ -84,6 +84,13 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <activity
+            android:name="com.activity.WebViewActivity"
+
+            android:screenOrientation="portrait">
+
+        </activity>
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="0b44c3a80b98e4773ad7ed3f71b2c0ed" />

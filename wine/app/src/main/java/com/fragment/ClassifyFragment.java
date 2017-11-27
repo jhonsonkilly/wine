@@ -2,10 +2,7 @@ package com.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.SimpleOnItemTouchListener;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.adapter.ParentCategoryAdapter;
@@ -14,11 +11,8 @@ import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.iview.ILeftClassifyView;
 import com.model.LeftClassifyModel;
 import com.model.RightClassifyModel;
-import com.msg.LeftClassifyReqMsg;
-import com.msg.LeftClassifyResMsg;
 import com.presenter.ClassifyPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import zjw.wine.R;
@@ -33,6 +27,9 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
     private RecyclerView mRightRecycleView;
     private ParentCategoryAdapter mParentCategoryAdapter;
     private SubCategoryAdapter mSubCategoryAdapter;
+
+    String id;
+    int pos;
 
 
     @Override
@@ -61,10 +58,15 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
     }
 
     @Override
-    public void showData(List<LeftClassifyModel.Data> list) {
+    public void showData(List<LeftClassifyModel.Data> list,boolean isHorList) {
+
         mParentCategoryAdapter = new ParentCategoryAdapter(list, getContext());
         recyclerView.setAdapter(mParentCategoryAdapter);
         mParentCategoryAdapter.setOnLeftClickListener(this);
+        if(isHorList){
+            mParentCategoryAdapter.getClickPos(pos);
+            presenter.getRightMes(id);
+        }
     }
 
     @Override
@@ -81,5 +83,12 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
 
 
         presenter.getRightMes(id);
+    }
+
+    public void getSwitchClick(String id, int pos) {
+        presenter.getLeftMes(true);
+        this.id=id;
+        this.pos=pos;
+
     }
 }

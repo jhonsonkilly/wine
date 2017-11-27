@@ -82,7 +82,7 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
         QiangGouReqMsg req3 = new QiangGouReqMsg();
         QiangGouResMsg res4 = new QiangGouResMsg(RES_QIANGGOU_MES);
-        //sendHttpGet(req3, res4);
+        sendHttpGet(req3, res4);
 
         JingXuanReqMsg req5 = new JingXuanReqMsg();
         JingXuanResMsg res6 = new JingXuanResMsg(RES_JINGXUAN_MES);
@@ -143,6 +143,15 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
             if (msg.isSuc()) {
 
                 iView.showMes(msg.getMsg());
+
+            }
+        }
+
+        if (res instanceof QiangGouResMsg) {
+            QiangGouResMsg msg = (QiangGouResMsg) res;
+            if (msg.getData() != null) {
+
+                iView.showQiangGouList(msg.getData().result);
 
             }
         }

@@ -2,12 +2,9 @@ package com.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,9 +21,7 @@ import com.widget.TabChooserBean;
 import com.widget.TabSelectListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import zjw.wine.R;
 
@@ -184,7 +179,7 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
                 }
                 break;
             case R.id.phone:
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+view.getText().toString()));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + view.getText().toString()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 dialog.dismiss();
@@ -210,6 +205,15 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
         setFragment(chooseItem);
 
 
+    }
+
+    public void switchFragment(String id, int pos) {
+        tab_bar.setCurrentItem(1);
+        oldFragment = newFragment;
+        switchFragment(oldFragment, fragmentClass);
+
+        newFragment = fragmentClass;
+        fragmentClass.getSwitchClick(id, pos);
     }
 
     public void setFragment(int code) {

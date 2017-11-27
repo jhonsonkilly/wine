@@ -1,16 +1,13 @@
 package com.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.LeftClassifyModel;
 import com.utils.BaseViewHolder;
 
@@ -44,7 +41,6 @@ public class ParentCategoryAdapter extends RecyclerView.Adapter<ParentCategoryAd
     public void onBindViewHolder(final Holder holder, final int position) {
         holder.setIsRecyclable(false);
         holder.category_name.setText(datalist.get(position).name.toString());
-
 
 
         for (int i = 0; i < isClicks.size(); i++) {
@@ -131,5 +127,13 @@ public class ParentCategoryAdapter extends RecyclerView.Adapter<ParentCategoryAd
 
     public void setOnLeftClickListener(OnLeftClickListener onLeftClickListener) {
         this.onLeftClickListener = onLeftClickListener;
+    }
+
+    public void getClickPos( int pos){
+        for (int i = 0; i < isClicks.size(); i++) {
+            isClicks.set(i, false);
+        }
+        isClicks.set(pos, true);
+        notifyDataSetChanged();
     }
 }

@@ -20,6 +20,8 @@ public class QiangGouModel implements Serializable {
             public String name;
             public String id;
             public String image;
+
+            public String price;
         }
     }
 }

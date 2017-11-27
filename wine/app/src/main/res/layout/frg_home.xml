@@ -93,11 +93,14 @@
             android:background="@color/white" />
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/huodong_rl"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -123,12 +126,22 @@
                     android:textColor="@color/divider_color" />
             </RelativeLayout>
 
+            <android.support.v7.widget.RecyclerView
+
+                android:id="@+id/qianggou_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="@color/white" />
+
             <LinearLayout
+                android:padding="2dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/img_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -136,20 +149,24 @@
                     android:src="@mipmap/sys_03" />
 
                 <ImageView
+                    android:id="@+id/img_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:src="@mipmap/sys_05" />
             </LinearLayout>
 
             <LinearLayout
+                android:padding="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/img_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -157,9 +174,11 @@
                     android:src="@mipmap/sys_09" />
 
                 <ImageView
+                    android:id="@+id/img_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:src="@mipmap/sys_10" />
             </LinearLayout>

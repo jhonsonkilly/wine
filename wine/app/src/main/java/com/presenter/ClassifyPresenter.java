@@ -5,13 +5,10 @@ import android.os.Message;
 
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.iview.ILeftClassifyView;
-import com.model.LeftClassifyModel;
 import com.msg.LeftClassifyReqMsg;
 import com.msg.LeftClassifyResMsg;
 import com.msg.RightClassifyReqMsg;
 import com.msg.RightClassifyResMsg;
-
-import java.util.List;
 
 /**
  * Created by mac on 2017/10/16.
@@ -24,9 +21,12 @@ public class ClassifyPresenter extends BaseCommPresenter<ILeftClassifyView> {
 
     private static final int RES_RIGHT_MES = 0x1023;
 
+    boolean isHorList;
+
     @Override
     public void initData(Bundle saveInstnce) {
-        getLeftMes();
+
+        getLeftMes(false);
     }
 
     @Override
@@ -50,7 +50,8 @@ public class ClassifyPresenter extends BaseCommPresenter<ILeftClassifyView> {
         }
     }
 
-    public void getLeftMes() {
+    public void getLeftMes(boolean isHorList) {
+        this.isHorList = isHorList;
         LeftClassifyReqMsg req = new LeftClassifyReqMsg();
         LeftClassifyResMsg res = new LeftClassifyResMsg(RES_LEFT_MES);
         sendHttpGet(req, res);
@@ -68,7 +69,7 @@ public class ClassifyPresenter extends BaseCommPresenter<ILeftClassifyView> {
         if (res.isSuc()) {
             if (res.getData() != null) {
 
-                iView.showData(res.getData().result);
+                iView.showData(res.getData().result, isHorList);
 
             }
         }

@@ -15,5 +15,6 @@ public class HorlistModel implements Serializable {
     public class HorData implements Serializable {
         public String name;
         public String pic;
+        public String guid;
     }
 }

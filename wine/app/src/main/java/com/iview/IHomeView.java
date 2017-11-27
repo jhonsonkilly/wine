@@ -4,7 +4,6 @@ import com.androidyuan.frame.base.view.IBaseCommView;
 import com.model.BannerModel;
 import com.model.HorlistModel;
 import com.model.JingXuanModel;
-import com.model.LeftClassifyModel;
 import com.model.ProductModel;
 import com.model.QiangGouModel;
 
@@ -26,6 +25,8 @@ public interface IHomeView extends IBaseCommView {
     void showJingXuanList(List<JingXuanModel.Data> list);
 
     void showProductList(List<ProductModel.Result> list);
+
+
 
     void showMes(String id);
 }
