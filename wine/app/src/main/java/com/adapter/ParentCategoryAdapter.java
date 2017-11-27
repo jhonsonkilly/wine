@@ -52,9 +52,11 @@ public class ParentCategoryAdapter extends RecyclerView.Adapter<ParentCategoryAd
         if (isClicks.get(position)) {
             holder.category_name.setTextColor(context.getResources().getColor(R.color.theme_color));
             holder.rel.setBackgroundColor(context.getResources().getColor(R.color.white));
+            holder.view.setVisibility(View.VISIBLE);
         } else {
             holder.category_name.setTextColor(context.getResources().getColor(R.color.main_title_color));
             holder.rel.setBackgroundColor(context.getResources().getColor(R.color.background_color));
+            holder.view.setVisibility(View.GONE);
         }
 
 
@@ -106,11 +108,14 @@ public class ParentCategoryAdapter extends RecyclerView.Adapter<ParentCategoryAd
 
         RelativeLayout rel;
 
+        View view;
+
         public Holder(View convertView) {
 
             super(convertView);
             category_name = BaseViewHolder.get(convertView, R.id.category_name);
             rel = BaseViewHolder.get(convertView, R.id.root);
+            view=BaseViewHolder.get(convertView,R.id.selected);
 
 
         }

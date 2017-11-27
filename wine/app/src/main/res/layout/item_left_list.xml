@@ -7,6 +7,7 @@
     android:layout_height="50dp">
 
     <View
+        android:visibility="gone"
         android:id="@+id/selected"
         android:layout_width="2.5dp"
         android:layout_height="match_parent"
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
-            android:layout_marginTop="6dp"
+
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/main_title_color"
