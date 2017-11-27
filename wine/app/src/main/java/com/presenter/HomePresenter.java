@@ -5,6 +5,8 @@ import android.os.Message;
 
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.iview.IHomeView;
+import com.msg.AddtoCartReqMsg;
+import com.msg.AddtoCartResMsg;
 import com.msg.BannerReqMsg;
 import com.msg.BannerResMsg;
 import com.msg.HorListReqMsg;
@@ -33,6 +35,8 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
     private static final int RES_PRODUCT_MES = 0x1026;
 
+    private static final int RES_ADDTOCART_MES = 0x1027;
+
     @Override
     public void initData(Bundle saveInstnce) {
         getList();
@@ -48,6 +52,7 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
             case RES_QIANGGOU_MES:
             case RES_JINGXUAN_MES:
             case RES_PRODUCT_MES:
+            case RES_ADDTOCART_MES:
 
                 if (msg.obj != null) {
 
@@ -57,6 +62,12 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
 
         }
+    }
+
+    public void addtoCart(String id,String number) {
+        AddtoCartReqMsg req = new AddtoCartReqMsg(id,number);
+        AddtoCartResMsg res = new AddtoCartResMsg(RES_ADDTOCART_MES);
+        sendHttpPostJson(req,res);
     }
 
     public void getList() {
@@ -123,6 +134,15 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
             if (msg.getData() != null) {
 
                 iView.showProductList(msg.getData().result);
+
+            }
+        }
+
+        if (res instanceof AddtoCartResMsg) {
+            AddtoCartResMsg msg = (AddtoCartResMsg) res;
+            if (msg.isSuc()) {
+
+                iView.showMes(msg.getMsg());
 
             }
         }

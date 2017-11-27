@@ -167,13 +167,19 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     }
 
     @Override
+    public void showMes(String mes) {
+        Toast.makeText(getContext(), mes, Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
     public void showProductList(List<ProductModel.Result> list) {
         productAdapter = new ProductListAdapter(getContext(), list);
         productListView.setAdapter(productAdapter);
         productAdapter.setOnAddCartClickListener(new ProductListAdapter.OnAddCartClickListener() {
             @Override
             public void addCart(String id) {
-                  presenter.initData();
+                presenter.addtoCart(id, "1");
             }
         });
 

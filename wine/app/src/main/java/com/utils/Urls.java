@@ -40,6 +40,8 @@ public class Urls {
 
     public static final String m_productlist = getBaseUrl() + "/eshop/app/goods/get919ProductList";
 
+    public static final String m_addtocartlist = getBaseUrl() + "/eshop/app/purchase/goodToCart";
+
 
 
 }

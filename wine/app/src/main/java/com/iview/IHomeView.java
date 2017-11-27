@@ -26,4 +26,6 @@ public interface IHomeView extends IBaseCommView {
     void showJingXuanList(List<JingXuanModel.Data> list);
 
     void showProductList(List<ProductModel.Result> list);
+
+    void showMes(String id);
 }
