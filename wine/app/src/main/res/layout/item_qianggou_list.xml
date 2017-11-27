@@ -27,7 +27,7 @@
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@id/img"
             android:text="白点老酒"
-            android:textColor="@color/darkgray3"
+            android:textColor="@color/main_title_color"
             android:textSize="18dp" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_below="@+id/title"
             android:layout_marginTop="10dp"
             android:text="距离倒计时"
-            android:textColor="@color/main_title_color"
+            android:textColor="@color/divider_color"
             android:textSize="15dp" />
 
         <TextView
