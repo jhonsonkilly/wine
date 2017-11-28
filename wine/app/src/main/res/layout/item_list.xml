@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:layout_toRightOf="@+id/img_banner"
+            android:layout_toRightOf="@id/img_banner"
 
             android:textSize="17dp" />
 
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_1"
             android:layout_margin="15dp"
-            android:layout_toRightOf="@+id/img_banner"
+            android:layout_toRightOf="@id/img_banner"
             android:textColor="@color/red"
             android:textSize="17dp" />
 
@@ -61,7 +61,7 @@
             android:layout_marginBottom="30dp"
             android:src="@mipmap/fl_24" />
         <View
-            android:layout_below="@+id/img_banner"
+            android:layout_below="@id/img_banner"
             android:background="@color/background_color"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"

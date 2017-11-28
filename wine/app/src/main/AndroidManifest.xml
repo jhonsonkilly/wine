@@ -67,7 +67,7 @@
         </activity>
         <activity
             android:name="com.activity.RegisterActivity"
-            android:launchMode="singleTask"
+
             android:screenOrientation="portrait">
 
         </activity>

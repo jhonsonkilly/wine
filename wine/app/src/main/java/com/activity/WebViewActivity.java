@@ -1,9 +1,9 @@
 package com.activity;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.view.View;
 
+import com.androidyuan.frame.base.activity.BaseCommActivity;
+import com.presenter.WebViewPresenter;
 import com.widget.QMWebview;
 
 import zjw.wine.R;
@@ -17,17 +17,35 @@ import zjw.wine.R;
  *
  * @todo <a href="mailto:zhoujiawei@laiyifen.com">vernal(周佳伟)</a>
  */
-public class WebViewActivity extends Activity {
-
+public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
     QMWebview qmWebview;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_webview);
-        qmWebview= findViewById(R.id.webview);
+    protected int getLayoutId() {
+        return R.layout.act_webview;
+    }
+
+    @Override
+    protected void initAllWidget() {
+        qmWebview = (QMWebview) findViewById(R.id.webview);
         qmWebview.loadUrl("file:///android_asset/store.html");
+    }
+
+    @Override
+    protected void clickView(View v) {
 
     }
+
+    @Override
+    public void setTopTitle(String title) {
+
+    }
+
+    @Override
+    public void showProgressBar() {
+
+    }
+
+
 }

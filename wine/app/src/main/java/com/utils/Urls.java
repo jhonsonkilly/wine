@@ -42,6 +42,16 @@ public class Urls {
 
     public static final String m_addtocartlist = getBaseUrl() + "/eshop/app/purchase/goodToCart";
 
+    public static final String m_getVertifyCode = getBaseUrl() + "/eshop/app/user/sendVerifyCode";
+
+    public static final String m_login = getBaseUrl() + "/eshop/app/user/login";
+
+    public static final String m_register = getBaseUrl() + "/eshop/app/user/register";
+
+    public static final String m_logout = getBaseUrl() + "/eshop/app/user/logout";
+
+    public static final String m_delVertifyCode = getBaseUrl() + "/eshop/app/user/delVerifyCode";
+
 
 
 }

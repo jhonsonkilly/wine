@@ -17,7 +17,6 @@ public interface IHomeView extends IBaseCommView {
 
     void showBannerList(List<BannerModel.BannerData> list);
 
-
     void showHorList(List<HorlistModel.HorData> list);
 
     void showQiangGouList(List<QiangGouModel.QiangGouData> list);
@@ -25,8 +24,6 @@ public interface IHomeView extends IBaseCommView {
     void showJingXuanList(List<JingXuanModel.Data> list);
 
     void showProductList(List<ProductModel.Result> list);
-
-
 
     void showMes(String id);
 }

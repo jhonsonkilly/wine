@@ -12,7 +12,6 @@ import java.util.List;
 
 public interface ILeftClassifyView extends IBaseCommView {
 
-
     void showData(List<LeftClassifyModel.Data> list,boolean isHorList);
 
     void showRightData(List<RightClassifyModel.Data> list);

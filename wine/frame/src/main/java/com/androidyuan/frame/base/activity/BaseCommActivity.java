@@ -57,8 +57,10 @@ public abstract class BaseCommActivity<P extends BaseCommPresenter> extends AppC
         };
 
         generatorPresenter();
+        if(presenter!=null){
+            presenter.setIView(this);
+        }
 
-        presenter.setIView(this);
     }
 
     //修复flyme问题

@@ -157,7 +157,7 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
     protected void clickView(View v) {
         switch (v.getId()) {
             case R.id.img_kefu:
-                if (dialog == null) {
+                /*if (dialog == null) {
                     dialog = new Dialog(this, R.style.MyDialog);
 
                     dialog.setContentView(R.layout.layout_servicedialog);
@@ -169,7 +169,8 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
                     dialog.show();
                 } else {
                     dialog.show();
-                }
+                }*/
+                this.startActivity(new Intent(this, LoginActivity.class));
 
                 break;
             case R.id.text_cancel:
