@@ -1,6 +1,7 @@
 package com.adapter;
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,41 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
             holder.price.setText("￥ " + datalist.get(position).goods.price);
             holder.title.setText(datalist.get(position).goods.name);
             FrescoUtils.displayUrl(holder.hor_img, datalist.get(position).goods.image);
+
+            timer = new CountDownTimer(countTime, 1000) {
+
+                public void onTick(final long millisUntilFinished) {
+
+                    time = millisUntilFinished;
+
+                    // holder12.tx_count.setText(getTimeShort(millisUntilFinished / 1000));
+                    holder12.tx_count_ll1.setText(getTimeShort(millisUntilFinished / 1000).split(":")[0]);
+                    holder12.tx_count_ll2.setText(getTimeShort(millisUntilFinished / 1000).split(":")[1]);
+                    holder12.tx_count_ll3.setText(getTimeShort(millisUntilFinished / 1000).split(":")[2]);
+
+
+
+                }
+
+                public void onFinish() {
+                    holder12.tx_count_ll1.setText(getTimeShort(0).split(":")[0]);
+                    holder12.tx_count_ll2.setText(getTimeShort(0).split(":")[0]);
+                    holder12.tx_count_ll3.setText(getTimeShort(0).split(":")[0]);
+                    timer = null;
+                    time = 1;
+                    holder12.tx_count_ll1.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (onRetryListener != null) {
+                                onRetryListener.retryCountTime();
+                            }
+                        }
+                    }, 200);
+
+                }
+            };
+            timer.start();
+
         } catch (Exception e) {
 
         }
@@ -88,5 +124,28 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
 
 
         }
+    }
+
+    public String getTimeShort(long i) {
+
+        long h = i / 3600;
+        long m = (i % 3600) / 60;
+        long s = (i % 3600) % 60;
+
+
+        String dateString = "0" + h + ":" + m + ":" + s;
+
+        if (m < 10) {
+            dateString = "0" + h + ":" + "0" + m + ":" + s;
+        }
+        if (s < 10) {
+            dateString = "0" + h + ":" + m + ":" + "0" + s;
+        }
+        if (m < 10 && s < 10) {
+
+            dateString = "0" + h + ":" + "0" + m + ":" + "0" + s;
+        }
+
+        return dateString;
     }
 }

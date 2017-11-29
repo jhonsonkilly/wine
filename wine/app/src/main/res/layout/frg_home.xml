@@ -108,7 +108,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/icon_sweep_back"
+                    android:drawableLeft="@mipmap/hot"
                     android:drawablePadding="10dp"
                     android:gravity="center"
                     android:padding="10dp"
