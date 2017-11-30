@@ -1,19 +1,17 @@
 package com.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.Event.AddToCartEvent;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.fragment.HomeFragment;
-import com.model.JingXuanModel;
 import com.model.ProductModel;
+import com.otto.OttoBus;
 
 import java.util.List;
 
@@ -36,7 +34,7 @@ public class ProductListAdapter extends BaseAdapter {
 
     ImageView addImg;
 
-    OnAddCartClickListener onAddCartClickListener;
+
 
     public ProductListAdapter(Context context, List<ProductModel.Result> list) {
         this.context = context;
@@ -69,13 +67,14 @@ public class ProductListAdapter extends BaseAdapter {
             textView = convertView.findViewById(R.id.text_1);
             textPrice = convertView.findViewById(R.id.price);
             saleText = convertView.findViewById(R.id.sale);
-            addImg=convertView.findViewById(R.id.cart);
+            addImg = convertView.findViewById(R.id.cart);
             addImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(onAddCartClickListener!=null){
-                        onAddCartClickListener.addCart(list.get(position).guid);
-                    }
+
+                    AddToCartEvent event = new AddToCartEvent();
+                    event.id = list.get(position).guid;
+                    OttoBus.getInstance().post(event);
                 }
             });
 
@@ -83,7 +82,6 @@ public class ProductListAdapter extends BaseAdapter {
             textView.setText(list.get(position).name);
             textPrice.setText("￥ " + list.get(position).price);
             saleText.setText("销量:  " + list.get(position).salenum);
-
 
 
             return convertView;
@@ -94,16 +92,4 @@ public class ProductListAdapter extends BaseAdapter {
     }
 
 
-    public interface OnAddCartClickListener {
-
-
-        void addCart(String id);
-
-
-    }
-
-
-    public void setOnAddCartClickListener(OnAddCartClickListener onAddCartClickListener) {
-        this.onAddCartClickListener = onAddCartClickListener;
-    }
 }

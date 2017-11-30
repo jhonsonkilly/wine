@@ -1,5 +1,6 @@
 package com.activity;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ import zjw.wine.R;
  * Created by mac on 2017/10/16.
  */
 
-public class RegisterActivity extends BaseCommActivity<RegistPresenter> implements IRegistView{
+public class RegisterActivity extends BaseCommActivity<RegistPresenter> implements IRegistView {
 
     ToolBar toolBar;
 
@@ -27,6 +28,7 @@ public class RegisterActivity extends BaseCommActivity<RegistPresenter> implemen
     EditText ed_yan;
 
     CountDownTextView tx_click;
+    private EditText ed_yao;
 
     @Override
     protected int getLayoutId() {
@@ -35,12 +37,13 @@ public class RegisterActivity extends BaseCommActivity<RegistPresenter> implemen
 
     @Override
     protected void initAllWidget() {
-        toolBar=(ToolBar) findViewById(R.id.toolbar);
+        toolBar = (ToolBar) findViewById(R.id.toolbar);
         toolBar.setTitle("注册");
         ed_phone = (EditText) findViewById(R.id.ed_phone);
         ed_yan = (EditText) findViewById(R.id.ed_yan);
         tx_click = (CountDownTextView) findViewById(R.id.tx_click);
         tx_click.setOnClickListener(this);
+        ed_yao = (EditText) findViewById(R.id.ed_yao);
         findViewById(R.id.regist_button).setOnClickListener(this);
 
 
@@ -59,8 +62,7 @@ public class RegisterActivity extends BaseCommActivity<RegistPresenter> implemen
         if (v.getId() == R.id.regist_button) {
             if (vertifyMes(true)) {
 
-
-                presenter.reigst(ed_phone.getText().toString(), ed_yan.getText().toString());
+                presenter.regist(ed_phone.getText().toString(), ed_yan.getText().toString(), ed_yao.getText().toString());
             }
 
         }
@@ -92,6 +94,13 @@ public class RegisterActivity extends BaseCommActivity<RegistPresenter> implemen
             }
         });
 
+    }
+
+    @Override
+    public void showRegist(String mes) {
+        Toast.makeText(this, mes, Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 
     public boolean vertifyMes(boolean isNeedYan) {

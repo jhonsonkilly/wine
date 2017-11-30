@@ -54,8 +54,6 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
                 presenter.getVertifyCode(ed_phone.getText().toString());
 
             }
-
-
         }
         if (v.getId() == R.id.login_button) {
             if (vertifyMes(true)) {
@@ -66,6 +64,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
 
         }
         if (v.getId() == R.id.zhuce_text) {
+
             startActivity(new Intent(this, RegisterActivity.class));
         }
     }
@@ -99,6 +98,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
 
     @Override
     public void showLogin(String id) {
+
         SharedPreferencesUtil.saveStringData(this, "ut", id);
         finish();
     }

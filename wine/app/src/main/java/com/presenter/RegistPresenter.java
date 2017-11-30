@@ -3,9 +3,14 @@ package com.presenter;
 import android.os.Bundle;
 import android.os.Message;
 
+import com.activity.LoginActivity;
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
+import com.iview.IRegistView;
 import com.msg.DelYanZhenReqMsg;
 import com.msg.DelYanZhenResMsg;
+import com.msg.LoginResMsg;
+import com.msg.RegistReqMsg;
+import com.msg.RegistResMsg;
 import com.msg.YanZhenReqMsg;
 import com.msg.YanZhenResMsg;
 
@@ -18,7 +23,7 @@ import com.msg.YanZhenResMsg;
  *
  * @todo <a href="mailto:zhoujiawei@laiyifen.com">vernal(周佳伟)</a>
  */
-public class RegistPresenter extends BaseCommPresenter {
+public class RegistPresenter extends BaseCommPresenter<IRegistView> {
 
     String phone;
 
@@ -27,6 +32,8 @@ public class RegistPresenter extends BaseCommPresenter {
 
     private static final int RES_YANZHEN_MES = 0x1223;
 
+    private static final int RES_REGIST_MES = 0x1224;
+
     @Override
     public void initData(Bundle saveInstnce) {
 
@@ -34,7 +41,19 @@ public class RegistPresenter extends BaseCommPresenter {
 
     @Override
     public void handMsg(Message msg) {
+        switch (msg.what) {
 
+            case RES_YANZHEN_MES:
+            case RES_DEL_MES:
+            case RES_REGIST_MES:
+                if (msg.obj != null) {
+
+                    handleResult(msg.obj);
+                }
+                break;
+
+
+        }
     }
 
     public void getVertifyCode(String phone) {
@@ -50,7 +69,42 @@ public class RegistPresenter extends BaseCommPresenter {
         sendHttpGet(req, res);
     }
 
-    public void reigst(String phone,String code) {
+    public void regist(String phone, String code, String yao) {
+        RegistReqMsg req = new RegistReqMsg(phone, code, yao);
+        RegistResMsg res = new RegistResMsg(RES_REGIST_MES);
+        sendHttpPostJson(req, res);
+    }
 
+    public void handleResult(Object res) {
+
+        if (res instanceof YanZhenResMsg) {
+            YanZhenResMsg msg = (YanZhenResMsg) res;
+            if (msg.getData() != null) {
+
+                iView.showResult(msg.getData().result);
+
+            }
+        }
+
+        if (res instanceof DelYanZhenResMsg) {
+            DelYanZhenResMsg msg = (DelYanZhenResMsg) res;
+            if (msg.isSuc()) {
+
+            }
+        }
+
+        if (res instanceof LoginResMsg) {
+            LoginResMsg msg = (LoginResMsg) res;
+            if (msg.isSuc()) {
+                if (msg.getData() != null) {
+
+                    iView.showRegist(msg.getMsg());
+
+                } else {
+                    LoginActivity act = (LoginActivity) getActivity();
+                    act.showToast(msg.getMsg());
+                }
+            }
+        }
     }
 }

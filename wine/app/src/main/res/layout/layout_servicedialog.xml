@@ -29,7 +29,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:padding="15dp"
-            android:text="13621649735"
+            android:text="12345678"
             android:textColor="@color/sub_title_color"
             android:textSize="14dp" />
 

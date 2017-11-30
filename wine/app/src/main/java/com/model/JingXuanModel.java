@@ -21,6 +21,7 @@ public class JingXuanModel implements Serializable {
             public String remark;
             public String image;
             public String price;
+            public String guid;
 
 
         }

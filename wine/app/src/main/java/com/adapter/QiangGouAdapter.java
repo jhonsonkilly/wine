@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.Event.AddToCartEvent;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.QiangGouModel;
+import com.otto.OttoBus;
 import com.utils.BaseViewHolder;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
 
     Context context;
     List<QiangGouModel.QiangGouData> datalist;
+    private CountDownTimer timer;
 
 
     public QiangGouAdapter(Context context, List<QiangGouModel.QiangGouData> list) {
@@ -47,45 +50,52 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
     }
 
     @Override
-    public void onBindViewHolder(QiangGouAdapter.Holder holder, int position) {
+    public void onBindViewHolder(final QiangGouAdapter.Holder holder, final int position) {
         try {
-            holder.price.setText("￥ " + datalist.get(position).goods.price);
-            holder.title.setText(datalist.get(position).goods.name);
-            FrescoUtils.displayUrl(holder.hor_img, datalist.get(position).goods.image);
+            long time = Long.parseLong(datalist.get(position).endTime) - System.currentTimeMillis();
 
-            timer = new CountDownTimer(countTime, 1000) {
+            timer = new CountDownTimer(time, 1000) {
 
                 public void onTick(final long millisUntilFinished) {
 
-                    time = millisUntilFinished;
 
-                    // holder12.tx_count.setText(getTimeShort(millisUntilFinished / 1000));
-                    holder12.tx_count_ll1.setText(getTimeShort(millisUntilFinished / 1000).split(":")[0]);
-                    holder12.tx_count_ll2.setText(getTimeShort(millisUntilFinished / 1000).split(":")[1]);
-                    holder12.tx_count_ll3.setText(getTimeShort(millisUntilFinished / 1000).split(":")[2]);
-
+                    holder.counttime1.setText(getTimeShort(millisUntilFinished / 1000).split(":")[0]);
+                    holder.counttime2.setText(getTimeShort(millisUntilFinished / 1000).split(":")[1]);
+                    holder.counttime3.setText(getTimeShort(millisUntilFinished / 1000).split(":")[2]);
 
 
                 }
 
                 public void onFinish() {
-                    holder12.tx_count_ll1.setText(getTimeShort(0).split(":")[0]);
-                    holder12.tx_count_ll2.setText(getTimeShort(0).split(":")[0]);
-                    holder12.tx_count_ll3.setText(getTimeShort(0).split(":")[0]);
-                    timer = null;
-                    time = 1;
-                    holder12.tx_count_ll1.postDelayed(new Runnable() {
+                    holder.counttime1.setText(getTimeShort(0).split(":")[0]);
+                    holder.counttime2.setText(getTimeShort(0).split(":")[0]);
+                    holder.counttime3.setText(getTimeShort(0).split(":")[0]);
+
+                    timer.cancel();
+                    holder.counttime3.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if (onRetryListener != null) {
-                                onRetryListener.retryCountTime();
-                            }
+                            notifyDataSetChanged();
                         }
                     }, 200);
+
 
                 }
             };
             timer.start();
+            holder.price.setText("￥ " + datalist.get(position).goods.price);
+            holder.title.setText(datalist.get(position).goods.name);
+            FrescoUtils.displayUrl(holder.hor_img, datalist.get(position).goods.image);
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AddToCartEvent event = new AddToCartEvent();
+                    event.id = datalist.get(position).goods.guid;
+                    OttoBus.getInstance().post(event);
+                }
+            });
+
 
         } catch (Exception e) {
 
@@ -103,11 +113,14 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
 
         SimpleDraweeView hor_img;
 
-        TextView hor_text;
 
         TextView title;
 
-        TextView counttime;
+        TextView counttime1;
+
+        TextView counttime2;
+
+        TextView counttime3;
 
         ImageView imageView;
 
@@ -118,7 +131,9 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
             super(convertView);
             hor_img = BaseViewHolder.get(convertView, R.id.img);
             title = BaseViewHolder.get(convertView, R.id.title);
-            counttime = BaseViewHolder.get(convertView, R.id.counttime);
+            counttime1 = BaseViewHolder.get(convertView, R.id.tx_count_ll1);
+            counttime2 = BaseViewHolder.get(convertView, R.id.tx_count_ll2);
+            counttime3 = BaseViewHolder.get(convertView, R.id.tx_count_ll3);
             price = BaseViewHolder.get(convertView, R.id.price);
             imageView = BaseViewHolder.get(convertView, R.id.cart);
 
@@ -144,6 +159,9 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
         if (m < 10 && s < 10) {
 
             dateString = "0" + h + ":" + "0" + m + ":" + "0" + s;
+        }
+        if (h >= 10) {
+            dateString = dateString.substring(1);
         }
 
         return dateString;

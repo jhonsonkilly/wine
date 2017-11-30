@@ -8,13 +8,15 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.Event.GoHomeEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
-import com.config.Constants;
 import com.fragment.ClassifyFragment;
 import com.fragment.HomeFragment;
 import com.fragment.MineFragment;
 import com.fragment.ServiceFragment;
 import com.fragment.ShoppingCartFragment;
+import com.otto.OttoBus;
+import com.otto.Subscribe;
 import com.presenter.MainTabsPresenter;
 import com.widget.TabChooser;
 import com.widget.TabChooserBean;
@@ -130,6 +132,8 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
         tab_bar.setTabList(list);
         findViewById(R.id.img_kefu).setOnClickListener(this);
 
+        OttoBus.getInstance().register(this);
+
 
     }
 
@@ -157,7 +161,7 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
     protected void clickView(View v) {
         switch (v.getId()) {
             case R.id.img_kefu:
-                /*if (dialog == null) {
+                if (dialog == null) {
                     dialog = new Dialog(this, R.style.MyDialog);
 
                     dialog.setContentView(R.layout.layout_servicedialog);
@@ -169,8 +173,8 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
                     dialog.show();
                 } else {
                     dialog.show();
-                }*/
-                this.startActivity(new Intent(this, LoginActivity.class));
+                }
+                //this.startActivity(new Intent(this, LoginActivity.class));
 
                 break;
             case R.id.text_cancel:
@@ -198,15 +202,6 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
 
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
-        int chooseItem = intent.getIntExtra(Constants.GO_MAIN, 0);
-        setFragment(chooseItem);
-
-
-    }
 
     public void switchFragment(String id, int pos) {
         tab_bar.setCurrentItem(1);
@@ -217,40 +212,18 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
         fragmentClass.getSwitchClick(id, pos);
     }
 
-    public void setFragment(int code) {
-        switch (code) {
-            case HOME_FRAGMENT:
-                tab_bar.setCurrentItem(0);
-                oldFragment = newFragment;
-                switchFragment(oldFragment, fragmentHome);
-                newFragment = fragmentHome;
-                break;
-            case CLASS_FRAGMENT:
-                tab_bar.setCurrentItem(1);
-                oldFragment = newFragment;
-                switchFragment(oldFragment, fragmentClass);
-                newFragment = fragmentClass;
-                break;
-            case LIVE_FRAGMETN:
-                tab_bar.setCurrentItem(2);
-                oldFragment = newFragment;
-                switchFragment(oldFragment, fragmentDiscover);
-                newFragment = fragmentDiscover;
-                break;
-            case SHOPCART_FRAGMENT:
-                tab_bar.setCurrentItem(3);
-                oldFragment = newFragment;
-                switchFragment(oldFragment, fragmentShoppingCart);
-                newFragment = fragmentShoppingCart;
-                break;
-            case MY_FRAGMENT:
-                tab_bar.setCurrentItem(4);
-                oldFragment = newFragment;
-                switchFragment(oldFragment, fragmentMy);
-                newFragment = fragmentMy;
-                break;
-            default:
-                break;
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OttoBus.getInstance().unregister(this);
+    }
+
+    @Subscribe
+    public void goHome(GoHomeEvent event) {
+        tab_bar.setCurrentItem(0);
+        oldFragment = newFragment;
+        switchFragment(oldFragment, fragmentHome);
+        newFragment = fragmentHome;
+
     }
 }

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidyuan.frame.base.activity.BaseCommActivity;
@@ -25,6 +26,8 @@ import zjw.wine.R;
 public class ToolBar extends FrameLayout implements View.OnClickListener {
     Context context;
     private TextView title;
+    private ImageView back_img;
+    private ImageView shop_cart;
 
     public ToolBar(@NonNull Context context) {
         super(context);
@@ -45,13 +48,25 @@ public class ToolBar extends FrameLayout implements View.OnClickListener {
         this.context = context;
         View view = View.inflate(context, R.layout.toolbar_view, null);
         title = view.findViewById(R.id.title);
-        view.findViewById(R.id.back).setOnClickListener(this);
+        back_img = view.findViewById(R.id.back);
+        back_img.setOnClickListener(this);
+        shop_cart = view.findViewById(R.id.shopCart);
         addView(view);
     }
 
     public void setTitle(String content) {
         title.setText(content);
     }
+
+    public void hideBack() {
+        back_img.setVisibility(GONE);
+    }
+
+    public ImageView showShopCart() {
+        shop_cart.setVisibility(VISIBLE);
+        return shop_cart;
+    }
+
 
     @Override
     public void onClick(View view) {

@@ -64,10 +64,10 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
         }
     }
 
-    public void addtoCart(String id,String number) {
-        AddtoCartReqMsg req = new AddtoCartReqMsg(id,number);
+    public void addtoCart(String id, String number) {
+        AddtoCartReqMsg req = new AddtoCartReqMsg(id, number);
         AddtoCartResMsg res = new AddtoCartResMsg(RES_ADDTOCART_MES);
-        sendHttpPostJson(req,res);
+        sendHttpPostJson(req, res);
     }
 
     public void getList() {
@@ -140,11 +140,12 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
         if (res instanceof AddtoCartResMsg) {
             AddtoCartResMsg msg = (AddtoCartResMsg) res;
-            if (msg.isSuc()) {
-
+            if(msg.isSuc()){
                 iView.showMes(msg.getMsg());
-
             }
+
+
+
         }
 
         if (res instanceof QiangGouResMsg) {

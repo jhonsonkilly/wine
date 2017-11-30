@@ -1,7 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkgray3">
+    android:background="@color/background_color"
+    android:scrollbars="none">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.widget.ToolBar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.widget.ToolBar>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/empty_cart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@mipmap/fl_05"
+                    android:text="您的购物车还没有商品"
+                    android:textColor="@color/divider_color"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/text_go_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_main_color_transport"
+                    android:text="去首页"
+                    android:textColor="@color/theme_color"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <com.androidyuan.frame.cores.widget.FixHeightListView
+                android:id="@+id/cart_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

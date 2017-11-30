@@ -18,7 +18,7 @@ public class QiangGouModel implements Serializable {
 
         public static class Goods implements Serializable {
             public String name;
-            public String id;
+            public String guid;
             public String image;
 
             public String price;

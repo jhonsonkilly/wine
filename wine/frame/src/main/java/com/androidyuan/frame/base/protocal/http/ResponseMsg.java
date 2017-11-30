@@ -53,8 +53,8 @@ public abstract class ResponseMsg<T> {
 
         if (fastjsonObject != null) {
 
-            if (fastjsonObject.containsKey("msg")) {
-                msg = fastjsonObject.getString("msg");
+            if (fastjsonObject.containsKey("message")) {
+                msg = fastjsonObject.getString("message");
             }
         }
 

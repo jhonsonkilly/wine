@@ -52,6 +52,9 @@ public class Urls {
 
     public static final String m_delVertifyCode = getBaseUrl() + "/eshop/app/user/delVerifyCode";
 
+    public static final String m_cartList = getBaseUrl() + "/eshop/app/purchase/getGoodsFromCart";
+
+
 
 
 }

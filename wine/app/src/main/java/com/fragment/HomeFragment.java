@@ -3,10 +3,13 @@ package com.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.Event.AddToCartEvent;
+import com.activity.LoginActivity;
 import com.activity.MainTabsActivity;
 import com.activity.SweepActivity;
 import com.adapter.BannerAdapter;
@@ -24,9 +27,12 @@ import com.model.HorlistModel;
 import com.model.JingXuanModel;
 import com.model.ProductModel;
 import com.model.QiangGouModel;
+import com.otto.OttoBus;
+import com.otto.Subscribe;
 import com.presenter.HomePresenter;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.utils.LocationManager;
+import com.utils.SharedPreferencesUtil;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -61,6 +67,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     RecyclerView recyclerView;
 
     HorListAdapter horListAdapter;
+    private JingXuanAdapter jingXuanAdapter;
 
 
     @Override
@@ -97,6 +104,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         view.findViewById(R.id.img_3).setOnClickListener(this);
         view.findViewById(R.id.img_4).setOnClickListener(this);
         view.findViewById(R.id.huodong_rl).setOnClickListener(this);
+        OttoBus.getInstance().register(this);
 
     }
 
@@ -135,14 +143,46 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                         });
                 break;
             case R.id.img_1:
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
+                {
+
+                }
+                else
+                {
+                    getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                }
                 break;
             case R.id.img_2:
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
+                {
+
+                }
+                else
+                {
+                    getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                }
                 break;
             case R.id.img_3:
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
+                {
+
+                }
+                else
+                {
+                    getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                }
                 break;
             case R.id.img_4:
                 break;
             case R.id.huodong_rl:
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
+                {
+
+                }
+                else
+                {
+                    getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                }
                 break;
         }
     }
@@ -169,7 +209,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         horListAdapter.setOnfenleiClickListener(new HorListAdapter.OnfenleiClickListener() {
             @Override
             public void jump(String id, int pos) {
-                // presenter.addtoCart(id, "1");
+
                 MainTabsActivity activity = (MainTabsActivity) getContext();
                 activity.switchFragment(id, pos);
             }
@@ -184,12 +224,18 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
     @Override
     public void showJingXuanList(List<JingXuanModel.Data> list) {
-        listView.setAdapter(new JingXuanAdapter(getContext(), list));
+        jingXuanAdapter = new JingXuanAdapter(getContext(), list);
+        listView.setAdapter(jingXuanAdapter);
+
     }
+
+
 
     @Override
     public void showMes(String mes) {
         Toast.makeText(getContext(), mes, Toast.LENGTH_LONG).show();
+        OttoBus.getInstance().post();
+
     }
 
 
@@ -197,20 +243,27 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     public void showProductList(List<ProductModel.Result> list) {
         productAdapter = new ProductListAdapter(getContext(), list);
         productListView.setAdapter(productAdapter);
-        productAdapter.setOnAddCartClickListener(new ProductListAdapter.OnAddCartClickListener() {
-            @Override
-            public void addCart(String id) {
-                presenter.addtoCart(id, "1");
-                //getContext().startActivity(new Intent(getContext(), WebViewActivity.class));
-            }
-        });
 
+
+    }
+
+    @Subscribe
+    public void setContent(AddToCartEvent event) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
+        {
+            presenter.addtoCart(event.id,"1");
+        }
+        else
+        {
+            getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+        }
     }
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        OttoBus.getInstance().unregister(this);
         if (locationManager != null) {
             locationManager.stopLocation();
         }

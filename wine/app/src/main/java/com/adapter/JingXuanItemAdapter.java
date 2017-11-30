@@ -5,13 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.Event.AddToCartEvent;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
-import com.androidyuan.frame.cores.widget.FixChildHeightGridView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.JingXuanModel;
-import com.model.RightClassifyModel;
+import com.otto.OttoBus;
 import com.utils.BaseViewHolder;
 
 import java.util.List;
@@ -28,6 +29,8 @@ public class JingXuanItemAdapter extends RecyclerView.Adapter<JingXuanItemAdapte
 
     Context context;
 
+
+
     public JingXuanItemAdapter(List<JingXuanModel.Data.Goods> list, Context context) {
 
         this.list = list;
@@ -41,11 +44,21 @@ public class JingXuanItemAdapter extends RecyclerView.Adapter<JingXuanItemAdapte
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(Holder holder, final int position) {
         try {
             holder.hor_text.setText(list.get(position).name.toString());
             holder.hor_price.setText("￥" + list.get(position).price.toString());
             FrescoUtils.displayUrl(holder.hor_img, list.get(position).image);
+            holder.add_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    AddToCartEvent event = new AddToCartEvent();
+                    event.id=list.get(position).guid;
+                    OttoBus.getInstance().post(event);
+                }
+            });
         } catch (Exception e) {
 
         }
@@ -66,14 +79,19 @@ public class JingXuanItemAdapter extends RecyclerView.Adapter<JingXuanItemAdapte
 
         TextView hor_price;
 
+        ImageView add_img;
+
         public Holder(View convertView) {
 
             super(convertView);
             hor_img = BaseViewHolder.get(convertView, R.id.jingxuan_img);
             hor_text = BaseViewHolder.get(convertView, R.id.jingxuan_text);
             hor_price = BaseViewHolder.get(convertView, R.id.jingxuan_price);
+            add_img = BaseViewHolder.get(convertView, R.id.add_img);
 
 
         }
     }
+
+
 }

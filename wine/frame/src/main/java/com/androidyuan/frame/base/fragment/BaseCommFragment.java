@@ -197,6 +197,7 @@ public abstract class BaseCommFragment<P extends BaseCommPresenter> extends Frag
         super.onDestroy();
 
         getHandler().removeCallbacksAndMessages(null);
+
         presenter.onDestory();
     }
 
