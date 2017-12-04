@@ -37,14 +37,14 @@
                 android:src="@mipmap/w0_06" />
 
             <com.facebook.drawee.view.SimpleDraweeView
+
                 android:id="@+id/circle"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_below="@+id/img_03"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 fresco:actualImageScaleType="centerInside"
                 fresco:roundAsCircle="true"
-                fresco:roundingBorderColor="@color/saffron_yellow"
                 fresco:roundingBorderWidth="1dp"></com.facebook.drawee.view.SimpleDraweeView>
 
             <TextView

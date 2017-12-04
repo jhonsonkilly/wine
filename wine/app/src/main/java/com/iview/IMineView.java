@@ -12,12 +12,7 @@ import com.model.PersonalModel;
  *
  * @todo <a href="mailto:zhoujiawei@laiyifen.com">vernal(周佳伟)</a>
  */
-public interface ILoginView extends IBaseCommView {
+public interface  IMineView extends IBaseCommView {
 
-    void showResult(String result);
-
-
-    void showLogin(String id);
-
-    void showPersonal(PersonalModel.PersonalResult model);
+    void setDate(PersonalModel.PersonalResult model);
 }

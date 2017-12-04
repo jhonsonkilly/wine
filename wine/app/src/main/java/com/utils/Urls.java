@@ -1,6 +1,6 @@
 package com.utils;
 
-import com.activity.WineApplication;
+import com.androidyuan.frame.base.activity.WineApplication;
 
 /**
  * Created by mac on 2017/10/29.
@@ -53,6 +53,8 @@ public class Urls {
     public static final String m_delVertifyCode = getBaseUrl() + "/eshop/app/user/delVerifyCode";
 
     public static final String m_cartList = getBaseUrl() + "/eshop/app/purchase/getGoodsFromCart";
+
+    public static final String m_personalList = getBaseUrl() + "/eshop/app/member/getMemberInfo";
 
 
 

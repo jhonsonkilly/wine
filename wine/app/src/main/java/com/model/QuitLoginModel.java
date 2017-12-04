@@ -11,14 +11,8 @@ import java.io.Serializable;
  *
  * @todo <a href="mailto:zhoujiawei@laiyifen.com">vernal(周佳伟)</a>
  */
-public class LoginModel implements Serializable {
-
+public class QuitLoginModel implements Serializable {
     public String code;
-
     public String message;
-    public Result result;
-
-    public static class Result implements Serializable {
-        public String token;
-    }
+    public String result;
 }

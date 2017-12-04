@@ -1,10 +1,16 @@
 package com.androidyuan.frame.base.protocal.http;
 
+import com.androidyuan.frame.base.activity.WineApplication;
 import com.androidyuan.frame.cores.utils.FastJSONHelper;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 数据请求的 req res都独立封装了
@@ -14,17 +20,22 @@ import java.util.*;
  */
 public abstract class RequestMsg {
 
+
     //请求参数
     protected HashMap<String, Object> params = new HashMap<String, Object>();
 
     protected RequestMsg() {
-//        put("v", com.androidyuan.frame.cores.utils.Utils.version);
-//        put("os", com.androidyuan.frame.cores.utils.Utils.os);
+        //  put("v", com.androidyuan.frame.cores.utils.Utils.version);
+        // put("os", com.androidyuan.frame.cores.utils.Utils.os);
 //        put("ver", com.androidyuan.frame.cores.utils.Utils.ver);
+
+
     }
 
 
     protected RequestMsg(Map<String, String> map) {
+
+        map.put("TOKEN=", SharedPreferencesUtil.getStringData(WineApplication.gainContext(), "ut", null));
 
         if (map != null) {
             for (Map.Entry<String, String> entry : map.entrySet()) {

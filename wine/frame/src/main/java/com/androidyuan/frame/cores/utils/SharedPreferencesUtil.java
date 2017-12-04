@@ -1,4 +1,4 @@
-package com.utils;
+package com.androidyuan.frame.cores.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

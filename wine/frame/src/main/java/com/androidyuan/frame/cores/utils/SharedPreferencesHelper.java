@@ -1,4 +1,4 @@
-package com.utils;
+package com.androidyuan.frame.cores.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;

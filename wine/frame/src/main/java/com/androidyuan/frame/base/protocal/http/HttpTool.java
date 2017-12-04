@@ -3,13 +3,24 @@ package com.androidyuan.frame.base.protocal.http;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Keep;
+
+import com.androidyuan.frame.base.activity.WineApplication;
 import com.androidyuan.frame.cores.log.CommonLogger;
-import okhttp3.*;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static com.androidyuan.frame.base.protocal.http.HttpConfig.RETRY_COUT;
 import static com.androidyuan.frame.base.protocal.http.HttpConfig.TIMEOU_MS;
@@ -74,13 +85,20 @@ public class HttpTool {
      * @param res
      */
     public void requestGet(final RequestMsg req, final ResponseMsg res, final Handler handler) {
-
+        String mUrl=req.getUrl();
+        //添加token
+        if (req.getUrl().contains("?")) {
+            mUrl+= "&";
+        } else {
+            mUrl += "?";
+        }
+        mUrl += "TOKEN=" + (SharedPreferencesUtil.getStringData(WineApplication.gainContext(), "ut", null));
 
         Request request = new Request.Builder()
-                .url(req.getUrl())
+                .url(mUrl)
                 .build();
 
-        mCommonLogger.d(req.getRequestUrl());
+        mCommonLogger.info(mUrl);
         mClient.newCall(request).enqueue(new ReponseResolver(res, handler));
 
     }
@@ -99,6 +117,7 @@ public class HttpTool {
         MediaType JSON_TYPE = MediaType.parse("application/json; charset=utf-8");
 
         RequestBody body = RequestBody.create(JSON_TYPE, req.getJsonBody());
+
         Request request = new Request.Builder()
                 .url(req.getRequestUrl())
                 .post(body)

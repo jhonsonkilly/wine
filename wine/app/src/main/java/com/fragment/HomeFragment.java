@@ -12,6 +12,7 @@ import com.Event.AddToCartEvent;
 import com.activity.LoginActivity;
 import com.activity.MainTabsActivity;
 import com.activity.SweepActivity;
+import com.activity.WebViewActivity;
 import com.adapter.BannerAdapter;
 import com.adapter.HorListAdapter;
 import com.adapter.JingXuanAdapter;
@@ -32,7 +33,8 @@ import com.otto.Subscribe;
 import com.presenter.HomePresenter;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.utils.LocationManager;
-import com.utils.SharedPreferencesUtil;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
+import com.utils.Urls;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -143,44 +145,40 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                         });
                 break;
             case R.id.img_1:
-                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
-                {
-
-                }
-                else
-                {
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/run/Run.html");
+                    startActivity(intent);
+                } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
             case R.id.img_2:
-                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
-                {
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
 
-                }
-                else
-                {
+                } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
             case R.id.img_3:
-                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
-                {
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
 
-                }
-                else
-                {
+                } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
             case R.id.img_4:
-                break;
-            case R.id.huodong_rl:
-                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
-                {
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
 
+                } else {
+                    getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
-                else
-                {
+                break;
+
+            case R.id.huodong_rl:
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+
+                } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
@@ -230,11 +228,10 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     }
 
 
-
     @Override
     public void showMes(String mes) {
         Toast.makeText(getContext(), mes, Toast.LENGTH_LONG).show();
-        OttoBus.getInstance().post();
+
 
     }
 
@@ -249,12 +246,9 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
     @Subscribe
     public void setContent(AddToCartEvent event) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", "")))
-        {
-            presenter.addtoCart(event.id,"1");
-        }
-        else
-        {
+        if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+            presenter.addtoCart(event.id, "1");
+        } else {
             getContext().startActivity(new Intent(getContext(), LoginActivity.class));
         }
     }

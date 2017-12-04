@@ -6,6 +6,8 @@ import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.presenter.WebViewPresenter;
 import com.widget.QMWebview;
 
+import java.util.HashMap;
+
 import zjw.wine.R;
 
 /**
@@ -20,6 +22,8 @@ import zjw.wine.R;
 public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
     QMWebview qmWebview;
+    private String url;
+    private HashMap<String, String> parms;
 
     @Override
     protected int getLayoutId() {
@@ -29,7 +33,16 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
     @Override
     protected void initAllWidget() {
         qmWebview = (QMWebview) findViewById(R.id.webview);
-        qmWebview.loadUrl("file:///android_asset/store.html");
+        url = getIntent().getStringExtra("url");
+        parms = (HashMap<String, String>) getIntent().getSerializableExtra("parms");
+
+
+        if (parms != null) {
+            qmWebview.putExParams(parms);
+        }
+        qmWebview.loadUrl(url);
+
+
     }
 
     @Override

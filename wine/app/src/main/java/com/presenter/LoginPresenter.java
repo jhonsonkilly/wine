@@ -10,6 +10,8 @@ import com.msg.DelYanZhenReqMsg;
 import com.msg.DelYanZhenResMsg;
 import com.msg.LoginReqMsg;
 import com.msg.LoginResMsg;
+import com.msg.PersonalReqMsg;
+import com.msg.PersonalResMsg;
 import com.msg.YanZhenReqMsg;
 import com.msg.YanZhenResMsg;
 
@@ -32,6 +34,8 @@ public class LoginPresenter extends BaseCommPresenter<ILoginView> {
 
     private static final int RES_LOGIN_MES = 0x1024;
 
+    private static final int RES_PERSONAL_MES = 0x1025;
+
     @Override
     public void initData(Bundle saveInstnce) {
 
@@ -44,6 +48,7 @@ public class LoginPresenter extends BaseCommPresenter<ILoginView> {
             case RES_YANZHEN_MES:
             case RES_DEL_MES:
             case RES_LOGIN_MES:
+            case RES_PERSONAL_MES:
                 if (msg.obj != null) {
 
                     handleResult(msg.obj);
@@ -73,6 +78,12 @@ public class LoginPresenter extends BaseCommPresenter<ILoginView> {
         sendHttpPostJson(req, res);
     }
 
+    public void getPersonalMes(String id) {
+        PersonalReqMsg req = new PersonalReqMsg();
+        PersonalResMsg res = new PersonalResMsg(RES_PERSONAL_MES);
+        sendHttpGet(req, res);
+    }
+
     public void handleResult(Object res) {
 
         if (res instanceof YanZhenResMsg) {
@@ -91,12 +102,24 @@ public class LoginPresenter extends BaseCommPresenter<ILoginView> {
             }
         }
 
+        if (res instanceof PersonalResMsg) {
+            PersonalResMsg msg = (PersonalResMsg) res;
+            if (msg.isSuc()) {
+
+                iView.showPersonal(msg.getData().result);
+
+            } else {
+
+                iView.showPersonal(null);
+            }
+        }
+
         if (res instanceof LoginResMsg) {
             LoginResMsg msg = (LoginResMsg) res;
             if (msg.isSuc()) {
                 if (msg.getData() != null) {
 
-                    iView.showLogin(msg.getData().result.id);
+                    iView.showLogin(msg.getData().result.token);
 
                 } else {
                     LoginActivity act = (LoginActivity) getActivity();

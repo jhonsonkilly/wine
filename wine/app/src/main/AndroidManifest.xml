@@ -48,7 +48,7 @@
 
 
     <application
-        android:name="com.activity.WineApplication"
+        android:name="com.androidyuan.frame.base.activity.WineApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -87,6 +87,13 @@
 
         <activity
             android:name="com.activity.WebViewActivity"
+
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name="com.activity.SettingActivity"
 
             android:screenOrientation="portrait">
 

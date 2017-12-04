@@ -8,8 +8,9 @@ import android.widget.Toast;
 
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.iview.ILoginView;
+import com.model.PersonalModel;
 import com.presenter.LoginPresenter;
-import com.utils.SharedPreferencesUtil;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.widget.CountDownTextView;
 import com.widget.ToolBar;
 
@@ -89,8 +90,10 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
         tx_click.setOnfinishListener(new CountDownTextView.OnFinishListener() {
             @Override
             public void onFinish() {
+                if(!TextUtils.isEmpty(ed_yan.getText().toString())){
+                    presenter.delVertifyCode();
+                }
 
-                presenter.delVertifyCode();
             }
         });
 
@@ -99,9 +102,31 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
     @Override
     public void showLogin(String id) {
 
-        SharedPreferencesUtil.saveStringData(this, "ut", id);
-        finish();
+
+        presenter.getPersonalMes(id);
+
     }
+
+    @Override
+    public void showPersonal(PersonalModel.PersonalResult model) {
+        if (model != null) {
+
+            SharedPreferencesUtil.saveStringData(this, "ut", model.id);
+            SharedPreferencesUtil.saveStringData(this, "img", model.img);
+            SharedPreferencesUtil.saveStringData(this, "nick", model.nick);
+            finish();
+
+
+        } else {
+
+            Toast.makeText(this, "个人信息获取失败", Toast.LENGTH_LONG).show();
+            finish();
+
+        }
+
+    }
+
+
 
     public boolean vertifyMes(boolean isNeedYan) {
 

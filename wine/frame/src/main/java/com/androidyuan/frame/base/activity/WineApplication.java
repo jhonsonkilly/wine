@@ -1,4 +1,4 @@
-package com.activity;
+package com.androidyuan.frame.base.activity;
 
 import android.app.Application;
 import android.content.Context;

@@ -16,6 +16,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
+
+import java.util.HashMap;
+
 
 /**
  * Created by wei on 16-4-21.
@@ -31,7 +35,7 @@ import android.webkit.WebViewClient;
  * 4. 隐藏缩放按钮
  * 5. 默认开启js的使用
  */
-public  class QMWebview extends WebView {
+public abstract class QMWebview extends WebView {
 
     final String BLANK_URL = "about:blank";
     Context context;
@@ -39,6 +43,8 @@ public  class QMWebview extends WebView {
 
     private boolean loadError = false;
     protected WebSettings settings;
+
+    HashMap<String, String> map = new HashMap<>();
 
     public QMWebview(Context context) {
 
@@ -79,7 +85,6 @@ public  class QMWebview extends WebView {
 
         String str = settings.getUserAgentString() + " QMTV/" + getVersionName(context);
         settings.setUserAgentString(str);
-
 
 
         setWebViewClient(new WebViewClient() {
@@ -149,7 +154,6 @@ public  class QMWebview extends WebView {
         });
 
 
-
     }
 
     protected void onFinish() {
@@ -162,28 +166,45 @@ public  class QMWebview extends WebView {
 
         clearHistory();
 
+        if (isNeedPesonalMes()) {
 
-        if (isNeedAddTime()) {
-            if (url.contains("?")) {
-                url += "&";
+
+            String id = SharedPreferencesUtil.getStringData(getContext(), "ut", "");
+            String img = SharedPreferencesUtil.getStringData(getContext(), "img", "");
+            String nick = SharedPreferencesUtil.getStringData(getContext(), "nick", "");
+            if (!TextUtils.isEmpty(id)) {
+                url = url + "&userId=" + id;
             } else {
-                url += "?";
+                url = url + "&userId=" + null;
             }
-            url += "_t=" + (System.currentTimeMillis());
+            if (!TextUtils.isEmpty(img)) {
+                url = url + "?userImage=" + img;
+            } else {
+                url = url + "?userImage=" + null;
+            }
+            if (!TextUtils.isEmpty(nick)) {
+                url = url + "?userName=" + nick;
+            } else {
+                url = url + "?userName=" + null;
+            }
+
+        }
+
+
+        if (map.size() != 0) {
+            url = url + putExParams(map);
         }
 
         super.loadUrl(url);
+
     }
 
+    public abstract String putExParams(HashMap<String, String> map);
 
-    protected boolean isNeedAddTime() {
-        return false;
+
+    protected boolean isNeedPesonalMes() {
+        return true;
     }
-
-
-
-
-
 
 
     private String getVersionName(Context context) {
