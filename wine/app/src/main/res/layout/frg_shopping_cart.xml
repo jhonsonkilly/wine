@@ -1,62 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color"
-    android:scrollbars="none">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/background_color"
+        android:scrollbars="none">
 
-        <com.widget.ToolBar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        </com.widget.ToolBar>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/empty_cart"
+            <com.widget.ToolBar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    android:drawableTop="@mipmap/fl_05"
-                    android:text="您的购物车还没有商品"
-                    android:textColor="@color/divider_color"
-                    android:textSize="20dp" />
+            </com.widget.ToolBar>
 
-                <TextView
-                    android:id="@+id/text_go_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shape_main_color_transport"
-                    android:text="去首页"
-                    android:textColor="@color/theme_color"
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-            <com.androidyuan.frame.cores.widget.FixHeightListView
-                android:id="@+id/cart_list"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:visibility="gone" />
-        </FrameLayout>
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/empty_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:drawableTop="@mipmap/fl_05"
+                        android:text="您的购物车还没有商品"
+                        android:textColor="@color/divider_color"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/text_go_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_main_color_transport"
+                        android:text="去首页"
+                        android:textColor="@color/theme_color"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <com.androidyuan.frame.cores.widget.FixHeightListView
+                    android:id="@+id/cart_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
 
 
-    </LinearLayout>
+        <CheckBox
 
-</ScrollView>
+            android:id="@+id/ck_all"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:layout_centerVertical="true"
+
+            android:layout_marginLeft="5dp"
+            android:button="@drawable/check_box_style"
+
+            android:text="全选"
+
+            android:textColor="@color/main_title_color" />
+
+        <TextView
+            android:id="@+id/tv_show_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/ck_all"
+            android:text="合计:"
+            android:textColor="@color/main_title_color" />
+
+        <TextView
+
+
+            android:id="@+id/tv_show_price_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_show_price"
+            android:text="30000"
+            android:textColor="@color/red"
+            android:textSize="17dp" />
+
+        <Button
+            android:id="@+id/tv_settlement"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/theme_color"
+            android:gravity="center"
+            android:text="结算(0)"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

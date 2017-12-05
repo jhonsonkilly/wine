@@ -46,7 +46,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
         circle.setOnClickListener(this);
         mHunyuanImg = view.findViewById(R.id.huiyuan);
         mHunyuanImg.setOnClickListener(this);
-        name_text = (TextView) view.findViewById(R.id.name);
+        name_text = view.findViewById(R.id.name);
         name_text.setOnClickListener(this);
         view.findViewById(R.id.setting).setOnClickListener(this);
 
@@ -291,6 +291,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
                     intent.putExtra("url", Urls.getBaseUrl() + "/eshop/919Store/store.html");
                     startActivity(intent);
+
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
@@ -311,6 +312,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
 
         } else {
+
             mHunyuanImg.setVisibility(View.VISIBLE);
             name_text.setVisibility(View.VISIBLE);
             presenter.getPersonalMes();
