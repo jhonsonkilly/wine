@@ -3,9 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.widget.ToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.widget.ToolBar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottom"
+        android:layout_below="@+id/toolbar"
         android:background="@color/background_color"
         android:scrollbars="none">
 
@@ -14,12 +23,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.widget.ToolBar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </com.widget.ToolBar>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -30,7 +33,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -56,8 +60,7 @@
                     android:id="@+id/cart_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:visibility="gone" />
+                    android:layout_marginTop="5dp" />
             </FrameLayout>
 
         </LinearLayout>
@@ -72,12 +75,11 @@
 
 
         <CheckBox
-
             android:id="@+id/ck_all"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
 
-            android:layout_centerVertical="true"
 
             android:layout_marginLeft="5dp"
             android:button="@drawable/check_box_style"
@@ -87,36 +89,38 @@
             android:textColor="@color/main_title_color" />
 
         <TextView
+            android:layout_marginTop="12dp"
             android:id="@+id/tv_show_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/ck_all"
             android:text="合计:"
             android:textColor="@color/main_title_color" />
 
         <TextView
-
+            android:layout_marginTop="10dp"
 
             android:id="@+id/tv_show_price_tx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+
+            android:layout_marginLeft="2dp"
             android:layout_toRightOf="@+id/tv_show_price"
-            android:text="30000"
+
             android:textColor="@color/red"
             android:textSize="17dp" />
 
         <Button
+
             android:id="@+id/tv_settlement"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@color/theme_color"
             android:gravity="center"
-            android:text="结算(0)"
+            android:text="去结算"
             android:textColor="@color/white" />
 
 
