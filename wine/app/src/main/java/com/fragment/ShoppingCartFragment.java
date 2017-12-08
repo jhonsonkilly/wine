@@ -1,19 +1,26 @@
 package com.fragment;
 
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Event.GoHomeEvent;
+import com.activity.LoginActivity;
+import com.activity.WebViewActivity;
 import com.adapter.ShoppingCartAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.androidyuan.frame.cores.widget.FixHeightListView;
 import com.iview.ICartListView;
 import com.model.ShoppingListModel;
 import com.otto.OttoBus;
 import com.presenter.ShoppingCartPresenter;
+import com.utils.Urls;
 import com.widget.ToolBar;
 
 import java.util.List;
@@ -45,6 +52,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     TextView tvShowPrice;
 
     Button showButton;
+    private LinearLayout empty_cart;
 
 
     @Override
@@ -75,12 +83,12 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
             }
         });
         listView = view.findViewById(R.id.cart_list);
+        empty_cart = view.findViewById(R.id.empty_cart);
         ckAll = view.findViewById(R.id.ck_all);
         ckAll.setOnClickListener(this);
         tvShowPrice = view.findViewById(R.id.tv_show_price_tx);
         showButton = view.findViewById(R.id.tv_settlement);
         showButton.setOnClickListener(this);
-
 
     }
 
@@ -101,15 +109,26 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                         shoppingCartAdapter.notifyDataSetChanged();
                     }
                 }
+                break;
             case R.id.tv_settlement:
                 lementOnder();
+                break;
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        presenter.getCartList();
+        if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+            empty_cart.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+            presenter.getCartList();
+        } else {
+            empty_cart.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+
+        }
+
     }
 
     @Override
@@ -154,7 +173,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
             }
             tvShowPrice.setText("￥" + totalPrice);
         } catch (Exception e) {
-            
+
         }
 
     }
@@ -202,7 +221,17 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
             }
         }
         Toast.makeText(getContext(), "总价：" + totalPrice, Toast.LENGTH_LONG).show();
+        if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
 
-        //跳转到支付界面
+            Intent intent = new Intent(getContext(), WebViewActivity.class);
+            intent.putExtra("url", Urls.getBaseUrl() + "/eshop/shoppingCart/Confirm-order.html");
+            startActivity(intent);
+        } else {
+            getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+        }
+
+
     }
+
+  
 }
