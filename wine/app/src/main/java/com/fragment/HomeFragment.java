@@ -119,7 +119,14 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                     public void onLocationChanged(LocationManager.MapLocation location) {
                         if (location != null) {
 
-                            Toast.makeText(getContext(), location.address, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getContext(), location.address, Toast.LENGTH_LONG).show();
+                            if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                                Intent intent = new Intent(getContext(), WebViewActivity.class);
+                                intent.putExtra("url", Urls.getBaseUrl() + "/eshop/managerAddress/changeAdress.html");
+                                startActivity(intent);
+                            } else {
+                                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                            }
                         }
                     }
                 }).setOnceLocation(true)
@@ -185,7 +192,9 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
             case R.id.huodong_rl:
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/hot/hot.html");
+                    startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }

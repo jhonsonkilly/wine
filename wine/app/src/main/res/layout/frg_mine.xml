@@ -223,7 +223,7 @@
                         android:id="@+id/mine_jiubi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="600"
+                        android:text="0"
                         android:textColor="@color/sub_title_color"
                         android:textSize="16dp" />
 
@@ -248,7 +248,7 @@
                         android:id="@+id/mine_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3"
+                        android:text="0"
                         android:textColor="@color/sub_title_color"
                         android:textSize="16dp" />
 

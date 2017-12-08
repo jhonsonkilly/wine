@@ -32,6 +32,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
     private SimpleDraweeView circle;
     private TextView name_text;
     private ImageView mHunyuanImg;
+    private TextView mine_juibi;
 
     @Override
     protected int getLayoutId() {
@@ -60,7 +61,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
         view.findViewById(R.id.mine_jiubi_layout).setOnClickListener(this);
         view.findViewById(R.id.mine_number_layout).setOnClickListener(this);
-        view.findViewById(R.id.mine_jiubi).setOnClickListener(this);
+        mine_juibi = view.findViewById(R.id.mine_jiubi);
         view.findViewById(R.id.mine_number).setOnClickListener(this);
 
 
@@ -131,7 +132,6 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
                     HashMap<String, String> map = new HashMap<>();
-                    map.put("member", "12");
                     map.put("item", "waitpay");
                     intent.putExtra("parms", map);
                     intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myOrder/order.html");
@@ -145,7 +145,6 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
                     HashMap<String, String> map = new HashMap<>();
-                    map.put("member", "12");
                     map.put("item", "waitsend");
                     intent.putExtra("parms", map);
                     intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myOrder/order.html");
@@ -158,7 +157,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
                     HashMap<String, String> map = new HashMap<>();
-                    map.put("member", "12");
+
                     map.put("item", "sending");
                     intent.putExtra("parms", map);
                     intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myOrder/order.html");
@@ -171,7 +170,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
                     HashMap<String, String> map = new HashMap<>();
-                    map.put("member", "12");
+
                     map.put("item", "waitpingjia");
                     intent.putExtra("parms", map);
                     intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myOrder/order.html");
@@ -247,8 +246,12 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 }
                 break;
             case R.id.liulan_history:
-                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
 
+
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myBrowse/browse.html");
+                    startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
@@ -309,12 +312,13 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.nologin);
             mHunyuanImg.setVisibility(View.GONE);
             name_text.setVisibility(View.GONE);
-
+            mine_juibi.setVisibility(View.GONE);
 
         } else {
 
             mHunyuanImg.setVisibility(View.VISIBLE);
             name_text.setVisibility(View.VISIBLE);
+            mine_juibi.setVisibility(View.VISIBLE);
             presenter.getPersonalMes();
         }
 
@@ -322,30 +326,35 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
     }
 
     @Override
-    public void setDate(PersonalModel.PersonalResult model) {
-        if (TextUtils.isEmpty(model.img)) {
-            FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.login);
-        } else {
-            FrescoUtils.displayUrl(circle, model.img);
+    public void setData(PersonalModel.PersonalResult model) {
+        if (model != null) {
+            if (TextUtils.isEmpty(model.img)) {
+                FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.login);
+            } else {
+                FrescoUtils.displayUrl(circle, model.img);
+            }
+
+            if (TextUtils.isEmpty(model.nick)) {
+                name_text.setText("a" + model.phone);
+            } else {
+                name_text.setText(model.nick);
+            }
+
+            mine_juibi.setText(model.wine);
+            if (model.grade >= 0 && model.grade <= 499) {
+                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_03));
+            } else if (model.grade >= 500 && model.grade <= 999) {
+                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_06));
+            } else if (model.grade >= 1000 && model.grade <= 4999) {
+                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_08));
+            } else if (model.grade >= 5000 && model.grade <= 9999) {
+                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_10));
+            } else if (model.grade >= 10000 && model.grade <= 49999) {
+                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_12));
+            } else if (model.grade >= 50000) {
+                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_14));
+            }
         }
 
-        if (TextUtils.isEmpty(model.nick)) {
-            name_text.setText("a" + model.phone);
-        } else {
-            name_text.setText(model.nick);
-        }
-        if (model.grade >= 0 && model.grade <= 499) {
-            mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_03));
-        } else if (model.grade >= 500 && model.grade <= 999) {
-            mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_06));
-        } else if (model.grade >= 1000 && model.grade <= 4999) {
-            mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_08));
-        } else if (model.grade >= 5000 && model.grade <= 9999) {
-            mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_10));
-        } else if (model.grade >= 10000 && model.grade <= 49999) {
-            mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_12));
-        } else if (model.grade >= 50000) {
-            mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_14));
-        }
     }
 }

@@ -22,6 +22,7 @@ public class RightClassifyModel implements Serializable {
         public static class Products implements Serializable {
             public String name;
             public String image;
+            public String guid;
         }
     }
 

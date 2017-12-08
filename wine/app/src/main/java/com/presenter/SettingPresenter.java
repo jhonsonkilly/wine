@@ -57,6 +57,7 @@ public class SettingPresenter extends BaseCommPresenter {
             if (msg.getData() != null) {
 
                 Toast.makeText(getActivity(), msg.getData().result, Toast.LENGTH_LONG).show();
+                getActivity().finish();
 
             }
         }

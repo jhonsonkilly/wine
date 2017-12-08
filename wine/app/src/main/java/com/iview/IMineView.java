@@ -14,5 +14,5 @@ import com.model.PersonalModel;
  */
 public interface  IMineView extends IBaseCommView {
 
-    void setDate(PersonalModel.PersonalResult model);
+    void setData(PersonalModel.PersonalResult model);
 }
