@@ -78,7 +78,7 @@ public class LoginPresenter extends BaseCommPresenter<ILoginView> {
         sendHttpPostJson(req, res);
     }
 
-    public void getPersonalMes(String id) {
+    public void getPersonalMes() {
         PersonalReqMsg req = new PersonalReqMsg();
         PersonalResMsg res = new PersonalResMsg(RES_PERSONAL_MES);
         sendHttpGet(req, res);

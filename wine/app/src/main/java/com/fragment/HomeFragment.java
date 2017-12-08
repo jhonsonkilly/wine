@@ -144,6 +144,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                             }
                         });
                 break;
+            //带跑腿
             case R.id.img_1:
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
@@ -154,22 +155,29 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                 }
                 break;
             case R.id.img_2:
-                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
 
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/919Selling/Selling.html");
+                    startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
             case R.id.img_3:
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/personalTailor/private.html");
+                    startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
             case R.id.img_4:
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/memberCommunity/Community.html");
+                    startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }

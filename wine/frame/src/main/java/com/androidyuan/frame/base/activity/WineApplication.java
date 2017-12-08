@@ -3,6 +3,7 @@ package com.androidyuan.frame.base.activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
@@ -27,6 +28,8 @@ public class WineApplication extends Application {
         instance = this;
 
         Fresco.initialize(this);
+        //设置假ut测试
+        SharedPreferencesUtil.saveStringData(this, "ut", "abc");
 
 
     }

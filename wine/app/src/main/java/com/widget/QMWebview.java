@@ -102,6 +102,15 @@ public abstract class QMWebview extends WebView {
 
                     }
                     return true;
+                }
+                if (url.contains("homePage.html")) {
+                    try {
+
+                        ((Activity) context).finish();
+                    } catch (Exception ex) {
+
+                    }
+                    return true;
                 } else {
                     return super.shouldOverrideUrlLoading(view, url);
                 }
@@ -164,29 +173,30 @@ public abstract class QMWebview extends WebView {
     @Override
     public void loadUrl(String url) {
 
-        clearHistory();
+        //clearHistory();
 
         if (isNeedPesonalMes()) {
 
 
-            String id = SharedPreferencesUtil.getStringData(getContext(), "ut", "");
+            String id = SharedPreferencesUtil.getStringData(getContext(), "uid", "");
             String img = SharedPreferencesUtil.getStringData(getContext(), "img", "");
             String nick = SharedPreferencesUtil.getStringData(getContext(), "nick", "");
             if (!TextUtils.isEmpty(id)) {
-                url = url + "&userId=" + id;
+                url = url + "&member=" + id;
             } else {
-                url = url + "&userId=" + null;
-            }
-            if (!TextUtils.isEmpty(img)) {
-                url = url + "?userImage=" + img;
-            } else {
-                url = url + "?userImage=" + null;
+                url = url + "&member=" + null;
             }
             if (!TextUtils.isEmpty(nick)) {
                 url = url + "?userName=" + nick;
             } else {
                 url = url + "?userName=" + null;
             }
+            if (!TextUtils.isEmpty(img)) {
+                url = url + "?userImage=" + img;
+            } else {
+                url = url + "?userImage=" + null;
+            }
+
 
         }
 

@@ -90,7 +90,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
         tx_click.setOnfinishListener(new CountDownTextView.OnFinishListener() {
             @Override
             public void onFinish() {
-                if(!TextUtils.isEmpty(ed_yan.getText().toString())){
+                if (!TextUtils.isEmpty(ed_yan.getText().toString())) {
                     presenter.delVertifyCode();
                 }
 
@@ -100,10 +100,10 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
     }
 
     @Override
-    public void showLogin(String id) {
+    public void showLogin(String token) {
 
-
-        presenter.getPersonalMes(id);
+        SharedPreferencesUtil.saveStringData(this, "ut", token);
+        presenter.getPersonalMes();
 
     }
 
@@ -111,7 +111,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
     public void showPersonal(PersonalModel.PersonalResult model) {
         if (model != null) {
 
-            SharedPreferencesUtil.saveStringData(this, "ut", model.id);
+            SharedPreferencesUtil.saveStringData(this, "uid", model.guid);
             SharedPreferencesUtil.saveStringData(this, "img", model.img);
             SharedPreferencesUtil.saveStringData(this, "nick", model.nick);
             finish();
@@ -125,7 +125,6 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
         }
 
     }
-
 
 
     public boolean vertifyMes(boolean isNeedYan) {
