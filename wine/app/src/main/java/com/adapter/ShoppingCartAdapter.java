@@ -3,6 +3,7 @@ package com.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.model.ShoppingListModel;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import zjw.wine.R;
@@ -25,7 +27,7 @@ import zjw.wine.R;
  */
 public class ShoppingCartAdapter extends BaseAdapter {
 
-    private boolean isShow = true;//是否显示编辑/完成
+
     private List<ShoppingListModel.ShoppingResult> shoppingCartBeanList;
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
@@ -80,9 +82,10 @@ public class ShoppingCartAdapter extends BaseAdapter {
      * @param flag
      */
     public void isShow(boolean flag) {
-        isShow = flag;
+
         notifyDataSetChanged();
     }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
@@ -95,17 +98,22 @@ public class ShoppingCartAdapter extends BaseAdapter {
         }
         final ShoppingListModel.ShoppingResult shoppingCartBean = shoppingCartBeanList.get(position);
         boolean choosed = shoppingCartBean.isChoose();
-        if (choosed){
+        if (choosed) {
             holder.ckOneChose.setChecked(true);
-        }else{
+        } else {
             holder.ckOneChose.setChecked(false);
+        }
+        if (!TextUtils.isEmpty(shoppingCartBean.price)) {
+            double totalPrice = Double.parseDouble(shoppingCartBean.price) * shoppingCartBean.quantity;
+            DecimalFormat df = new java.text.DecimalFormat("#0.00");
+            holder.totalTx.setText(df.format(totalPrice) + "元");
         }
 
 
         holder.tvCommodityName.setText(shoppingCartBean.goodName);
-        holder.tvCommodityPrice.setText(shoppingCartBean.price+"");
-        holder.tvCommodityNum.setText(" X"+shoppingCartBean.quantity+"");
-        holder.tvCommodityShowNum.setText(shoppingCartBean.quantity+"");
+        holder.tvCommodityPrice.setText(shoppingCartBean.price + "");
+
+        holder.tvCommodityShowNum.setText(shoppingCartBean.quantity + "");
         //ImageLoader.getInstance().displayImage(shoppingCartBean.getImageUrl(),holder.ivShowPic);
         //单选框按钮
         holder.ckOneChose.setOnClickListener(
@@ -157,42 +165,40 @@ public class ShoppingCartAdapter extends BaseAdapter {
             }
         });
         //判断是否在编辑状态下
-        if (isShow) {
-            holder.tvCommodityName.setVisibility(View.VISIBLE);
-            holder.rlEdit.setVisibility(View.GONE);
-            holder.tvCommodityNum.setVisibility(View.VISIBLE);
-            holder.tvCommodityDelete.setVisibility(View.GONE);
-        } else {
-            holder.tvCommodityName.setVisibility(View.VISIBLE);
-            holder.rlEdit.setVisibility(View.VISIBLE);
-            holder.tvCommodityNum.setVisibility(View.GONE);
-            holder.tvCommodityDelete.setVisibility(View.VISIBLE);
-        }
+
+        holder.tvCommodityName.setVisibility(View.VISIBLE);
+
+        holder.tvCommodityDelete.setVisibility(View.GONE);
+
 
         return convertView;
     }
+
     //初始化控件
     class ViewHolder {
-        ImageView ivShowPic,tvCommodityDelete;
-        TextView tvCommodityName, tvCommodityAttr, tvCommodityPrice, tvCommodityNum, tvCommodityShowNum,ivSub, ivAdd;
+        ImageView ivShowPic, tvCommodityDelete;
+        TextView tvCommodityName, tvCommodityPrice, tvCommodityShowNum, ivSub, ivAdd, totalTx;
         CheckBox ckOneChose;
         LinearLayout rlEdit;
+
         public ViewHolder(View itemView) {
             ckOneChose = (CheckBox) itemView.findViewById(R.id.ck_chose);
             ivShowPic = (ImageView) itemView.findViewById(R.id.iv_show_pic);
             ivSub = (TextView) itemView.findViewById(R.id.iv_sub);
             ivAdd = (TextView) itemView.findViewById(R.id.iv_add);
             tvCommodityName = (TextView) itemView.findViewById(R.id.tv_commodity_name);
-            tvCommodityAttr = (TextView) itemView.findViewById(R.id.tv_commodity_attr);
+
             tvCommodityPrice = (TextView) itemView.findViewById(R.id.tv_commodity_price);
-            tvCommodityNum = (TextView) itemView.findViewById(R.id.tv_commodity_num);
+
             tvCommodityShowNum = (TextView) itemView.findViewById(R.id.tv_commodity_show_num);
             tvCommodityDelete = (ImageView) itemView.findViewById(R.id.tv_commodity_delete);
             rlEdit = (LinearLayout) itemView.findViewById(R.id.rl_edit);
+            totalTx = itemView.findViewById(R.id.total_tx);
 
 
         }
     }
+
     /**
      * 复选框接口
      */

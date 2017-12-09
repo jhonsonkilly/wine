@@ -123,7 +123,12 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             //订单详情页
             case R.id.quanbu_dingdan:
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("item", "waitpay");
+                    intent.putExtra("parms", map);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myOrder/order.html");
+                    startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
@@ -324,6 +329,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
 
     }
+
 
     @Override
     public void setData(PersonalModel.PersonalResult model) {

@@ -55,7 +55,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="7dp"
                 android:layout_toRightOf="@id/circle"
-                android:text="酒神"
+                android:text=""
                 android:textColor="@color/theme_color" />
 
             <ImageView
@@ -65,7 +65,7 @@
                 android:layout_below="@+id/img_03"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/name"
-                android:src="@mipmap/w0_09" />
+               />
 
 
         </RelativeLayout>

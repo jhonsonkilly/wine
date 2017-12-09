@@ -5,6 +5,8 @@ import android.os.Message;
 
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.iview.ICartListView;
+import com.msg.AddtoCartReqMsg;
+import com.msg.AddtoCartResMsg;
 import com.msg.CartListReqMsg;
 import com.msg.CartListResMsg;
 
@@ -15,6 +17,11 @@ import com.msg.CartListResMsg;
 public class ShoppingCartPresenter extends BaseCommPresenter<ICartListView> {
 
     private static final int RES_CART_MES = 0x1022;
+
+    private static final int RES_ADDTOCART_MES = 0x1027;
+
+
+    int type;
 
     @Override
     public void initData(Bundle saveInstnce) {
@@ -27,7 +34,7 @@ public class ShoppingCartPresenter extends BaseCommPresenter<ICartListView> {
 
             case RES_CART_MES:
 
-
+            case RES_ADDTOCART_MES:
                 if (msg.obj != null) {
 
                     handleResult(msg.obj);
@@ -45,6 +52,14 @@ public class ShoppingCartPresenter extends BaseCommPresenter<ICartListView> {
         sendHttpGet(req, res);
     }
 
+
+    public void addToCart(String id,String num,int type){
+        this.type=type;
+        AddtoCartReqMsg req = new AddtoCartReqMsg(id, num);
+        AddtoCartResMsg res = new AddtoCartResMsg(RES_ADDTOCART_MES);
+        sendHttpPostJson(req, res);
+    }
+
     public void handleResult(Object res) {
 
         if (res instanceof CartListResMsg) {
@@ -54,6 +69,16 @@ public class ShoppingCartPresenter extends BaseCommPresenter<ICartListView> {
                 iView.getCartList(msg.getData().result);
 
             }
+        }
+
+        if (res instanceof AddtoCartResMsg) {
+            AddtoCartResMsg msg = (AddtoCartResMsg) res;
+            if(msg.isSuc()){
+                iView.showMes(msg.getMsg(),type);
+            }
+
+
+
         }
 
 

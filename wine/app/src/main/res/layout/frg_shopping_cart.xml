@@ -78,35 +78,35 @@
             android:id="@+id/ck_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-
-
             android:layout_marginLeft="5dp"
-            android:button="@drawable/check_box_style"
 
+
+            android:layout_marginTop="10dp"
+            android:button="@drawable/check_box_style"
+            android:paddingLeft="5dp"
             android:text="全选"
 
             android:textColor="@color/main_title_color" />
 
         <TextView
-            android:layout_marginTop="12dp"
             android:id="@+id/tv_show_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginLeft="10dp"
+
+            android:layout_marginTop="12dp"
             android:layout_toRightOf="@+id/ck_all"
             android:text="合计:"
             android:textColor="@color/main_title_color" />
 
         <TextView
-            android:layout_marginTop="10dp"
-
             android:id="@+id/tv_show_price_tx"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginLeft="2dp"
+
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/tv_show_price"
 
             android:textColor="@color/red"

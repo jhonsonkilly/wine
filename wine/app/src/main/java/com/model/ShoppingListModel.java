@@ -23,7 +23,9 @@ public class ShoppingListModel implements Serializable {
         public int quantity;
         public String image;
         public String price;
-        public boolean isChoose;
+        public boolean isChoose = true;
+
+        public String totalPrice;
 
         public boolean isChoose() {
             return isChoose;

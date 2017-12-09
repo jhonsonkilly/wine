@@ -1,5 +1,7 @@
 package com.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.presenter.ShoppingCartPresenter;
 import com.utils.Urls;
 import com.widget.ToolBar;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import zjw.wine.R;
@@ -53,6 +56,17 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
     Button showButton;
     private LinearLayout empty_cart;
+    private int currentCount;
+
+    View showCountView;
+
+
+    private static final int TYPE1 = 1;
+    private static final int TYPE2 = 2;
+    private static final int TYPE3 = 3;
+    private static final int TYPE4 = 4;
+
+    private ShoppingListModel.ShoppingResult bean;
 
 
     @Override
@@ -79,13 +93,33 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         toolBar.showShopCart().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog alert = new AlertDialog.Builder(getContext()).create();
+                alert.setTitle("操作提示");
+                alert.setMessage("您确定要将这些商品从购物车中移除吗？");
+                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
 
+                            }
+                        });
+                alert.show();
             }
         });
         listView = view.findViewById(R.id.cart_list);
         empty_cart = view.findViewById(R.id.empty_cart);
         ckAll = view.findViewById(R.id.ck_all);
         ckAll.setOnClickListener(this);
+
+
         tvShowPrice = view.findViewById(R.id.tv_show_price_tx);
         showButton = view.findViewById(R.id.tv_settlement);
         showButton.setOnClickListener(this);
@@ -99,14 +133,25 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                 if (shoppingCartBeanList.size() != 0) {
                     if (ckAll.isChecked()) {
                         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            shoppingCartBeanList.get(i).setChoose(true);
+                            bean = shoppingCartBeanList.get(i);
+                            if (!bean.isChoose()) {
+                                presenter.addToCart(shoppingCartBeanList.get(i).goodGuid,
+                                        shoppingCartBeanList.get(i).getQuantity() + "", TYPE3);
+                            }
+
+
                         }
-                        shoppingCartAdapter.notifyDataSetChanged();
+
                     } else {
                         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            shoppingCartBeanList.get(i).setChoose(false);
+                            if (bean.isChoose()) {
+                                presenter.addToCart(shoppingCartBeanList.get(i).goodGuid,
+                                        0 + "", TYPE4);
+                            }
+
+
                         }
-                        shoppingCartAdapter.notifyDataSetChanged();
+
                     }
                 }
                 break;
@@ -132,9 +177,30 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden) {
+            if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                empty_cart.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+                presenter.getCartList();
+            } else {
+                empty_cart.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+
+            }
+        }
+
+    }
+
+    @Override
     public void getCartList(List<ShoppingListModel.ShoppingResult> list) {
         this.shoppingCartBeanList = list;
-
+        if (isAllCheck()) {
+            ckAll.setChecked(true);
+        } else {
+            ckAll.setChecked(false);
+        }
+        statistics();
         shoppingCartAdapter = new ShoppingCartAdapter(getContext());
         shoppingCartAdapter.setCheckInterface(this);
         shoppingCartAdapter.setModifyCountInterface(this);
@@ -143,14 +209,55 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     }
 
     @Override
+    public void showMes(String id, int type) {
+
+        //增加减少
+        if (type == TYPE1) {
+            Toast.makeText(getContext(), id, Toast.LENGTH_LONG).show();
+            ((TextView) showCountView).setText(currentCount + "");
+            shoppingCartAdapter.notifyDataSetChanged();
+            statistics();
+        }
+        //单个删除添加
+        if (type == TYPE2) {
+            Toast.makeText(getContext(), id, Toast.LENGTH_LONG).show();
+            shoppingCartAdapter.notifyDataSetChanged();
+            statistics();
+        }
+        //全选
+        if (type == TYPE3) {
+            //Toast.makeText(getContext(), id, Toast.LENGTH_LONG).show();
+            bean.setChoose(true);
+            shoppingCartAdapter.notifyDataSetChanged();
+            statistics();
+        }
+        //全不选
+        if (type == TYPE4) {
+            bean.setChoose(false);
+            shoppingCartAdapter.notifyDataSetChanged();
+            statistics();
+        }
+
+
+    }
+
+    @Override
     public void checkGroup(int position, boolean isChecked) {
         shoppingCartBeanList.get(position).setChoose(isChecked);
+
         if (isAllCheck())
             ckAll.setChecked(true);
         else
             ckAll.setChecked(false);
-        shoppingCartAdapter.notifyDataSetChanged();
-        statistics();
+
+        ShoppingListModel.ShoppingResult shoppingCartBean = shoppingCartBeanList.get(position);
+        if (isChecked) {
+            presenter.addToCart(shoppingCartBean.goodGuid, shoppingCartBean.getQuantity() + "", TYPE2);
+        } else {
+            presenter.addToCart(shoppingCartBean.goodGuid, 0 + "", TYPE2);
+        }
+
+
     }
 
     private boolean isAllCheck() {
@@ -168,10 +275,15 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
             for (int i = 0; i < shoppingCartBeanList.size(); i++) {
                 ShoppingListModel.ShoppingResult shoppingCartBean = shoppingCartBeanList.get(i);
                 if (shoppingCartBean.isChoose()) {
-                    totalPrice += Double.parseDouble(shoppingCartBean.price) * shoppingCartBean.quantity;
+
+                    if (!TextUtils.isEmpty(shoppingCartBean.price)) {
+                        totalPrice += Double.parseDouble(shoppingCartBean.price) * shoppingCartBean.quantity;
+                    }
+
                 }
             }
-            tvShowPrice.setText("￥" + totalPrice);
+            DecimalFormat df = new java.text.DecimalFormat("#0.00");
+            tvShowPrice.setText("￥" + df.format(totalPrice));
         } catch (Exception e) {
 
         }
@@ -180,17 +292,18 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
     @Override
     public void doIncrease(int position, View showCountView, boolean isChecked) {
+        this.showCountView = showCountView;
         ShoppingListModel.ShoppingResult shoppingCartBean = shoppingCartBeanList.get(position);
-        int currentCount = shoppingCartBean.getQuantity();
+        currentCount = shoppingCartBean.getQuantity();
         currentCount++;
         shoppingCartBean.setQuantity(currentCount);
-        ((TextView) showCountView).setText(currentCount + "");
-        shoppingCartAdapter.notifyDataSetChanged();
-        statistics();
+        presenter.addToCart(shoppingCartBean.goodGuid, currentCount + "", TYPE1);
+
     }
 
     @Override
     public void doDecrease(int position, View showCountView, boolean isChecked) {
+        this.showCountView = showCountView;
         ShoppingListModel.ShoppingResult shoppingCartBean = shoppingCartBeanList.get(position);
         int currentCount = shoppingCartBean.getQuantity();
         if (currentCount == 1) {
@@ -198,9 +311,9 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         }
         currentCount--;
         shoppingCartBean.setQuantity(currentCount);
-        ((TextView) showCountView).setText(currentCount + "");
-        shoppingCartAdapter.notifyDataSetChanged();
-        statistics();
+
+        presenter.addToCart(shoppingCartBean.goodGuid, currentCount + "", TYPE1);
+
     }
 
     @Override
