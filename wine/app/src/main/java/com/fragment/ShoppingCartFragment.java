@@ -233,5 +233,5 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
     }
 
-  
+
 }
