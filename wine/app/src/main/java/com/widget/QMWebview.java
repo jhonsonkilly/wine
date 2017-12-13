@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -181,20 +182,31 @@ public abstract class QMWebview extends WebView {
             String id = SharedPreferencesUtil.getStringData(getContext(), "uid", "");
             String img = SharedPreferencesUtil.getStringData(getContext(), "img", "");
             String nick = SharedPreferencesUtil.getStringData(getContext(), "nick", "");
+            String token = SharedPreferencesUtil.getStringData(getContext(), "ut", "");
             if (!TextUtils.isEmpty(id)) {
-                url = url + "&member=" + id;
+                url = url + "?member=" + id;
             } else {
-                url = url + "&member=" + null;
+                url = url + "?member=" + "abc";
             }
             if (!TextUtils.isEmpty(nick)) {
-                url = url + "?userName=" + nick;
+                url = url + "&userName=" + nick;
             } else {
-                url = url + "?userName=" + null;
+                url = url + "&userName=" + "abc";
             }
             if (!TextUtils.isEmpty(img)) {
-                url = url + "?userImage=" + img;
+                url = url + "&userImage=" + img;
             } else {
-                url = url + "?userImage=" + null;
+                url = url + "&userImage=" + "abc";
+            }
+            if (!TextUtils.isEmpty(img)) {
+                url = url + "&userImage=" + img;
+            } else {
+                url = url + "&userImage=" + "abc";
+            }
+            if (!TextUtils.isEmpty(img)) {
+                url = url + "&userImage=" + img;
+            } else {
+                url = url + "&userImage=" + "abc";
             }
 
 
@@ -204,6 +216,7 @@ public abstract class QMWebview extends WebView {
         if (map.size() != 0) {
             url = url + putExParams(map);
         }
+        Log.i("QMWeb",url+"");
 
         super.loadUrl(url);
 

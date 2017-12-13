@@ -108,7 +108,7 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
         return datalist == null ? 0 : datalist.size();
     }
 
-    class Holder extends RecyclerView.ViewHolder {
+    static class Holder extends RecyclerView.ViewHolder {
 
 
         SimpleDraweeView hor_img;

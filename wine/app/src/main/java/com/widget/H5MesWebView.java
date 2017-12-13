@@ -42,10 +42,7 @@ public class H5MesWebView extends QMWebview {
     }
 
 
-    @Override
-    protected boolean isNeedPesonalMes() {
-        return false;
-    }
+
 
 
 }
