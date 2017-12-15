@@ -16,6 +16,7 @@ import com.activity.LoginActivity;
 import com.activity.WebViewActivity;
 import com.adapter.ShoppingCartAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
+import com.androidyuan.frame.cores.utils.FastJSONHelper;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.androidyuan.frame.cores.widget.FixHeightListView;
 import com.iview.ICartListView;
@@ -25,9 +26,13 @@ import com.presenter.ShoppingCartPresenter;
 import com.utils.Urls;
 import com.widget.ToolBar;
 
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import zjw.wine.R;
 
@@ -142,26 +147,16 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                 if (shoppingCartBeanList.size() != 0) {
                     if (ckAll.isChecked()) {
                         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            selectBean = shoppingCartBeanList.get(i);
-                            if (!selectBean.isChoose()) {
-                                presenter.addToCart(shoppingCartBeanList.get(i).goodGuid,
-                                        shoppingCartBeanList.get(i).getQuantity() + "", TYPE3);
-                            }
-
-
+                            shoppingCartBeanList.get(i).setChoose(true);
                         }
-
+                        shoppingCartAdapter.notifyDataSetChanged();
                     } else {
                         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            unselectBean = shoppingCartBeanList.get(i);
-                            if (unselectBean.isChoose()) {
-                                presenter.delateCart(shoppingCartBeanList.get(i).goodGuid, TYPE5);
-                            }
-
-
+                            shoppingCartBeanList.get(i).setChoose(false);
                         }
-
+                        shoppingCartAdapter.notifyDataSetChanged();
                     }
+                    statistics();
                 }
                 break;
             case R.id.tv_settlement:
@@ -173,8 +168,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     @Override
     public void onResume() {
         super.onResume();
-        if (TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))
-                || (shoppingCartBeanList != null && shoppingCartBeanList.size() == 0)) {
+        if (TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
             empty_cart.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
 
@@ -190,8 +184,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
-            if (TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))
-                    || (shoppingCartBeanList != null && shoppingCartBeanList.size() == 0)) {
+            if (TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                 empty_cart.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
 
@@ -208,20 +201,27 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     @Override
     public void getCartList(List<ShoppingListModel.ShoppingResult> list) {
         this.shoppingCartBeanList = list;
-        if (isAllCheck()) {
-            ckAll.setChecked(true);
+        if (shoppingCartBeanList.size() == 0) {
+            empty_cart.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+
         } else {
-            ckAll.setChecked(false);
-        }
-        statistics();
-        if (shoppingCartAdapter == null) {
-            shoppingCartAdapter = new ShoppingCartAdapter(getContext());
-            shoppingCartAdapter.setCheckInterface(this);
-            shoppingCartAdapter.setModifyCountInterface(this);
-            listView.setAdapter(shoppingCartAdapter);
-            shoppingCartAdapter.setShoppingCartBeanList(list);
-        } else {
-            shoppingCartAdapter.setShoppingCartBeanList(list);
+            if (isAllCheck()) {
+                ckAll.setChecked(true);
+            } else {
+                ckAll.setChecked(false);
+            }
+            statistics();
+            if (shoppingCartAdapter == null) {
+                shoppingCartAdapter = new ShoppingCartAdapter(getContext());
+                shoppingCartAdapter.setCheckInterface(this);
+                shoppingCartAdapter.setModifyCountInterface(this);
+                listView.setAdapter(shoppingCartAdapter);
+                shoppingCartAdapter.setShoppingCartBeanList(list);
+            } else {
+                shoppingCartAdapter.setShoppingCartBeanList(list);
+            }
+
         }
 
     }
@@ -258,7 +258,8 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         //全不选
         if (type == TYPE5) {
             //unselectBean.setChoose(false);
-            presenter.getCartList();
+            //presenter.getCartList();
+
             Iterator<ShoppingListModel.ShoppingResult> it = shoppingCartBeanList.iterator();
 
             while (it.hasNext()) {
@@ -269,8 +270,24 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                     it.remove();
                 }
             }
-            empty_cart.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.GONE);
+            if (shoppingCartBeanList.size() == 0) {
+
+                empty_cart.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+
+
+            } else {
+                shoppingCartAdapter.notifyDataSetChanged();
+            }
+
+            if (isAllCheck()) {
+                ckAll.setChecked(true);
+            } else {
+                ckAll.setChecked(false);
+            }
+            statistics();
+
+
         }
         //删除一个
         if (type == TYPE6) {
@@ -289,22 +306,17 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         else
             ckAll.setChecked(false);
 
-        ShoppingListModel.ShoppingResult shoppingCartBean = shoppingCartBeanList.get(position);
-        try {
-            if (isChecked) {
-                presenter.addToCart(shoppingCartBean.goodGuid, shoppingCartBean.getQuantity() + "", TYPE2);
-            } else {
-                presenter.delateCart(shoppingCartBean.goodGuid, TYPE6);
-            }
-        } catch (Exception e) {
 
-        }
+        statistics();
 
 
     }
 
     private boolean isAllCheck() {
 
+        if (shoppingCartBeanList.size() == 0) {
+            return false;
+        }
         for (ShoppingListModel.ShoppingResult group : shoppingCartBeanList) {
             if (!group.isChoose())
                 return false;
@@ -379,19 +391,46 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     private void lementOnder() {
         //选中的需要提交的商品清单
 
-        Toast.makeText(getContext(), "总价：" + totalPrice, Toast.LENGTH_LONG).show();
 
+        ArrayList<Map<String, Object>> list = new ArrayList<>();
+
+        if (shoppingCartBeanList.size() == 0) {
+            Toast.makeText(getContext(), "请添加商品至购物车", Toast.LENGTH_LONG).show();
+            return;
+        }
         if (isAllunCheck()) {
-            Toast.makeText(getContext(), "请选择一件商品" + totalPrice, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "请选择一件商品", Toast.LENGTH_LONG).show();
             return;
         }
 
+        Toast.makeText(getContext(), "总价：" + totalPrice, Toast.LENGTH_LONG).show();
+
 
         if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+            for (ShoppingListModel.ShoppingResult result : shoppingCartBeanList) {
 
-            Intent intent = new Intent(getContext(), WebViewActivity.class);
-            intent.putExtra("url", Urls.getBaseUrl() + "/eshop/shoppingCart/Confirm-order.html");
-            startActivity(intent);
+                Map<String, Object> models = new HashMap<>();
+                models.put("id", result.id);
+                models.put("selected", result.isChoose);
+                list.add(models);
+
+            }
+
+            try {
+                Intent intent = new Intent(getContext(), WebViewActivity.class);
+
+                HashMap<String, String> map = new HashMap<>();
+                map.put("cartItems", URLEncoder.encode(FastJSONHelper.toJSONStr(list), "UTF-8"));
+                intent.putExtra("parms", map);
+
+                intent.putExtra("url", Urls.getBaseUrl() + "/eshop/shoppingCart/Confirm-order.html");
+
+                startActivity(intent);
+
+            } catch (Exception e) {
+
+            }
+
         } else {
             getContext().startActivity(new Intent(getContext(), LoginActivity.class));
         }

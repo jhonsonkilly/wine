@@ -125,7 +125,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
                     HashMap<String, String> map = new HashMap<>();
-                    map.put("item", "waitpay");
+                    map.put("item", "orderAll");
                     intent.putExtra("parms", map);
                     intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myOrder/order.html");
                     startActivity(intent);
@@ -198,7 +198,9 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             //酒币
             case R.id.mine_jiubi_layout:
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myJiubiAndCoupon/jiubi.html");
+                    startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
