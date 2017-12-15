@@ -19,4 +19,6 @@ public interface ICartListView extends IBaseCommView {
     void getCartList(List<ShoppingListModel.ShoppingResult> list);
 
     void showMes(String id,int type);
+
+    void delateGoods(int type);
 }

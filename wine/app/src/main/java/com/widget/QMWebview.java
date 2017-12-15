@@ -198,16 +198,12 @@ public abstract class QMWebview extends WebView {
             } else {
                 url = url + "&userImage=" + "abc";
             }
-            if (!TextUtils.isEmpty(img)) {
-                url = url + "&userImage=" + img;
+            if (!TextUtils.isEmpty(token)) {
+                url = url + "&token=" + token;
             } else {
-                url = url + "&userImage=" + "abc";
+                url = url + "&token=" + "abc";
             }
-            if (!TextUtils.isEmpty(img)) {
-                url = url + "&userImage=" + img;
-            } else {
-                url = url + "&userImage=" + "abc";
-            }
+
 
 
         }

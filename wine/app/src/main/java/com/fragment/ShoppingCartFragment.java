@@ -26,6 +26,7 @@ import com.utils.Urls;
 import com.widget.ToolBar;
 
 import java.text.DecimalFormat;
+import java.util.Iterator;
 import java.util.List;
 
 import zjw.wine.R;
@@ -65,8 +66,12 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     private static final int TYPE2 = 2;
     private static final int TYPE3 = 3;
     private static final int TYPE4 = 4;
+    private static final int TYPE5 = 5;
+    private static final int TYPE6 = 6;
 
-    private ShoppingListModel.ShoppingResult bean;
+    private ShoppingListModel.ShoppingResult selectBean;
+
+    private ShoppingListModel.ShoppingResult unselectBean;
 
 
     @Override
@@ -107,7 +112,11 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
+                                for (ShoppingListModel.ShoppingResult result : shoppingCartBeanList) {
+                                    if (result.isChoose()) {
+                                        presenter.delateCart(result.goodGuid, TYPE5);
+                                    }
+                                }
 
                             }
                         });
@@ -133,8 +142,8 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                 if (shoppingCartBeanList.size() != 0) {
                     if (ckAll.isChecked()) {
                         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            bean = shoppingCartBeanList.get(i);
-                            if (!bean.isChoose()) {
+                            selectBean = shoppingCartBeanList.get(i);
+                            if (!selectBean.isChoose()) {
                                 presenter.addToCart(shoppingCartBeanList.get(i).goodGuid,
                                         shoppingCartBeanList.get(i).getQuantity() + "", TYPE3);
                             }
@@ -144,9 +153,9 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
                     } else {
                         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            if (bean.isChoose()) {
-                                presenter.addToCart(shoppingCartBeanList.get(i).goodGuid,
-                                        0 + "", TYPE4);
+                            unselectBean = shoppingCartBeanList.get(i);
+                            if (unselectBean.isChoose()) {
+                                presenter.delateCart(shoppingCartBeanList.get(i).goodGuid, TYPE5);
                             }
 
 
@@ -164,14 +173,16 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     @Override
     public void onResume() {
         super.onResume();
-        if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-            empty_cart.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
-            presenter.getCartList();
-        } else {
+        if (TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))
+                || (shoppingCartBeanList != null && shoppingCartBeanList.size() == 0)) {
             empty_cart.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
 
+        } else {
+
+            empty_cart.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+            presenter.getCartList();
         }
 
     }
@@ -179,14 +190,16 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
-            if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-                empty_cart.setVisibility(View.GONE);
-                listView.setVisibility(View.VISIBLE);
-                presenter.getCartList();
-            } else {
+            if (TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))
+                    || (shoppingCartBeanList != null && shoppingCartBeanList.size() == 0)) {
                 empty_cart.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
 
+            } else {
+
+                empty_cart.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+                presenter.getCartList();
             }
         }
 
@@ -201,11 +214,16 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
             ckAll.setChecked(false);
         }
         statistics();
-        shoppingCartAdapter = new ShoppingCartAdapter(getContext());
-        shoppingCartAdapter.setCheckInterface(this);
-        shoppingCartAdapter.setModifyCountInterface(this);
-        listView.setAdapter(shoppingCartAdapter);
-        shoppingCartAdapter.setShoppingCartBeanList(list);
+        if (shoppingCartAdapter == null) {
+            shoppingCartAdapter = new ShoppingCartAdapter(getContext());
+            shoppingCartAdapter.setCheckInterface(this);
+            shoppingCartAdapter.setModifyCountInterface(this);
+            listView.setAdapter(shoppingCartAdapter);
+            shoppingCartAdapter.setShoppingCartBeanList(list);
+        } else {
+            shoppingCartAdapter.setShoppingCartBeanList(list);
+        }
+
     }
 
     @Override
@@ -218,7 +236,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
             shoppingCartAdapter.notifyDataSetChanged();
             statistics();
         }
-        //单个删除添加
+        //单个添加
         if (type == TYPE2) {
             Toast.makeText(getContext(), id, Toast.LENGTH_LONG).show();
             shoppingCartAdapter.notifyDataSetChanged();
@@ -227,17 +245,38 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         //全选
         if (type == TYPE3) {
             //Toast.makeText(getContext(), id, Toast.LENGTH_LONG).show();
-            bean.setChoose(true);
-            shoppingCartAdapter.notifyDataSetChanged();
-            statistics();
-        }
-        //全不选
-        if (type == TYPE4) {
-            bean.setChoose(false);
+            selectBean.setChoose(true);
             shoppingCartAdapter.notifyDataSetChanged();
             statistics();
         }
 
+
+    }
+
+    @Override
+    public void delateGoods(int type) {
+        //全不选
+        if (type == TYPE5) {
+            //unselectBean.setChoose(false);
+            presenter.getCartList();
+            Iterator<ShoppingListModel.ShoppingResult> it = shoppingCartBeanList.iterator();
+
+            while (it.hasNext()) {
+
+                ShoppingListModel.ShoppingResult x = it.next();
+                if (x.isChoose()) {
+
+                    it.remove();
+                }
+            }
+            empty_cart.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        }
+        //删除一个
+        if (type == TYPE6) {
+            Toast.makeText(getContext(), "删除成功", Toast.LENGTH_LONG).show();
+            shoppingCartAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -251,10 +290,14 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
             ckAll.setChecked(false);
 
         ShoppingListModel.ShoppingResult shoppingCartBean = shoppingCartBeanList.get(position);
-        if (isChecked) {
-            presenter.addToCart(shoppingCartBean.goodGuid, shoppingCartBean.getQuantity() + "", TYPE2);
-        } else {
-            presenter.addToCart(shoppingCartBean.goodGuid, 0 + "", TYPE2);
+        try {
+            if (isChecked) {
+                presenter.addToCart(shoppingCartBean.goodGuid, shoppingCartBean.getQuantity() + "", TYPE2);
+            } else {
+                presenter.delateCart(shoppingCartBean.goodGuid, TYPE6);
+            }
+        } catch (Exception e) {
+
         }
 
 
@@ -264,6 +307,15 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
         for (ShoppingListModel.ShoppingResult group : shoppingCartBeanList) {
             if (!group.isChoose())
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isAllunCheck() {
+
+        for (ShoppingListModel.ShoppingResult group : shoppingCartBeanList) {
+            if (group.isChoose())
                 return false;
         }
         return true;
@@ -297,7 +349,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         currentCount = shoppingCartBean.getQuantity();
         currentCount++;
         shoppingCartBean.setQuantity(currentCount);
-        presenter.addToCart(shoppingCartBean.goodGuid, currentCount + "", TYPE1);
+        presenter.addToCart(shoppingCartBean.goodGuid, "1", TYPE1);
 
     }
 
@@ -312,7 +364,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         currentCount--;
         shoppingCartBean.setQuantity(currentCount);
 
-        presenter.addToCart(shoppingCartBean.goodGuid, currentCount + "", TYPE1);
+        presenter.addToCart(shoppingCartBean.goodGuid, -1 + "", TYPE1);
 
     }
 
@@ -326,14 +378,15 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
     private void lementOnder() {
         //选中的需要提交的商品清单
-        for (ShoppingListModel.ShoppingResult bean : shoppingCartBeanList) {
-            boolean choosed = bean.isChoose();
-            if (choosed) {
 
-
-            }
-        }
         Toast.makeText(getContext(), "总价：" + totalPrice, Toast.LENGTH_LONG).show();
+
+        if (isAllunCheck()) {
+            Toast.makeText(getContext(), "请选择一件商品" + totalPrice, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
         if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
 
             Intent intent = new Intent(getContext(), WebViewActivity.class);

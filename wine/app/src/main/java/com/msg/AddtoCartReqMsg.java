@@ -3,9 +3,6 @@ package com.msg;
 import com.androidyuan.frame.base.protocal.http.RequestMsg;
 import com.utils.Urls;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by mac on 2017/11/27.
  */
@@ -18,10 +15,8 @@ public class AddtoCartReqMsg extends RequestMsg {
 
     public AddtoCartReqMsg(String id, String count) {
         super();
-        Map<String, String> map = new HashMap<>();
+        params.put("goodGuid", id);
+        params.put("quantity", count);
 
-        map.put("goodGuid", id);
-        map.put("quantity", count);
-        put("p", map);
     }
 }

@@ -98,6 +98,22 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <activity
+            android:name="com.alipay.H5PayDemoActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+
+        </activity>
+
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="0b44c3a80b98e4773ad7ed3f71b2c0ed" />

@@ -56,6 +56,10 @@ public class Urls {
 
     public static final String m_personalList = getBaseUrl() + "/eshop/app/member/getMemberInfo";
 
+    public static final String m_delatelList = getBaseUrl() + "/eshop/app/purchase/deleteItemFromCart";
+
+    public static final String m_getIlike = getBaseUrl() + "/eshop/app/purchase/guessLike";
+
 
 
 

@@ -9,6 +9,8 @@ import com.msg.AddtoCartReqMsg;
 import com.msg.AddtoCartResMsg;
 import com.msg.CartListReqMsg;
 import com.msg.CartListResMsg;
+import com.msg.DelateReqMsg;
+import com.msg.DelateResMsg;
 
 /**
  * Created by mac on 2017/10/16.
@@ -19,6 +21,8 @@ public class ShoppingCartPresenter extends BaseCommPresenter<ICartListView> {
     private static final int RES_CART_MES = 0x1022;
 
     private static final int RES_ADDTOCART_MES = 0x1027;
+
+    private static final int RES_DELATE_MES = 0x1028;
 
 
     int type;
@@ -35,6 +39,7 @@ public class ShoppingCartPresenter extends BaseCommPresenter<ICartListView> {
             case RES_CART_MES:
 
             case RES_ADDTOCART_MES:
+            case RES_DELATE_MES:
                 if (msg.obj != null) {
 
                     handleResult(msg.obj);
@@ -60,6 +65,13 @@ public class ShoppingCartPresenter extends BaseCommPresenter<ICartListView> {
         sendHttpPostJson(req, res);
     }
 
+    public void delateCart(String id,int type){
+        this.type=type;
+        DelateReqMsg req = new DelateReqMsg(id);
+        DelateResMsg res = new DelateResMsg(RES_DELATE_MES);
+        sendHttpGet(req, res);
+    }
+
     public void handleResult(Object res) {
 
         if (res instanceof CartListResMsg) {
@@ -77,7 +89,12 @@ public class ShoppingCartPresenter extends BaseCommPresenter<ICartListView> {
                 iView.showMes(msg.getMsg(),type);
             }
 
-
+        }
+        if (res instanceof DelateResMsg) {
+            DelateResMsg msg = (DelateResMsg) res;
+            if(msg.isSuc()){
+                iView.delateGoods(type);
+            }
 
         }
 

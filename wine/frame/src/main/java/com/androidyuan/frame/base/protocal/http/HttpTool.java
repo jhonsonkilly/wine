@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -83,14 +84,14 @@ public class HttpTool {
      * @param res
      */
     public void requestGet(final RequestMsg req, final ResponseMsg res, final Handler handler) {
-        String mUrl=req.getUrl();
+        String mUrl = req.getUrl();
         //添加token
         if (req.getUrl().contains("?")) {
-            mUrl+= "&";
+            mUrl += "&";
         } else {
             mUrl += "?";
         }
-        mUrl += "TOKEN=" +"abc";
+        mUrl += "TOKEN=" + "abc";
 
         Request request = new Request.Builder()
                 .url(mUrl)
@@ -111,19 +112,34 @@ public class HttpTool {
      */
     public void requestPostJson(final RequestMsg req, final ResponseMsg res, final Handler handler) {
 
+        FormBody.Builder builder = new FormBody.Builder();
 
-        MediaType JSON_TYPE = MediaType.parse("application/json; charset=utf-8");
+        if (req.params.size() != 0) {
+            for (Map.Entry<String, Object> entry : req.params.entrySet()) {
+
+                builder.add(entry.getKey(), entry.getValue().toString());
+
+            }
+        }
+        RequestBody body = builder.build();
+
+        Request request = new Request
+                .Builder()
+                .url(req.getRequestUrl())
+                .post(body).build();
+
+        /*MediaType JSON_TYPE = MediaType.parse("application/json; charset=utf-8");
 
         RequestBody body = RequestBody.create(JSON_TYPE, req.getJsonBody());
 
-        Request request = new Request.Builder()
+        Request request = new FormBody.Builder()
                 .url(req.getRequestUrl())
                 .post(body)
-                .build();
+                .build();*/
 
         mCommonLogger.d(req.getRequestUrl());
 
-        mCommonLogger.d("body:" + req.getJsonBody());
+        mCommonLogger.info("body:" + req.getJsonBody());
         mClient.newCall(request).enqueue(new ReponseResolver(res, handler));
     }
 
@@ -146,8 +162,7 @@ public class HttpTool {
 
             if (entry.getValue() instanceof String) {
                 formBody.addFormDataPart(entry.getKey(), (String) entry.getValue());
-            }
-            else if (entry.getValue() instanceof File) {
+            } else if (entry.getValue() instanceof File) {
                 formBody.addFormDataPart(entry.getKey(), ((File) entry.getValue()).getAbsolutePath(), generatorImgBody((File) entry.getValue()));
             }
         }

@@ -18,6 +18,7 @@ public class ShoppingListModel implements Serializable {
     public String message;
 
     public static class ShoppingResult implements Serializable {
+        public String id;
         public String goodGuid;
         public String goodName;
         public int quantity;

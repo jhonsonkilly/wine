@@ -7,10 +7,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.androidyuan.frame.base.activity.BaseCommActivity;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.iview.ILoginView;
 import com.model.PersonalModel;
 import com.presenter.LoginPresenter;
-import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.widget.CountDownTextView;
 import com.widget.ToolBar;
 
@@ -46,6 +46,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
         tx_click.setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
         findViewById(R.id.zhuce_text).setOnClickListener(this);
+
     }
 
     @Override
