@@ -208,6 +208,7 @@ public class FrescoUtils {
             view.setImageURI(Uri.parse(""));
         }
         else {
+
             view.setImageURI(Uri.parse(url));
         }
     }

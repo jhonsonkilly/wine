@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.Event.PayEvent;
 import com.alipay.PayResult;
+import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.androidyuan.frame.cores.FrameApplication;
@@ -85,6 +86,9 @@ public class WebViewPresenter extends BaseCommPresenter {
     }
 
     public void callAliPay(final String response) {
+
+        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+
         AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
@@ -114,7 +118,7 @@ public class WebViewPresenter extends BaseCommPresenter {
                         //Toast.makeText(TheWayRechargeActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
 
                         PayEvent event = new PayEvent();
-                        event.payResult = "sucess";
+                        event.payResult = "success";
                         event.type = PayEvent.PayType.RESULT;
                         OttoBus.getInstance().post(event);
                         //http://47.93.18.21/eshop/shoppingCart/pay.html?member=xxx&userName=xxx&userImage=xxx&token=xxx&payResult=xxxx

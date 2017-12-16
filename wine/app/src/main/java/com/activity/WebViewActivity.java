@@ -1,5 +1,12 @@
 package com.activity;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import com.Event.PayEvent;
@@ -8,7 +15,7 @@ import com.otto.OttoBus;
 import com.otto.Subscribe;
 import com.presenter.WebViewPresenter;
 import com.utils.Urls;
-import com.widget.H5MesWebView;
+import com.widget.H5InputWebView;
 
 import java.util.HashMap;
 
@@ -25,7 +32,7 @@ import zjw.wine.R;
  */
 public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
-    H5MesWebView qmWebview;
+    H5InputWebView qmWebview;
     private String url;
     private HashMap<String, String> parms;
 
@@ -36,7 +43,7 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
     @Override
     protected void initAllWidget() {
-        qmWebview = (H5MesWebView) findViewById(R.id.webview);
+        qmWebview = (H5InputWebView) findViewById(R.id.webview);
         url = getIntent().getStringExtra("url");
         parms = (HashMap<String, String>) getIntent().getSerializableExtra("parms");
 
@@ -83,7 +90,7 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
             HashMap<String, String> map = new HashMap<>();
 
             map.put("payResult", event.payResult);
-            qmWebview.putExParams(parms);
+            qmWebview.putExParams(map);
             qmWebview.loadUrl(Urls.getBaseUrl() + "/eshop/shoppingCart/pay.html");
 
         }
@@ -92,7 +99,7 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
     }
 
 
-    /*@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == H5InputWebView.FILECHOOSER_RESULTCODE) {
@@ -157,6 +164,5 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
         return;
     }
-*/
 
 }

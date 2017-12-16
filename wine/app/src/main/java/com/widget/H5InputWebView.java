@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -16,10 +15,6 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
-import com.activity.WebViewActivity;
-import com.androidyuan.frame.base.activity.BaseCommActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,22 +37,22 @@ public class H5InputWebView extends H5MesWebView {
 
     public H5InputWebView(Context context) {
         super(context);
-        init(context);
+        initData(context);
     }
 
     public H5InputWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        initData(context);
     }
 
     public H5InputWebView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(context);
+        initData(context);
     }
 
 
 
-    public void init(Context context) {
+    public void initData(Context context) {
         this.context=context;
         getSettings().setJavaScriptEnabled(true);
         getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
@@ -66,26 +61,7 @@ public class H5InputWebView extends H5MesWebView {
         settings.setLoadWithOverviewMode(true);
         settings.setJavaScriptEnabled(true);
         settings.setSupportZoom(true);
-        setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
-                view.loadUrl(url);
-                return super.shouldOverrideUrlLoading(view, url);
-            }
 
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                // TODO Auto-generated method stub
-                super.onPageStarted(view, url, favicon);
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                // TODO Auto-generated method stub
-                super.onPageFinished(view, url);
-            }
-        });
 
         setWebChromeClient(new WebChromeClient() {
             @Override
