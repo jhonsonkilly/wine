@@ -21,9 +21,18 @@ public class AliPayReqMsg extends RequestMsg {
         return Urls.m_AliPayMes;
     }
 
-    public AliPayReqMsg(Map<String,String> map) {
+    public AliPayReqMsg(Map<String, String> map) {
 
         super();
+
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            if (entry.getKey().equals("subject")) {
+                entry.setValue("abc");
+            }
+            if (entry.getKey().equals("body")) {
+                entry.setValue("abc");
+            }
+        }
         params.putAll(map);
 
     }

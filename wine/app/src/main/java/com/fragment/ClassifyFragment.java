@@ -39,9 +39,9 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
 
     @Override
     protected void initAllWidget(View view) {
-        recyclerView = view.findViewById(R.id.parentRv);
+        recyclerView = (RecyclerView) view.findViewById(R.id.parentRv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRightRecycleView = view.findViewById(R.id.subRv);
+        mRightRecycleView = (RecyclerView) view.findViewById(R.id.subRv);
         mRightRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         view.findViewById(R.id.search_product).setOnClickListener(this);
 

@@ -85,8 +85,8 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
     @Override
     protected void initAllWidget(View view) {
-        toolBar = view.findViewById(R.id.toolbar);
-        text_go_home = view.findViewById(R.id.text_go_home);
+        toolBar = (ToolBar)view.findViewById(R.id.toolbar);
+        text_go_home = (TextView)view.findViewById(R.id.text_go_home);
 
         text_go_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,14 +127,14 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                 alert.show();
             }
         });
-        listView = view.findViewById(R.id.cart_list);
-        empty_cart = view.findViewById(R.id.empty_cart);
-        ckAll = view.findViewById(R.id.ck_all);
+        listView = (FixHeightListView)view.findViewById(R.id.cart_list);
+        empty_cart =(LinearLayout) view.findViewById(R.id.empty_cart);
+        ckAll = (CheckBox)view.findViewById(R.id.ck_all);
         ckAll.setOnClickListener(this);
 
 
-        tvShowPrice = view.findViewById(R.id.tv_show_price_tx);
-        showButton = view.findViewById(R.id.tv_settlement);
+        tvShowPrice = (TextView)view.findViewById(R.id.tv_show_price_tx);
+        showButton = (Button)view.findViewById(R.id.tv_settlement);
         showButton.setOnClickListener(this);
 
     }

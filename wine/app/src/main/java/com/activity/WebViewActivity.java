@@ -1,20 +1,14 @@
 package com.activity;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
 import android.view.View;
 
 import com.Event.PayEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
+import com.otto.OttoBus;
 import com.otto.Subscribe;
 import com.presenter.WebViewPresenter;
 import com.utils.Urls;
-import com.widget.H5InputWebView;
+import com.widget.H5MesWebView;
 
 import java.util.HashMap;
 
@@ -31,7 +25,7 @@ import zjw.wine.R;
  */
 public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
-    H5InputWebView qmWebview;
+    H5MesWebView qmWebview;
     private String url;
     private HashMap<String, String> parms;
 
@@ -42,7 +36,7 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
     @Override
     protected void initAllWidget() {
-        qmWebview = (H5InputWebView) findViewById(R.id.webview);
+        qmWebview = (H5MesWebView) findViewById(R.id.webview);
         url = getIntent().getStringExtra("url");
         parms = (HashMap<String, String>) getIntent().getSerializableExtra("parms");
 
@@ -51,7 +45,7 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
             qmWebview.putExParams(parms);
         }
         qmWebview.loadUrl(url);
-
+        OttoBus.getInstance().register(this);
 
     }
 
@@ -68,6 +62,12 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
     @Override
     public void showProgressBar() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OttoBus.getInstance().unregister(this);
     }
 
     //接受参数
@@ -91,7 +91,8 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
     }
 
-    @Override
+
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == H5InputWebView.FILECHOOSER_RESULTCODE) {
@@ -156,6 +157,6 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
         return;
     }
-
+*/
 
 }

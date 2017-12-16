@@ -6,9 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -58,8 +55,8 @@ public class JingXuanAdapter extends BaseAdapter {
                 convertView = View.inflate(context, R.layout.item_listview, null);
             }
 
-            img = convertView.findViewById(R.id.img_banner);
-            recycler = convertView.findViewById(R.id.img_horRecycle2);
+            img = (SimpleDraweeView) convertView.findViewById(R.id.img_banner);
+            recycler = (RecyclerView) convertView.findViewById(R.id.img_horRecycle2);
 
             FrescoUtils.displayUrl(img, list.get(position).img);
 

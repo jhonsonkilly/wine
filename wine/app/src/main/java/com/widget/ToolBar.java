@@ -47,10 +47,10 @@ public class ToolBar extends FrameLayout implements View.OnClickListener {
     public void initView(Context context) {
         this.context = context;
         View view = View.inflate(context, R.layout.toolbar_view, null);
-        title = view.findViewById(R.id.title);
-        back_img = view.findViewById(R.id.back);
+        title = (TextView) view.findViewById(R.id.title);
+        back_img = (ImageView)view.findViewById(R.id.back);
         back_img.setOnClickListener(this);
-        shop_cart = view.findViewById(R.id.shopCart);
+        shop_cart = (ImageView)view.findViewById(R.id.shopCart);
         addView(view);
     }
 

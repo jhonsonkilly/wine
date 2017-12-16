@@ -64,11 +64,11 @@ public class ProductListAdapter extends BaseAdapter {
                 convertView = View.inflate(context, R.layout.item_list, null);
             }
 
-            img = convertView.findViewById(R.id.img_banner);
-            textView = convertView.findViewById(R.id.text_1);
-            textPrice = convertView.findViewById(R.id.price);
-            saleText = convertView.findViewById(R.id.sale);
-            addImg = convertView.findViewById(R.id.cart);
+            img = (SimpleDraweeView) convertView.findViewById(R.id.img_banner);
+            textView = (TextView) convertView.findViewById(R.id.text_1);
+            textPrice = (TextView)convertView.findViewById(R.id.price);
+            saleText = (TextView)convertView.findViewById(R.id.sale);
+            addImg = (ImageView) convertView.findViewById(R.id.cart);
             addImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

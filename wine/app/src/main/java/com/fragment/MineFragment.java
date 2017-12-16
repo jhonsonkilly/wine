@@ -43,11 +43,11 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
     protected void initAllWidget(View view) {
 
         view.findViewById(R.id.img_03).setOnClickListener(this);
-        circle = view.findViewById(R.id.circle);
+        circle = (SimpleDraweeView)view.findViewById(R.id.circle);
         circle.setOnClickListener(this);
-        mHunyuanImg = view.findViewById(R.id.huiyuan);
+        mHunyuanImg = (ImageView) view.findViewById(R.id.huiyuan);
         mHunyuanImg.setOnClickListener(this);
-        name_text = view.findViewById(R.id.name);
+        name_text = (TextView) view.findViewById(R.id.name);
         name_text.setOnClickListener(this);
         view.findViewById(R.id.setting).setOnClickListener(this);
 
@@ -61,7 +61,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
         view.findViewById(R.id.mine_jiubi_layout).setOnClickListener(this);
         view.findViewById(R.id.mine_number_layout).setOnClickListener(this);
-        mine_juibi = view.findViewById(R.id.mine_jiubi);
+        mine_juibi = (TextView) view.findViewById(R.id.mine_jiubi);
         view.findViewById(R.id.mine_number).setOnClickListener(this);
 
 

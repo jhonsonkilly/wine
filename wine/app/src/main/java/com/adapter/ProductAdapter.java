@@ -64,8 +64,8 @@ public class ProductAdapter extends BaseAdapter {
                 convertView = View.inflate(context, R.layout.item_gridview, null);
             }
 
-            img = convertView.findViewById(R.id.img_1);
-            textView = convertView.findViewById(R.id.text_1);
+            img = (SimpleDraweeView) convertView.findViewById(R.id.img_1);
+            textView = (TextView) convertView.findViewById(R.id.text_1);
 
             FrescoUtils.displayUrl(img, list.get(position).image);
             textView.setText(list.get(position).name);
@@ -78,9 +78,9 @@ public class ProductAdapter extends BaseAdapter {
 
                         map.put("productGuid", list.get(position).guid);
 
-                        if(TextUtils.isEmpty(list.get(position).name)){
+                        if (TextUtils.isEmpty(list.get(position).name)) {
                             map.put("productName", "noParam");
-                        }else{
+                        } else {
                             map.put("productName", list.get(position).name);
                         }
                         intent.putExtra("parms", map);

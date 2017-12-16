@@ -193,7 +193,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             tvCommodityShowNum = (TextView) itemView.findViewById(R.id.tv_commodity_show_num);
             tvCommodityDelete = (ImageView) itemView.findViewById(R.id.tv_commodity_delete);
             rlEdit = (LinearLayout) itemView.findViewById(R.id.rl_edit);
-            totalTx = itemView.findViewById(R.id.total_tx);
+            totalTx = (TextView) itemView.findViewById(R.id.total_tx);
 
 
         }

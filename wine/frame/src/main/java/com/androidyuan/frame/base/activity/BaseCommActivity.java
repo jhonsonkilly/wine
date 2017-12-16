@@ -281,6 +281,7 @@ public abstract class BaseCommActivity<P extends BaseCommPresenter> extends AppC
 
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+
         presenter.onDestory();
     }
 

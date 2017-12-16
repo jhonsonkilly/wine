@@ -81,20 +81,20 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     protected void initAllWidget(View view) {
         view.findViewById(R.id.img_dignwei).setOnClickListener(this);
         view.findViewById(R.id.img_scan).setOnClickListener(this);
-        pager = view.findViewById(R.id.viewPager);
-        indicator = view.findViewById(R.id.indicator);
+        pager = (FixReBackViewPager)view.findViewById(R.id.viewPager);
+        indicator = (CirclePageIndicator)view.findViewById(R.id.indicator);
 
-        horRecycle = view.findViewById(R.id.hor_recycle);
+        horRecycle =(RecyclerView)view.findViewById(R.id.hor_recycle);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         horRecycle.setLayoutManager(linearLayoutManager);
 
 
-        listView = view.findViewById(R.id.jingxuan_list);
+        listView = (ListView)view.findViewById(R.id.jingxuan_list);
 
-        productListView = view.findViewById(R.id.product_list);
+        productListView = (ListView)view.findViewById(R.id.product_list);
 
-        recyclerView = view.findViewById(R.id.qianggou_recycle);
+        recyclerView = (RecyclerView) view.findViewById(R.id.qianggou_recycle);
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
         linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager2);
@@ -138,7 +138,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                 RxPermissions rxPermissions = new RxPermissions(getActivity());
                 rxPermissions.request(
                         //mTODO:meiyizhi 定位需要的权限
-                        android.Manifest.permission.CAMERA)
+                        android.Manifest.permission.CAMERA, android.Manifest.permission.READ_PHONE_STATE)
                         .subscribe(new Action1<Boolean>() {
                             @Override
                             public void call(Boolean granted) {
@@ -207,7 +207,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
         for (int i = 0; i < list.size(); i++) {
             View view = View.inflate(getContext(), R.layout.banner_item, null);
-            SimpleDraweeView img1 = view.findViewById(R.id.img_1);
+            SimpleDraweeView img1 = (SimpleDraweeView) view.findViewById(R.id.img_1);
             FrescoUtils.displayUrl(img1, list.get(i).image);
             mlist.add(view);
         }
