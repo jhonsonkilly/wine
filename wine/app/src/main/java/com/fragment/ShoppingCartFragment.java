@@ -26,7 +26,6 @@ import com.presenter.ShoppingCartPresenter;
 import com.utils.Urls;
 import com.widget.ToolBar;
 
-import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -420,7 +419,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
 
                 HashMap<String, String> map = new HashMap<>();
-                map.put("cartItems", URLEncoder.encode(FastJSONHelper.toJSONStr(list), "UTF-8"));
+                map.put("cartItems", FastJSONHelper.toJSONStr(list));
                 intent.putExtra("parms", map);
 
                 intent.putExtra("url", Urls.getBaseUrl() + "/eshop/shoppingCart/Confirm-order.html");

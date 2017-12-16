@@ -9,10 +9,12 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 
+import com.Event.PayEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
+import com.otto.Subscribe;
 import com.presenter.WebViewPresenter;
+import com.utils.Urls;
 import com.widget.H5InputWebView;
-import com.widget.QMWebview;
 
 import java.util.HashMap;
 
@@ -65,6 +67,27 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
 
     @Override
     public void showProgressBar() {
+
+    }
+
+    //接受参数
+    @Subscribe
+    public void getResult(PayEvent event) {
+
+        if (event.isParams()) {
+
+            presenter.submitMes(event.map);
+        }
+        if (event.isResult()) {
+
+            HashMap<String, String> map = new HashMap<>();
+
+            map.put("payResult", event.payResult);
+            qmWebview.putExParams(parms);
+            qmWebview.loadUrl(Urls.getBaseUrl() + "/eshop/shoppingCart/pay.html");
+
+        }
+
 
     }
 

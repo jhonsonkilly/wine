@@ -17,7 +17,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.Event.PayEvent;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
+import com.otto.OttoBus;
+import com.utils.ParamsUtils;
 
 import java.util.HashMap;
 
@@ -46,6 +49,15 @@ public abstract class QMWebview extends WebView {
     protected WebSettings settings;
 
     HashMap<String, String> map = new HashMap<>();
+
+    private final static String ALIPAY = "zfb";
+
+    private final static String WX = "wx";
+
+    String[] AliPayPar = {"body", "sn", "subject", "total_amount"};
+
+    String[] WXPar = {"sn", "total_fee"};
+
 
     public QMWebview(Context context) {
 
@@ -108,6 +120,22 @@ public abstract class QMWebview extends WebView {
                     try {
 
                         ((Activity) context).finish();
+                    } catch (Exception ex) {
+
+                    }
+                    return true;
+                }
+                if (url.contains("platform")) {
+                    try {
+                        if (ParamsUtils.getParameterValue(url, "platform").equals(ALIPAY)) {
+
+                            postMes(url, AliPayPar);
+                        }
+                        if (ParamsUtils.getParameterValue(url, "platform").equals(WX)) {
+
+                            postMes(url, WXPar);
+                        }
+
                     } catch (Exception ex) {
 
                     }
@@ -205,14 +233,13 @@ public abstract class QMWebview extends WebView {
             }
 
 
-
         }
 
 
         if (map.size() != 0) {
             url = url + putExParams(map);
         }
-        Log.i("QMWeb",url+"");
+        Log.i("QMWeb", url + "");
 
         super.loadUrl(url);
 
@@ -248,5 +275,18 @@ public abstract class QMWebview extends WebView {
     public void loadBlank() {
 
         loadUrl(BLANK_URL);
+    }
+
+    public void postMes(String url, String[] list) {
+
+        HashMap<String, String> map = new HashMap<>();
+        for (String str : list) {
+            map.putAll(ParamsUtils.getParameter(url, str));
+        }
+
+        PayEvent event = new PayEvent();
+        event.map = map;
+        event.type = PayEvent.PayType.PARAMS;
+        OttoBus.getInstance().post(event);
     }
 }

@@ -35,7 +35,7 @@ public class H5MesWebView extends QMWebview {
 
         for (Map.Entry<String, String> entry : map.entrySet()) {
 
-            builder.append("?" + entry.getKey() + "=");
+            builder.append("&" + entry.getKey() + "=");
             builder.append(entry.getValue());
         }
         return builder.toString();

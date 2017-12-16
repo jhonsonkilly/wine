@@ -60,6 +60,10 @@ public class Urls {
 
     public static final String m_getIlike = getBaseUrl() + "/eshop/app/purchase/guessLike";
 
+    public static final String m_AliPayMes = getBaseUrl() + "/eshop/pay/alipay";
+
+    public static final String m_WxPayMes = getBaseUrl() + "/eshop/pay/wxPrepay";
+
 
 
 

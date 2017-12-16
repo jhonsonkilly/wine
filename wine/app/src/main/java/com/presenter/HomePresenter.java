@@ -22,6 +22,7 @@ import com.msg.QiangGouResMsg;
  * Created by mac on 2017/10/16.
  */
 
+
 public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
 
