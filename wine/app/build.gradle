@@ -43,6 +43,10 @@ android {
         }
     }
 
+    android {
+        useLibrary 'org.apache.http.legacy'
+    }
+
 
 
 
@@ -64,4 +68,8 @@ dependencies {
     compile project(':frame')
     compile files('libs/alipaySingle-20160825.jar')
     compile files('libs/alipaySdk-20170922.jar')
+
+    compile 'com.android.volley:volley:1.1.0'
+
+
 }
