@@ -10,6 +10,7 @@ import android.support.annotation.Keep;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;
+
 import com.androidyuan.frame.cores.FrameApplication;
 import com.facebook.cache.common.CacheKey;
 import com.facebook.common.executors.CallerThreadExecutor;
@@ -206,9 +207,8 @@ public class FrescoUtils {
 
         if (TextUtils.isEmpty(url)) {
             view.setImageURI(Uri.parse(""));
-        }
-        else {
-
+        } else {
+              Log.i("FrescoUtils", url);
             view.setImageURI(Uri.parse(url));
         }
     }
@@ -225,8 +225,7 @@ public class FrescoUtils {
 
         if (TextUtils.isEmpty(url)) {
             view.setImageURI((Uri.parse("")));
-        }
-        else {
+        } else {
             view.setImageURI(Uri.fromFile(new File(url)));
         }
     }
@@ -274,8 +273,7 @@ public class FrescoUtils {
 
         if (TextUtils.isEmpty(url)) {
             imageView.setImageURI(Uri.parse(""));
-        }
-        else {
+        } else {
             if (!url.contains("?")) {
                 url += "?";
             }
@@ -298,8 +296,7 @@ public class FrescoUtils {
             draweeView.getLayoutParams().width = imageInfo.getWidth();
             if (imageInfo.getWidth() < minw) {//如果图片太小的情况下 则根据mindWidth进行设置 保证不要被设置为很小
                 draweeView.getLayoutParams().width = minh;
-            }
-            else if (imageInfo.getWidth() > Resources.getSystem().getDisplayMetrics().widthPixels) {//如果图片的宽度远远大于屏幕宽度 则: 不管他 他自己会充满父控件
+            } else if (imageInfo.getWidth() > Resources.getSystem().getDisplayMetrics().widthPixels) {//如果图片的宽度远远大于屏幕宽度 则: 不管他 他自己会充满父控件
             }
 
             draweeView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -377,8 +374,7 @@ public class FrescoUtils {
         Uri uri;
         if (TextUtils.isEmpty(url)) {
             uri = Uri.parse("");
-        }
-        else {
+        } else {
             uri = Uri.parse(url);
         }
 
@@ -402,8 +398,7 @@ public class FrescoUtils {
         Uri uri;
         if (TextUtils.isEmpty(url)) {
             uri = Uri.parse("");
-        }
-        else {
+        } else {
             uri = Uri.parse(url);
         }
 
@@ -427,8 +422,7 @@ public class FrescoUtils {
                         newbit = bitmap.copy(bitmap.getConfig(), true);//fresco很容易给你释放掉，所以copy一份出来
                         FrescoUtils.removeImgFromMemory(url);//让fresco从ram中移除掉这张图
                     }
-                }
-                catch (Exception ex) {//OOM异常
+                } catch (Exception ex) {//OOM异常
                 }
 
                 if (listen != null && newbit != null && newbit.getByteCount() > 0) {
@@ -459,8 +453,7 @@ public class FrescoUtils {
         Uri uri;
         if (TextUtils.isEmpty(url)) {
             uri = Uri.parse("");
-        }
-        else {
+        } else {
             uri = Uri.parse(url);
         }
 
@@ -487,8 +480,7 @@ public class FrescoUtils {
                         Log.i("+++++++++++", newbit.getByteCount() + "");
 
                     }
-                }
-                catch (Exception ex) {//OOM异常
+                } catch (Exception ex) {//OOM异常
                 }
 
                 if (listen != null && newbit != null && newbit.getByteCount() > 0) {
@@ -518,8 +510,7 @@ public class FrescoUtils {
         Uri uri;
         if (TextUtils.isEmpty(url)) {
             uri = Uri.parse("");
-        }
-        else {
+        } else {
             uri = Uri.parse(url);
         }
 
@@ -551,8 +542,7 @@ public class FrescoUtils {
                         Log.i("+++++++++++", newbit.getByteCount() + "");
 
                     }
-                }
-                catch (Exception ex) {//OOM异常
+                } catch (Exception ex) {//OOM异常
                 }
 
                 if (listen != null && newbit != null && newbit.getByteCount() > 0) {
@@ -577,8 +567,7 @@ public class FrescoUtils {
         Uri uri;
         if (TextUtils.isEmpty(url)) {
             uri = Uri.parse("");
-        }
-        else {
+        } else {
             uri = Uri.parse(url);
         }
 
@@ -648,8 +637,7 @@ public class FrescoUtils {
         try {
             Uri uri = Uri.parse(url);
             inMemoryCache = imagePipeline.isInBitmapMemoryCache(uri);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
         }
         return inMemoryCache;
     }
@@ -664,8 +652,7 @@ public class FrescoUtils {
 
         if (TextUtils.isEmpty(url)) {
             return;
-        }
-        else {
+        } else {
 
             try {
                 if (isInMemory(url)) {
@@ -673,8 +660,7 @@ public class FrescoUtils {
                     ImagePipeline imagePipeline = Fresco.getImagePipeline();
                     imagePipeline.evictFromMemoryCache(uri);
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
             }
         }
     }
@@ -684,16 +670,14 @@ public class FrescoUtils {
 
         if (TextUtils.isEmpty(url)) {
             return;
-        }
-        else {
+        } else {
 
             try {
                 Uri uri = Uri.parse(url);
                 ImagePipeline imagePipeline = Fresco.getImagePipeline();
                 imagePipeline.evictFromMemoryCache(uri);
                 imagePipeline.evictFromDiskCache(uri);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
             }
         }
     }

@@ -1,18 +1,26 @@
 package com.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.Event.AddToCartEvent;
+import com.activity.LoginActivity;
+import com.activity.WebViewActivity;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.ProductModel;
 import com.otto.OttoBus;
+import com.utils.Urls;
 
+import java.util.HashMap;
 import java.util.List;
 
 import zjw.wine.R;
@@ -34,7 +42,7 @@ public class ProductListAdapter extends BaseAdapter {
     TextView saleText;
 
     ImageView addImg;
-
+    private RelativeLayout pro_rl;
 
 
     public ProductListAdapter(Context context, List<ProductModel.Result> list) {
@@ -66,9 +74,10 @@ public class ProductListAdapter extends BaseAdapter {
 
             img = (SimpleDraweeView) convertView.findViewById(R.id.img_banner);
             textView = (TextView) convertView.findViewById(R.id.text_1);
-            textPrice = (TextView)convertView.findViewById(R.id.price);
-            saleText = (TextView)convertView.findViewById(R.id.sale);
+            textPrice = (TextView) convertView.findViewById(R.id.price);
+            saleText = (TextView) convertView.findViewById(R.id.sale);
             addImg = (ImageView) convertView.findViewById(R.id.cart);
+            pro_rl = convertView.findViewById(R.id.pro_rl);
             addImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -79,10 +88,26 @@ public class ProductListAdapter extends BaseAdapter {
                 }
             });
 
-            FrescoUtils.displayUrl(img, list.get(position).image);
+            FrescoUtils.displayUrl(img, Urls.getBaseUrl() + "/em/es_pro/" + list.get(position).image);
             textView.setText(list.get(position).name);
             textPrice.setText("￥ " + list.get(position).price);
             saleText.setText("销量:  " + list.get(position).salenum);
+            pro_rl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(context, "ut", ""))) {
+                        Intent intent = new Intent(context, WebViewActivity.class);
+                        HashMap<String, String> map = new HashMap<>();
+                        map.put("productGuid", list.get(position).proGuid);
+                        intent.putExtra("parms", map);
+                        intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
+                        context.startActivity(intent);
+                    } else {
+                        context.startActivity(new Intent(context, LoginActivity.class));
+
+                    }
+                }
+            });
 
 
             return convertView;

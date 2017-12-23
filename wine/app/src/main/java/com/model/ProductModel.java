@@ -18,6 +18,7 @@ public class ProductModel implements Serializable {
         public String guid;
         public String image;
         public String salenum;
+        public String proGuid;
 
 
     }

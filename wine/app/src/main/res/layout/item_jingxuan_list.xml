@@ -14,8 +14,7 @@
             android:layout_width="80dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:background="@mipmap/icon_sweep_back" />
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:id="@+id/jingxuan_text"

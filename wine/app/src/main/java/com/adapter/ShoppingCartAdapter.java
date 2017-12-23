@@ -13,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidyuan.frame.cores.utils.image.FrescoUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.ShoppingListModel;
+import com.utils.Urls;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -115,6 +118,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
 
         holder.tvCommodityShowNum.setText(shoppingCartBean.quantity + "");
         //ImageLoader.getInstance().displayImage(shoppingCartBean.getImageUrl(),holder.ivShowPic);
+        FrescoUtils.displayUrl(holder.ivShowPic, Urls.getBaseUrl() + "/em/es_pro/" + shoppingCartBean.image);
         //单选框按钮
         holder.ckOneChose.setOnClickListener(
                 new View.OnClickListener() {
@@ -176,14 +180,15 @@ public class ShoppingCartAdapter extends BaseAdapter {
 
     //初始化控件
     class ViewHolder {
-        ImageView ivShowPic, tvCommodityDelete;
+        ImageView tvCommodityDelete;
+        SimpleDraweeView ivShowPic;
         TextView tvCommodityName, tvCommodityPrice, tvCommodityShowNum, ivSub, ivAdd, totalTx;
         CheckBox ckOneChose;
         LinearLayout rlEdit;
 
         public ViewHolder(View itemView) {
             ckOneChose = (CheckBox) itemView.findViewById(R.id.ck_chose);
-            ivShowPic = (ImageView) itemView.findViewById(R.id.iv_show_pic);
+            ivShowPic = (SimpleDraweeView) itemView.findViewById(R.id.iv_show_pic);
             ivSub = (TextView) itemView.findViewById(R.id.iv_sub);
             ivAdd = (TextView) itemView.findViewById(R.id.iv_add);
             tvCommodityName = (TextView) itemView.findViewById(R.id.tv_commodity_name);

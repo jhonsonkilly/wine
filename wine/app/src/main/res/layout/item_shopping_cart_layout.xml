@@ -25,7 +25,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
             android:layout_toRightOf="@id/ck_chose"
-            android:background="@color/c_ff690" />
+             />
 
         <TextView
 

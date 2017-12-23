@@ -214,22 +214,22 @@ public abstract class QMWebview extends WebView {
             if (!TextUtils.isEmpty(id)) {
                 url = url + "?member=" + id;
             } else {
-                url = url + "?member=" + "abc";
+                url = url + "?member=" + "noParam";
             }
             if (!TextUtils.isEmpty(nick)) {
                 url = url + "&userName=" + nick;
             } else {
-                url = url + "&userName=" + "abc";
+                url = url + "&userName=" + "noParam";
             }
             if (!TextUtils.isEmpty(img)) {
                 url = url + "&userImage=" + img;
             } else {
-                url = url + "&userImage=" + "abc";
+                url = url + "&userImage=" + "noParam";
             }
             if (!TextUtils.isEmpty(token)) {
                 url = url + "&token=" + token;
             } else {
-                url = url + "&token=" + "abc";
+                url = url + "&token=" + "noParam";
             }
 
 

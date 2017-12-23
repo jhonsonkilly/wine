@@ -5,13 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.androidyuan.frame.cores.widget.FixChildHeightGridView;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.model.LeftClassifyModel;
 import com.model.RightClassifyModel;
 import com.utils.BaseViewHolder;
 

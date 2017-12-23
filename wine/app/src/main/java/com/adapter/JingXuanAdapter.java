@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.JingXuanModel;
+import com.utils.Urls;
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class JingXuanAdapter extends BaseAdapter {
             img = (SimpleDraweeView) convertView.findViewById(R.id.img_banner);
             recycler = (RecyclerView) convertView.findViewById(R.id.img_horRecycle2);
 
-            FrescoUtils.displayUrl(img, list.get(position).img);
+            FrescoUtils.displayUrl(img, Urls.getBaseUrl()+"/em/es_choice/"+list.get(position).img);
 
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);

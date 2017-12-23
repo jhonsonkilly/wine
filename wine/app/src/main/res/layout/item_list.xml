@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/pro_rl"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="120dp">
@@ -13,7 +14,7 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_margin="10dp"
-            android:background="@color/c_ff690" />
+     />
 
         <TextView
             android:ellipsize="end"

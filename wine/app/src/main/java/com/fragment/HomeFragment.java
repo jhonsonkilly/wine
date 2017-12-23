@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.adapter.JingXuanAdapter;
 import com.adapter.ProductListAdapter;
 import com.adapter.QiangGouAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.androidyuan.frame.cores.widget.bugfixview.FixReBackViewPager;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -33,11 +36,12 @@ import com.otto.Subscribe;
 import com.presenter.HomePresenter;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.utils.LocationManager;
-import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.utils.Urls;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import rx.functions.Action1;
@@ -70,6 +74,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
     HorListAdapter horListAdapter;
     private JingXuanAdapter jingXuanAdapter;
+    private EditText search_product;
 
 
     @Override
@@ -81,18 +86,18 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     protected void initAllWidget(View view) {
         view.findViewById(R.id.img_dignwei).setOnClickListener(this);
         view.findViewById(R.id.img_scan).setOnClickListener(this);
-        pager = (FixReBackViewPager)view.findViewById(R.id.viewPager);
-        indicator = (CirclePageIndicator)view.findViewById(R.id.indicator);
+        pager = (FixReBackViewPager) view.findViewById(R.id.viewPager);
+        indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
 
-        horRecycle =(RecyclerView)view.findViewById(R.id.hor_recycle);
+        horRecycle = (RecyclerView) view.findViewById(R.id.hor_recycle);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         horRecycle.setLayoutManager(linearLayoutManager);
 
 
-        listView = (ListView)view.findViewById(R.id.jingxuan_list);
+        listView = (ListView) view.findViewById(R.id.jingxuan_list);
 
-        productListView = (ListView)view.findViewById(R.id.product_list);
+        productListView = (ListView) view.findViewById(R.id.product_list);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.qianggou_recycle);
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
@@ -106,7 +111,22 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         view.findViewById(R.id.img_3).setOnClickListener(this);
         view.findViewById(R.id.img_4).setOnClickListener(this);
         view.findViewById(R.id.huodong_rl).setOnClickListener(this);
+        search_product = (EditText) view.findViewById(R.id.search_product);
+
+        search_product.setOnKeyListener(new View.OnKeyListener() {
+
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // 这两个条件必须同时成立，如果仅仅用了enter判断，就会执行两次
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    // 执行发送消息等操作
+                    return true;
+                }
+                return false;
+            }
+        });
         OttoBus.getInstance().register(this);
+
 
     }
 
@@ -122,6 +142,9 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                             //Toast.makeText(getContext(), location.address, Toast.LENGTH_LONG).show();
                             if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                                 Intent intent = new Intent(getContext(), WebViewActivity.class);
+                                HashMap<String, String> map = new HashMap<>();
+                                map.put("currentLocation", URLEncoder.encode(location.address));
+                                intent.putExtra("parms", map);
                                 intent.putExtra("url", Urls.getBaseUrl() + "/eshop/managerAddress/changeAdress.html");
                                 startActivity(intent);
                             } else {
@@ -208,7 +231,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         for (int i = 0; i < list.size(); i++) {
             View view = View.inflate(getContext(), R.layout.banner_item, null);
             SimpleDraweeView img1 = (SimpleDraweeView) view.findViewById(R.id.img_1);
-            FrescoUtils.displayUrl(img1, list.get(i).image);
+            FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "em/es_carousellist" + list.get(i).image);
             mlist.add(view);
         }
         adapter = new BannerAdapter(mlist);
@@ -236,6 +259,8 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     public void showQiangGouList(List<QiangGouModel.QiangGouData> list) {
         recyclerView.setAdapter(new QiangGouAdapter(getContext(), list));
     }
+
+
 
     @Override
     public void showJingXuanList(List<JingXuanModel.Data> list) {

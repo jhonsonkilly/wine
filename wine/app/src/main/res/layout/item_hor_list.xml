@@ -11,7 +11,7 @@
         android:id="@+id/hor_img"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@mipmap/icon_sweep_back" />
+        />
 
     <TextView
         android:textColor="@color/sub_title_color"

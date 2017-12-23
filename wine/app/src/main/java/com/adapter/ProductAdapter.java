@@ -67,7 +67,7 @@ public class ProductAdapter extends BaseAdapter {
             img = (SimpleDraweeView) convertView.findViewById(R.id.img_1);
             textView = (TextView) convertView.findViewById(R.id.text_1);
 
-            FrescoUtils.displayUrl(img, list.get(position).image);
+            FrescoUtils.displayUrl(img, Urls.getBaseUrl()+"/em/es_class/"+list.get(position).image);
             textView.setText(list.get(position).name);
             img.setOnClickListener(new View.OnClickListener() {
                 @Override

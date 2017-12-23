@@ -11,6 +11,7 @@ import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.HorlistModel;
 import com.utils.BaseViewHolder;
+import com.utils.Urls;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class HorListAdapter extends RecyclerView.Adapter<HorListAdapter.Holder> 
     public void onBindViewHolder(final HorListAdapter.Holder holder, final int position) {
         try {
             holder.hor_text.setText(datalist.get(position).name.toString());
-            FrescoUtils.displayUrl(holder.hor_img, datalist.get(position).pic);
+            FrescoUtils.displayUrl(holder.hor_img, Urls.getBaseUrl() + "/em/es_pro/" + datalist.get(position).pic);
             holder.hor_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
