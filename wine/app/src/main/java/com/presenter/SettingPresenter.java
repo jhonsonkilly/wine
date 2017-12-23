@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.os.Message;
 import android.widget.Toast;
 
+import com.androidyuan.frame.base.activity.WineApplication;
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.msg.QuitLoginReqMsg;
 import com.msg.QuitLoginResMsg;
 
@@ -57,6 +59,7 @@ public class SettingPresenter extends BaseCommPresenter {
             if (msg.getData() != null) {
 
                 Toast.makeText(getActivity(), msg.getData().result, Toast.LENGTH_LONG).show();
+                SharedPreferencesUtil.saveStringData(WineApplication.gainContext(), "ut", "");
                 getActivity().finish();
 
             }

@@ -1,6 +1,8 @@
 package com.androidyuan.frame.base.protocal.http;
 
+import com.androidyuan.frame.base.activity.WineApplication;
 import com.androidyuan.frame.cores.utils.FastJSONHelper;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -26,13 +28,12 @@ public abstract class RequestMsg {
         //  put("v", com.androidyuan.frame.cores.utils.Utils.version);
         // put("os", com.androidyuan.frame.cores.utils.Utils.os);
 //        put("ver", com.androidyuan.frame.cores.utils.Utils.ver);
-        params.put("TOKEN", "abc");
+        params.put("TOKEN", SharedPreferencesUtil.getStringData(WineApplication.gainContext(), "ut", ""));
 
     }
 
 
     protected RequestMsg(Map<String, String> map) {
-
 
 
         if (map != null) {

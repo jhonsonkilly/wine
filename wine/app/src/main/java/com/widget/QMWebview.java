@@ -21,6 +21,7 @@ import com.Event.PayEvent;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.otto.OttoBus;
 import com.utils.ParamsUtils;
+import com.utils.Urls;
 
 import java.util.HashMap;
 
@@ -222,7 +223,7 @@ public abstract class QMWebview extends WebView {
                 url = url + "&userName=" + "noParam";
             }
             if (!TextUtils.isEmpty(img)) {
-                url = url + "&userImage=" + img;
+                url = url + "&userImage=" + Urls.getBaseUrl() + "/em/es_myself/" + img;
             } else {
                 url = url + "&userImage=" + "noParam";
             }

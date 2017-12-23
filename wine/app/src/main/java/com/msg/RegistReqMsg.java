@@ -5,9 +5,6 @@ import android.text.TextUtils;
 import com.androidyuan.frame.base.protocal.http.RequestMsg;
 import com.utils.Urls;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * <p>Copyright:Copyright(c) 2016</p>
  * <p>Company:上海来伊份电子商务有限公司</p>
@@ -25,13 +22,11 @@ public class RegistReqMsg extends RequestMsg {
 
     public RegistReqMsg(String phone, String vertify, String yaoqing) {
         super();
-        Map<String, String> map = new HashMap<>();
-
-        map.put("mobile", phone);
-        map.put("verifyCode", vertify);
+        params.put("mobile", phone);
+        params.put("verifyCode", vertify);
         if (!TextUtils.isEmpty(yaoqing)) {
-            map.put("inviteCode", yaoqing);
+            params.put("inviteCode", yaoqing);
         }
-        put("p", map);
+
     }
 }

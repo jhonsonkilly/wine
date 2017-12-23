@@ -75,7 +75,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     HorListAdapter horListAdapter;
     private JingXuanAdapter jingXuanAdapter;
     private EditText search_product;
-
+    private static final int HOME = 1;
 
     @Override
     protected int getLayoutId() {
@@ -120,6 +120,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                 // 这两个条件必须同时成立，如果仅仅用了enter判断，就会执行两次
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     // 执行发送消息等操作
+                    event.setSource(HOME);
                     return true;
                 }
                 return false;
@@ -231,7 +232,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         for (int i = 0; i < list.size(); i++) {
             View view = View.inflate(getContext(), R.layout.banner_item, null);
             SimpleDraweeView img1 = (SimpleDraweeView) view.findViewById(R.id.img_1);
-            FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "em/es_carousellist" + list.get(i).image);
+            FrescoUtils.displayUrl(img1, list.get(i).image);
             mlist.add(view);
         }
         adapter = new BannerAdapter(mlist);
@@ -259,7 +260,6 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     public void showQiangGouList(List<QiangGouModel.QiangGouData> list) {
         recyclerView.setAdapter(new QiangGouAdapter(getContext(), list));
     }
-
 
 
     @Override
@@ -293,6 +293,19 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         } else {
             getContext().startActivity(new Intent(getContext(), LoginActivity.class));
         }
+    }
+
+    public void getSearchText() {
+        Intent intent = new Intent(getContext(), WebViewActivity.class);
+        HashMap<String, String> map = new HashMap<>();
+
+        map.put("productGuid", "noParam");
+
+        map.put("productName", search_product.getText().toString());
+
+        intent.putExtra("parms", map);
+        intent.putExtra("url", Urls.getBaseUrl() + "/eshop/classification/neiye.html");
+        this.startActivity(intent);
     }
 
 

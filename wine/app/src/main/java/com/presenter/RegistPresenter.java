@@ -3,12 +3,10 @@ package com.presenter;
 import android.os.Bundle;
 import android.os.Message;
 
-import com.activity.LoginActivity;
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.iview.IRegistView;
 import com.msg.DelYanZhenReqMsg;
 import com.msg.DelYanZhenResMsg;
-import com.msg.LoginResMsg;
 import com.msg.RegistReqMsg;
 import com.msg.RegistResMsg;
 import com.msg.YanZhenReqMsg;
@@ -58,7 +56,7 @@ public class RegistPresenter extends BaseCommPresenter<IRegistView> {
 
     public void getVertifyCode(String phone) {
         this.phone = phone;
-        YanZhenReqMsg req = new YanZhenReqMsg(phone);
+        YanZhenReqMsg req = new YanZhenReqMsg(phone, false);
         YanZhenResMsg res = new YanZhenResMsg(RES_YANZHEN_MES);
         sendHttpGet(req, res);
     }
@@ -93,17 +91,15 @@ public class RegistPresenter extends BaseCommPresenter<IRegistView> {
             }
         }
 
-        if (res instanceof LoginResMsg) {
-            LoginResMsg msg = (LoginResMsg) res;
+        if (res instanceof RegistResMsg) {
+            RegistResMsg msg = (RegistResMsg) res;
             if (msg.isSuc()) {
-                if (msg.getData() != null) {
 
-                    iView.showRegist(msg.getMsg());
+                iView.showRegist(msg.getMsg());
 
-                } else {
-                    LoginActivity act = (LoginActivity) getActivity();
-                    act.showToast(msg.getMsg());
-                }
+                  /*  LoginActivity act = (LoginActivity) getActivity();
+                    act.showToast(msg.getMsg());*/
+
             }
         }
     }

@@ -51,7 +51,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
     ShoppingCartAdapter shoppingCartAdapter;
 
-    List<ShoppingListModel.ShoppingResult> shoppingCartBeanList;
+    List<ShoppingListModel.ShoppingResult> shoppingCartBeanList=new ArrayList<>();
 
     private double totalPrice = 0.00;// 购买的商品总价
 

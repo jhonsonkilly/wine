@@ -65,6 +65,7 @@
         android:theme="@style/WineTheme">
         <activity
             android:name="com.activity.MainTabsActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>

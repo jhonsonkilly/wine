@@ -1,10 +1,13 @@
 package com.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
 
+import com.activity.WebViewActivity;
 import com.adapter.ParentCategoryAdapter;
 import com.adapter.SubCategoryAdapter;
 import com.androidyuan.frame.base.fragment.BaseCommFragment;
@@ -12,7 +15,9 @@ import com.iview.ILeftClassifyView;
 import com.model.LeftClassifyModel;
 import com.model.RightClassifyModel;
 import com.presenter.ClassifyPresenter;
+import com.utils.Urls;
 
+import java.util.HashMap;
 import java.util.List;
 
 import zjw.wine.R;
@@ -21,15 +26,21 @@ import zjw.wine.R;
  * Created by mac on 2017/10/16.
  */
 
-public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implements View.OnClickListener, ILeftClassifyView, ParentCategoryAdapter.OnLeftClickListener {
+public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implements ILeftClassifyView, ParentCategoryAdapter.OnLeftClickListener {
 
     private RecyclerView recyclerView;
     private RecyclerView mRightRecycleView;
     private ParentCategoryAdapter mParentCategoryAdapter;
+
+
+
     private SubCategoryAdapter mSubCategoryAdapter;
+    EditText search_product;
 
     String id;
     int pos;
+
+    private static final int CLASSIFY = 2;
 
 
     @Override
@@ -43,27 +54,35 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRightRecycleView = (RecyclerView) view.findViewById(R.id.subRv);
         mRightRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        view.findViewById(R.id.search_product).setOnClickListener(this);
+        search_product = view.findViewById(R.id.search_product);
+        search_product.setOnKeyListener(new View.OnKeyListener() {
 
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // 这两个条件必须同时成立，如果仅仅用了enter判断，就会执行两次
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    // 执行发送消息等操作
+                    getSearchText();
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
     @Override
     protected void clickView(View v) {
-        switch (v.getId()) {
-            case R.id.search_product:
-                Toast.makeText(getContext(), "跳转到搜索", Toast.LENGTH_LONG).show();
-                break;
-        }
+
     }
 
     @Override
-    public void showData(List<LeftClassifyModel.Data> list,boolean isHorList) {
+    public void showData(List<LeftClassifyModel.Data> list, boolean isHorList) {
 
         mParentCategoryAdapter = new ParentCategoryAdapter(list, getContext());
         recyclerView.setAdapter(mParentCategoryAdapter);
         mParentCategoryAdapter.setOnLeftClickListener(this);
-        if(isHorList){
+        if (isHorList) {
             mParentCategoryAdapter.getClickPos(pos);
             presenter.getRightMes(id);
         }
@@ -77,7 +96,18 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
         mRightRecycleView.setAdapter(mSubCategoryAdapter);
     }
 
+    public void getSearchText() {
+        Intent intent = new Intent(getContext(), WebViewActivity.class);
+        HashMap<String, String> map = new HashMap<>();
 
+        map.put("productGuid", "noParam");
+
+        map.put("productName", search_product.getText().toString());
+
+        intent.putExtra("parms", map);
+        intent.putExtra("url", Urls.getBaseUrl() + "/eshop/classification/neiye.html");
+        this.startActivity(intent);
+    }
     @Override
     public void leftClick(String id) {
 
@@ -87,8 +117,8 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
 
     public void getSwitchClick(String id, int pos) {
         presenter.getLeftMes(true);
-        this.id=id;
-        this.pos=pos;
+        this.id = id;
+        this.pos = pos;
 
     }
 }

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.Event.GoHomeEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
-import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.fragment.ClassifyFragment;
 import com.fragment.HomeFragment;
 import com.fragment.MineFragment;
@@ -23,13 +21,11 @@ import com.fragment.ShoppingCartFragment;
 import com.otto.OttoBus;
 import com.otto.Subscribe;
 import com.presenter.MainTabsPresenter;
-import com.utils.Urls;
 import com.widget.TabChooser;
 import com.widget.TabChooserBean;
 import com.widget.TabSelectListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import zjw.wine.R;
@@ -237,27 +233,18 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                 /*隐藏软键盘*/
-            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
+            InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager.isActive()) {
-                inputMethodManager.hideSoftInputFromWindow(MainTabsActivity.this.getCurrentFocus().getWindowToken(), 0);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
-            if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(this, "ut", ""))) {
-                Intent intent = new Intent(this, WebViewActivity.class);
-                HashMap<String, String> map = new HashMap<>();
-
-                map.put("productGuid", "noParam");
+            fragmentHome.getSearchText();
 
 
-                map.put("productName", "拉菲干红");
-
-                intent.putExtra("parms", map);
-                intent.putExtra("url", Urls.getBaseUrl() + "/eshop/classification/neiye.html");
-                this.startActivity(intent);
-            } else {
-                this.startActivity(new Intent(this, LoginActivity.class));
-            }
             // 上传代码
             return true;
         }

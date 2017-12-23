@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.Event.PayEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
+import com.androidyuan.frame.cores.log.CommonLogger;
 import com.otto.OttoBus;
 import com.otto.Subscribe;
 import com.presenter.WebViewPresenter;
@@ -36,6 +37,8 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
     private String url;
     private HashMap<String, String> parms;
 
+    private CommonLogger mCommonLogger = CommonLogger.buildLogger(this);
+
     @Override
     protected int getLayoutId() {
         return R.layout.act_webview;
@@ -52,6 +55,8 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
             qmWebview.putExParams(parms);
         }
         qmWebview.loadUrl(url);
+
+
         OttoBus.getInstance().register(this);
 
     }

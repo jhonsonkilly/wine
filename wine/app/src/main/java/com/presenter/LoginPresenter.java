@@ -61,7 +61,7 @@ public class LoginPresenter extends BaseCommPresenter<ILoginView> {
 
     public void getVertifyCode(String phone) {
         this.phone = phone;
-        YanZhenReqMsg req = new YanZhenReqMsg(phone);
+        YanZhenReqMsg req = new YanZhenReqMsg(phone,true);
         YanZhenResMsg res = new YanZhenResMsg(RES_YANZHEN_MES);
         sendHttpGet(req, res);
     }

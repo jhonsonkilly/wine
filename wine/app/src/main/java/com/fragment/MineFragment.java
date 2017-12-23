@@ -43,7 +43,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
     protected void initAllWidget(View view) {
 
         view.findViewById(R.id.img_03).setOnClickListener(this);
-        circle = (SimpleDraweeView)view.findViewById(R.id.circle);
+        circle = (SimpleDraweeView) view.findViewById(R.id.circle);
         circle.setOnClickListener(this);
         mHunyuanImg = (ImageView) view.findViewById(R.id.huiyuan);
         mHunyuanImg.setOnClickListener(this);
@@ -319,13 +319,11 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.nologin);
             mHunyuanImg.setVisibility(View.GONE);
             name_text.setVisibility(View.GONE);
-            mine_juibi.setVisibility(View.GONE);
 
         } else {
 
             mHunyuanImg.setVisibility(View.VISIBLE);
             name_text.setVisibility(View.VISIBLE);
-            mine_juibi.setVisibility(View.VISIBLE);
             presenter.getPersonalMes();
         }
 
@@ -339,7 +337,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             if (TextUtils.isEmpty(model.img)) {
                 FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.login);
             } else {
-                FrescoUtils.displayUrl(circle, model.img);
+                FrescoUtils.displayUrl(circle, Urls.getBaseUrl() + "/em/es_myself/" + model.img);
             }
 
             if (TextUtils.isEmpty(model.nick)) {

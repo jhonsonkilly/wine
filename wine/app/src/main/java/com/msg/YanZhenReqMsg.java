@@ -14,13 +14,15 @@ import com.utils.Urls;
  */
 public class YanZhenReqMsg extends RequestMsg {
     String phone;
+    boolean isLogin;
 
     @Override
     public String getUrl() {
-        return Urls.m_getVertifyCode + "?mobile=" + phone;
+        return Urls.m_getVertifyCode + "?mobile=" + phone + "&isLogin=" + isLogin;
     }
 
-    public YanZhenReqMsg(String phone) {
+    public YanZhenReqMsg(String phone, boolean isLogin) {
         this.phone = phone;
+        this.isLogin = isLogin;
     }
 }

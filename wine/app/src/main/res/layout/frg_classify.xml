@@ -17,16 +17,18 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent">
 
-            <TextView
+            <EditText
                 android:id="@+id/search_product"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginLeft="10dp"
-                 android:padding="3dp"
+                android:background="@null"
+                android:textSize="14dp"
                 android:layout_centerVertical="true"
-                android:text="搜索商品"
-                android:textColor="@color/white80" />
+                android:layout_marginLeft="10dp"
+                android:padding="3dp"
+                android:hint="搜索商品"
+                android:textColor="@color/sub_title_color"
+                android:textColorHint="@color/white80" />
         </RelativeLayout>
     </FrameLayout>
 
