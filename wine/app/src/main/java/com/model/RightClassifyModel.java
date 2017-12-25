@@ -14,7 +14,7 @@ public class RightClassifyModel implements Serializable {
     public List<Data> result;
 
     public static class Data implements Serializable {
-        public List<Products> products;
+        public List<Products> subClazzs;
         public String name;
 
         public String pic;
@@ -23,6 +23,7 @@ public class RightClassifyModel implements Serializable {
             public String name;
             public String image;
             public String guid;
+            public String pic;
         }
     }
 

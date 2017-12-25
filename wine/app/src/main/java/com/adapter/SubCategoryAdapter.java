@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.androidyuan.frame.cores.widget.FixChildHeightGridView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.RightClassifyModel;
 import com.utils.BaseViewHolder;
+import com.utils.Urls;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +45,9 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     @Override
     public void onBindViewHolder(SubCategoryAdapter.Holder holder, int position) {
         try {
-            //FrescoUtils.displayUrl(holder.img_1, "http://cdn.oudianyun.com/1485064331959_35.97432246863733_7eef16b3-ab2a-4274-866c-f59b5de83f22.jpg");
+            FrescoUtils.displayUrl(holder.img_1, Urls.getBaseUrl() + "/em/es_class/"+datalist.get(position).pic);
             holder.mTextView.setText(datalist.get(position).name);
-            ProductAdapter adapter = new ProductAdapter(context, datalist.get(position).products);
+            ProductAdapter adapter = new ProductAdapter(context, datalist.get(position).subClazzs);
             holder.mFixChildHeightGridView.setAdapter(adapter);
 
         } catch (Exception e) {

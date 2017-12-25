@@ -8,7 +8,6 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:layout_marginTop="10dp"
-        android:background="@color/c_ff690"
         android:id="@+id/img_1"
         android:layout_width="match_parent"
         android:layout_height="72dp" />
@@ -18,7 +17,7 @@
         android:id="@+id/textview_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@color/divider_color"
         android:textColor="@color/main_title_color"
         android:paddingBottom="5dp"
@@ -29,6 +28,7 @@
 
 
     <com.androidyuan.frame.cores.widget.FixChildHeightGridView
+        android:layout_marginTop="5dp"
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

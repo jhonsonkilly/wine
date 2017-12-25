@@ -44,7 +44,12 @@ public class ProductAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        if (list != null) {
+            return list.size();
+        } else {
+            return 0;
+        }
+
     }
 
     @Override
@@ -67,7 +72,7 @@ public class ProductAdapter extends BaseAdapter {
             img = (SimpleDraweeView) convertView.findViewById(R.id.img_1);
             textView = (TextView) convertView.findViewById(R.id.text_1);
 
-            FrescoUtils.displayUrl(img, Urls.getBaseUrl()+"/em/es_class/"+list.get(position).image);
+            FrescoUtils.displayUrl(img, Urls.getBaseUrl() + "/em/es_class/" + list.get(position).pic);
             textView.setText(list.get(position).name);
             img.setOnClickListener(new View.OnClickListener() {
                 @Override

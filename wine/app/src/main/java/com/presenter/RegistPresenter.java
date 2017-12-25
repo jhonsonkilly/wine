@@ -2,6 +2,7 @@ package com.presenter;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.widget.Toast;
 
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.iview.IRegistView;
@@ -100,6 +101,8 @@ public class RegistPresenter extends BaseCommPresenter<IRegistView> {
                   /*  LoginActivity act = (LoginActivity) getActivity();
                     act.showToast(msg.getMsg());*/
 
+            } else {
+                Toast.makeText(getActivity(), "注册失败", Toast.LENGTH_LONG).show();
             }
         }
     }

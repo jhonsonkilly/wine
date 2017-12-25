@@ -135,26 +135,32 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     protected void clickView(View v) {
         switch (v.getId()) {
             case R.id.img_dignwei:
-                locationManager.setLocationListener(new LocationManager.LocationListener() {
-                    @Override
-                    public void onLocationChanged(LocationManager.MapLocation location) {
-                        if (location != null) {
 
-                            //Toast.makeText(getContext(), location.address, Toast.LENGTH_LONG).show();
-                            if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-                                Intent intent = new Intent(getContext(), WebViewActivity.class);
-                                HashMap<String, String> map = new HashMap<>();
-                                map.put("currentLocation", URLEncoder.encode(location.address));
-                                intent.putExtra("parms", map);
-                                intent.putExtra("url", Urls.getBaseUrl() + "/eshop/managerAddress/changeAdress.html");
-                                startActivity(intent);
-                            } else {
-                                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                    locationManager.setLocationListener(new LocationManager.LocationListener() {
+                        @Override
+                        public void onLocationChanged(LocationManager.MapLocation location) {
+                            if (location != null) {
+
+                                //Toast.makeText(getContext(), location.address, Toast.LENGTH_LONG).show();
+                                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                                    HashMap<String, String> map = new HashMap<>();
+                                    map.put("currentLocation", URLEncoder.encode(location.address));
+                                    intent.putExtra("parms", map);
+                                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/managerAddress/changeAdress.html");
+                                    startActivity(intent);
+                                } else {
+                                    getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                                }
                             }
                         }
-                    }
-                }).setOnceLocation(true)
-                        .startLocation(getActivity());
+                    }).setOnceLocation(true)
+                            .startLocation(getActivity());
+                } else {
+                    getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                }
+
                 break;
             case R.id.img_scan:
 
@@ -232,7 +238,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         for (int i = 0; i < list.size(); i++) {
             View view = View.inflate(getContext(), R.layout.banner_item, null);
             SimpleDraweeView img1 = (SimpleDraweeView) view.findViewById(R.id.img_1);
-            FrescoUtils.displayUrl(img1, list.get(i).image);
+            FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "/em/es_carousel/" + list.get(i).image);
             mlist.add(view);
         }
         adapter = new BannerAdapter(mlist);

@@ -55,19 +55,7 @@ public class ClassifyFragment extends BaseCommFragment<ClassifyPresenter> implem
         mRightRecycleView = (RecyclerView) view.findViewById(R.id.subRv);
         mRightRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         search_product = view.findViewById(R.id.search_product);
-        search_product.setOnKeyListener(new View.OnKeyListener() {
 
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // 这两个条件必须同时成立，如果仅仅用了enter判断，就会执行两次
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    // 执行发送消息等操作
-                    getSearchText();
-                    return true;
-                }
-                return false;
-            }
-        });
 
     }
 

@@ -2,6 +2,7 @@ package com.presenter;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.widget.Toast;
 
 import com.activity.LoginActivity;
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
@@ -125,6 +126,8 @@ public class LoginPresenter extends BaseCommPresenter<ILoginView> {
                     LoginActivity act = (LoginActivity) getActivity();
                     act.showToast(msg.getMsg());
                 }
+            }else{
+                Toast.makeText(getActivity(), "登录失败", Toast.LENGTH_LONG).show();
             }
         }
     }
