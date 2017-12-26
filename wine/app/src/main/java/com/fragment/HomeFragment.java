@@ -238,7 +238,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         for (int i = 0; i < list.size(); i++) {
             View view = View.inflate(getContext(), R.layout.banner_item, null);
             SimpleDraweeView img1 = (SimpleDraweeView) view.findViewById(R.id.img_1);
-            FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "/em/es_carousel/" + list.get(i).image);
+            FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "/em/es_carousel/" + list.get(i).img);
             mlist.add(view);
         }
         adapter = new BannerAdapter(mlist);
