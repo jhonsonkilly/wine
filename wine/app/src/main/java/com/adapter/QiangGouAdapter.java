@@ -110,6 +110,8 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
                         Intent intent = new Intent(context, WebViewActivity.class);
                         HashMap<String, String> map = new HashMap<>();
                         map.put("productGuid", datalist.get(position).goods.proGuid);
+                        map.put("cost", datalist.get(position).goods.price);
+                        map.put("goodGuid", datalist.get(position).goods.guid);
                         intent.putExtra("parms", map);
                         intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
                         context.startActivity(intent);

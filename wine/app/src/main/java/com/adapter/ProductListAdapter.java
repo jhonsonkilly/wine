@@ -99,6 +99,8 @@ public class ProductListAdapter extends BaseAdapter {
                         Intent intent = new Intent(context, WebViewActivity.class);
                         HashMap<String, String> map = new HashMap<>();
                         map.put("productGuid", list.get(position).proGuid);
+                        map.put("cost", list.get(position).price);
+                        map.put("goodGuid", list.get(position).guid);
                         intent.putExtra("parms", map);
                         intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
                         context.startActivity(intent);

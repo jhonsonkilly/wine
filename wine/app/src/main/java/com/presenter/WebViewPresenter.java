@@ -87,7 +87,7 @@ public class WebViewPresenter extends BaseCommPresenter {
 
     public void callAliPay(final String response) {
 
-        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+        //EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
 
         AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
             @Override
