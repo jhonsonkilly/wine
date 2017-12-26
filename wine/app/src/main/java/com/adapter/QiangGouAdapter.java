@@ -18,12 +18,13 @@ import com.activity.WebViewActivity;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.model.MapWrapper;
 import com.model.QiangGouModel;
 import com.otto.OttoBus;
 import com.utils.BaseViewHolder;
 import com.utils.Urls;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import zjw.wine.R;
@@ -108,11 +109,12 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
                 public void onClick(View view) {
                     if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(context, "ut", ""))) {
                         Intent intent = new Intent(context, WebViewActivity.class);
-                        HashMap<String, String> map = new HashMap<>();
+                        LinkedHashMap<String, String> map = new LinkedHashMap<>();
                         map.put("productGuid", datalist.get(position).goods.proGuid);
+                        map.put("name", datalist.get(position).goods.name);
                         map.put("cost", datalist.get(position).goods.price);
                         map.put("goodGuid", datalist.get(position).goods.guid);
-                        intent.putExtra("parms", map);
+                        intent.putExtra("objetParms", new MapWrapper().setMap(map));
                         intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
                         context.startActivity(intent);
                     } else {

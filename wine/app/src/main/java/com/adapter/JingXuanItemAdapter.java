@@ -18,11 +18,12 @@ import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.model.JingXuanModel;
+import com.model.MapWrapper;
 import com.otto.OttoBus;
 import com.utils.BaseViewHolder;
 import com.utils.Urls;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import zjw.wine.R;
@@ -36,7 +37,6 @@ public class JingXuanItemAdapter extends RecyclerView.Adapter<JingXuanItemAdapte
     List<JingXuanModel.Data.Goods> list;
 
     Context context;
-
 
 
     public JingXuanItemAdapter(List<JingXuanModel.Data.Goods> list, Context context) {
@@ -56,14 +56,14 @@ public class JingXuanItemAdapter extends RecyclerView.Adapter<JingXuanItemAdapte
         try {
             holder.hor_text.setText(list.get(position).name.toString());
             holder.hor_price.setText("￥" + list.get(position).price.toString());
-            FrescoUtils.displayUrl(holder.hor_img, Urls.getBaseUrl()+"/em/es_pro/"+list.get(position).image);
+            FrescoUtils.displayUrl(holder.hor_img, Urls.getBaseUrl() + "/em/es_pro/" + list.get(position).image);
             holder.add_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
 
                     AddToCartEvent event = new AddToCartEvent();
-                    event.id=list.get(position).guid;
+                    event.id = list.get(position).guid;
                     OttoBus.getInstance().post(event);
                 }
             });
@@ -73,11 +73,14 @@ public class JingXuanItemAdapter extends RecyclerView.Adapter<JingXuanItemAdapte
                 public void onClick(View view) {
                     if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(context, "ut", ""))) {
                         Intent intent = new Intent(context, WebViewActivity.class);
-                        HashMap<String, String> map = new HashMap<>();
+                        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+
                         map.put("productGuid", list.get(position).proGuid);
+                        map.put("name", list.get(position).name);
                         map.put("cost", list.get(position).price);
                         map.put("goodGuid", list.get(position).guid);
-                        intent.putExtra("parms", map);
+
+                        intent.putExtra("objetParms", new MapWrapper().setMap(map));
                         intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
                         context.startActivity(intent);
                     } else {
@@ -119,7 +122,7 @@ public class JingXuanItemAdapter extends RecyclerView.Adapter<JingXuanItemAdapte
             hor_text = BaseViewHolder.get(convertView, R.id.jingxuan_text);
             hor_price = BaseViewHolder.get(convertView, R.id.jingxuan_price);
             add_img = BaseViewHolder.get(convertView, R.id.add_img);
-            relativeLayout=BaseViewHolder.get(convertView,R.id.lin_ll);
+            relativeLayout = BaseViewHolder.get(convertView, R.id.lin_ll);
 
 
         }

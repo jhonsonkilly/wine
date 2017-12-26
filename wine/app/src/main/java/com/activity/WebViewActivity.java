@@ -1,17 +1,12 @@
 package com.activity;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.ClipData;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
 import android.view.View;
 
 import com.Event.PayEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.androidyuan.frame.cores.log.CommonLogger;
+import com.model.MapWrapper;
 import com.otto.OttoBus;
 import com.otto.Subscribe;
 import com.presenter.WebViewPresenter;
@@ -37,6 +32,8 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
     private String url;
     private HashMap<String, String> parms;
 
+    private MapWrapper mapWrapper;
+
     private CommonLogger mCommonLogger = CommonLogger.buildLogger(this);
 
     @Override
@@ -48,11 +45,17 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
     protected void initAllWidget() {
         qmWebview = (H5InputWebView) findViewById(R.id.webview);
         url = getIntent().getStringExtra("url");
+
         parms = (HashMap<String, String>) getIntent().getSerializableExtra("parms");
+
+        mapWrapper = (MapWrapper) getIntent().getSerializableExtra("objetParms");
 
 
         if (parms != null) {
             qmWebview.putExParams(parms);
+        }
+        if (mapWrapper != null) {
+            qmWebview.putExParams(mapWrapper.getMap());
         }
         qmWebview.loadUrl(url);
 
