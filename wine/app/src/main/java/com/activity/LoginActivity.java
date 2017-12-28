@@ -68,6 +68,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
         if (v.getId() == R.id.zhuce_text) {
 
             startActivity(new Intent(this, RegisterActivity.class));
+            finish();
         }
     }
 

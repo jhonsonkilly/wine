@@ -8,6 +8,8 @@ import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.iview.IRegistView;
 import com.msg.DelYanZhenReqMsg;
 import com.msg.DelYanZhenResMsg;
+import com.msg.PersonalReqMsg;
+import com.msg.PersonalResMsg;
 import com.msg.RegistReqMsg;
 import com.msg.RegistResMsg;
 import com.msg.YanZhenReqMsg;
@@ -33,6 +35,8 @@ public class RegistPresenter extends BaseCommPresenter<IRegistView> {
 
     private static final int RES_REGIST_MES = 0x1224;
 
+    private static final int RES_PERSONAL_MES = 0x1225;
+
     @Override
     public void initData(Bundle saveInstnce) {
 
@@ -45,6 +49,7 @@ public class RegistPresenter extends BaseCommPresenter<IRegistView> {
             case RES_YANZHEN_MES:
             case RES_DEL_MES:
             case RES_REGIST_MES:
+            case RES_PERSONAL_MES:
                 if (msg.obj != null) {
 
                     handleResult(msg.obj);
@@ -74,6 +79,12 @@ public class RegistPresenter extends BaseCommPresenter<IRegistView> {
         sendHttpPostJson(req, res);
     }
 
+    public void getPersonalMes() {
+        PersonalReqMsg req = new PersonalReqMsg();
+        PersonalResMsg res = new PersonalResMsg(RES_PERSONAL_MES);
+        sendHttpGet(req, res);
+    }
+
     public void handleResult(Object res) {
 
         if (res instanceof YanZhenResMsg) {
@@ -96,13 +107,24 @@ public class RegistPresenter extends BaseCommPresenter<IRegistView> {
             RegistResMsg msg = (RegistResMsg) res;
             if (msg.isSuc()) {
 
-                iView.showRegist(msg.getMsg());
-
+                //iView.showRegist(msg.getData().result);
+                iView.showRegist(msg.getData().result.token);
                   /*  LoginActivity act = (LoginActivity) getActivity();
                     act.showToast(msg.getMsg());*/
-
+                Toast.makeText(getActivity(), "注册成功", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getActivity(), "注册失败", Toast.LENGTH_LONG).show();
+            }
+        }
+        if (res instanceof PersonalResMsg) {
+            PersonalResMsg msg = (PersonalResMsg) res;
+            if (msg.isSuc()) {
+
+                iView.showPersonal(msg.getData().result);
+
+            } else {
+
+                iView.showPersonal(null);
             }
         }
     }

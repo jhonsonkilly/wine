@@ -1,13 +1,14 @@
 package com.activity;
 
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.androidyuan.frame.base.activity.BaseCommActivity;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.iview.IRegistView;
+import com.model.PersonalModel;
 import com.presenter.RegistPresenter;
 import com.widget.CountDownTextView;
 import com.widget.ToolBar;
@@ -97,10 +98,30 @@ public class RegisterActivity extends BaseCommActivity<RegistPresenter> implemen
     }
 
     @Override
-    public void showRegist(String mes) {
-        Toast.makeText(this, mes, Toast.LENGTH_LONG).show();
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
+    public void showRegist(String token) {
+        // Toast.makeText(this, mes, Toast.LENGTH_LONG).show();
+        // startActivity(new Intent(this, LoginActivity.class));
+        SharedPreferencesUtil.saveStringData(this, "ut", token);
+        presenter.getPersonalMes();
+        
+    }
+
+    @Override
+    public void showPersonal(PersonalModel.PersonalResult model) {
+        if (model != null) {
+
+            SharedPreferencesUtil.saveStringData(this, "uid", model.guid);
+            SharedPreferencesUtil.saveStringData(this, "img", model.img);
+            SharedPreferencesUtil.saveStringData(this, "nick", model.nick);
+            finish();
+
+
+        } else {
+
+            Toast.makeText(this, "个人信息获取失败", Toast.LENGTH_LONG).show();
+            finish();
+
+        }
     }
 
     public boolean vertifyMes(boolean isNeedYan) {

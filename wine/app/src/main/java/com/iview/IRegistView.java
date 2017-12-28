@@ -1,6 +1,7 @@
 package com.iview;
 
 import com.androidyuan.frame.base.view.IBaseCommView;
+import com.model.PersonalModel;
 
 /**
  * <p>Copyright:Copyright(c) 2016</p>
@@ -16,5 +17,7 @@ public interface IRegistView extends IBaseCommView {
     void showResult(String result);
 
     void showRegist(String mes);
+
+    void showPersonal(PersonalModel.PersonalResult result);
 
 }

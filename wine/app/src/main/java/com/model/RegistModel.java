@@ -16,9 +16,9 @@ public class RegistModel implements Serializable {
     public String code;
 
     public String message;
-    public RegistModel.Result result;
+    public Result result;
 
     public static class Result implements Serializable {
-        public String id;
+        public String token;
     }
 }
