@@ -24,6 +24,7 @@ public class PersonalModel implements Serializable {
         public int grade;
         public String nick;
         public String phone;
+        public String sex;
 
 
     }

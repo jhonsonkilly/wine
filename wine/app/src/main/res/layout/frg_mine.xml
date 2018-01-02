@@ -5,8 +5,8 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,23 +29,40 @@
 
             <ImageView
 
+                android:id="@+id/setting"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:id="@+id/setting"
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@+id/img_03"
                 android:src="@mipmap/w0_06" />
 
-            <com.facebook.drawee.view.SimpleDraweeView
+            <RelativeLayout
+                android:id="@+id/circle_rl"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_below="@+id/img_03">
 
-                android:id="@+id/circle"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_below="@+id/img_03"
-                android:layout_marginLeft="20dp"
-                fresco:actualImageScaleType="centerInside"
-                fresco:roundAsCircle="true"
-                fresco:roundingBorderWidth="1dp"></com.facebook.drawee.view.SimpleDraweeView>
+                <com.facebook.drawee.view.SimpleDraweeView
+
+                    android:id="@+id/circle"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+
+                    android:layout_marginLeft="20dp"
+                    fresco:actualImageScaleType="centerInside"
+                    fresco:roundAsCircle="true"
+                    fresco:roundingBorderWidth="1dp" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/circle_small"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="40dp"
+                    fresco:actualImageScaleType="centerInside"
+                    fresco:roundAsCircle="true"
+                    fresco:roundingBorderWidth="1dp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/name"
@@ -54,7 +71,7 @@
                 android:layout_below="@+id/img_03"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="7dp"
-                android:layout_toRightOf="@id/circle"
+                android:layout_toRightOf="@id/circle_rl"
                 android:text=""
                 android:textColor="@color/theme_color" />
 
@@ -64,8 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/img_03"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/name"
-               />
+                android:layout_toRightOf="@+id/name" />
 
 
         </RelativeLayout>
@@ -96,9 +112,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
 
+                    android:layout_marginBottom="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
                     android:drawablePadding="10dp"
                     android:drawableRight="@mipmap/w0_37"
                     android:text="全部订单"

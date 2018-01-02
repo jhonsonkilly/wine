@@ -59,6 +59,8 @@
     </LinearLayout>
 
     <ScrollView
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="200dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/home_top"

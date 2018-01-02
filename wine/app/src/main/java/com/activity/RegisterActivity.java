@@ -103,7 +103,7 @@ public class RegisterActivity extends BaseCommActivity<RegistPresenter> implemen
         // startActivity(new Intent(this, LoginActivity.class));
         SharedPreferencesUtil.saveStringData(this, "ut", token);
         presenter.getPersonalMes();
-        
+
     }
 
     @Override

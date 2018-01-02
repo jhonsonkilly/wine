@@ -29,7 +29,7 @@ import zjw.wine.R;
 
 public class MineFragment extends BaseCommFragment<MinePresenter> implements View.OnClickListener, IMineView {
 
-    private SimpleDraweeView circle;
+    private SimpleDraweeView circle, circle_small;
     private TextView name_text;
     private ImageView mHunyuanImg;
     private TextView mine_juibi;
@@ -44,7 +44,9 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
         view.findViewById(R.id.img_03).setOnClickListener(this);
         circle = (SimpleDraweeView) view.findViewById(R.id.circle);
+        circle_small = view.findViewById(R.id.circle_small);
         circle.setOnClickListener(this);
+        circle_small.setOnClickListener(this);
         mHunyuanImg = (ImageView) view.findViewById(R.id.huiyuan);
         mHunyuanImg.setOnClickListener(this);
         name_text = (TextView) view.findViewById(R.id.name);
@@ -317,14 +319,18 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
         if (TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
 
             FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.nologin);
+
             mHunyuanImg.setVisibility(View.GONE);
             name_text.setVisibility(View.GONE);
 
+            circle_small.setVisibility(View.GONE);
         } else {
 
             mHunyuanImg.setVisibility(View.VISIBLE);
             name_text.setVisibility(View.VISIBLE);
+            circle_small.setVisibility(View.VISIBLE);
             presenter.getPersonalMes();
+
         }
 
 
@@ -347,6 +353,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             }
 
             mine_juibi.setText(model.wine);
+            FrescoUtils.displayUrl(circle_small, "res:///" + R.mipmap.nan);
             if (model.grade >= 0 && model.grade <= 499) {
                 mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_03));
             } else if (model.grade >= 500 && model.grade <= 999) {
