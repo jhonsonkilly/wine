@@ -14,11 +14,13 @@ import com.activity.WebViewActivity;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.model.MapWrapper;
 import com.model.RightClassifyModel;
 import com.utils.Urls;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import zjw.wine.R;
@@ -79,16 +81,13 @@ public class ProductAdapter extends BaseAdapter {
                 public void onClick(View view) {
                     if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(context, "ut", ""))) {
                         Intent intent = new Intent(context, WebViewActivity.class);
-                        HashMap<String, String> map = new HashMap<>();
+                        LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
                         map.put("productGuid", list.get(position).guid);
 
-                        if (TextUtils.isEmpty(list.get(position).name)) {
-                            map.put("productName", "noParam");
-                        } else {
-                            map.put("productName", list.get(position).name);
-                        }
-                        intent.putExtra("parms", map);
+                        map.put("productName", "noParam");
+
+                        intent.putExtra("objetParms", new MapWrapper().setMap(map));
                         intent.putExtra("url", Urls.getBaseUrl() + "/eshop/classification/neiye.html");
                         context.startActivity(intent);
                     } else {

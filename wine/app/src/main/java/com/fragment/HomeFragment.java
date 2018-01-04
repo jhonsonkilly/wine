@@ -29,6 +29,7 @@ import com.iview.IHomeView;
 import com.model.BannerModel;
 import com.model.HorlistModel;
 import com.model.JingXuanModel;
+import com.model.MapWrapper;
 import com.model.ProductModel;
 import com.model.QiangGouModel;
 import com.otto.OttoBus;
@@ -42,6 +43,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import rx.functions.Action1;
@@ -303,13 +305,13 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
     public void getSearchText() {
         Intent intent = new Intent(getContext(), WebViewActivity.class);
-        HashMap<String, String> map = new HashMap<>();
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
         map.put("productGuid", "noParam");
 
         map.put("productName", search_product.getText().toString());
 
-        intent.putExtra("parms", map);
+        intent.putExtra("objetParms", new MapWrapper().setMap(map));
         intent.putExtra("url", Urls.getBaseUrl() + "/eshop/classification/neiye.html");
         this.startActivity(intent);
     }
