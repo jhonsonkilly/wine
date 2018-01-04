@@ -1,6 +1,7 @@
 package com.fragment;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -78,6 +79,11 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     private JingXuanAdapter jingXuanAdapter;
     private EditText search_product;
     private static final int HOME = 1;
+
+
+    private Handler mHandler = new Handler();
+    private static final int TIME = 2500;
+    private int itemPosition;
 
     @Override
     protected int getLayoutId() {
@@ -243,11 +249,29 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
             FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "/em/es_carousel/" + list.get(i).img);
             mlist.add(view);
         }
+
         adapter = new BannerAdapter(mlist);
 
         pager.setAdapter(adapter);
+
         indicator.setViewPager(pager);
+
+        mHandler.postDelayed(runnableForViewPager, TIME);
+
     }
+
+    Runnable runnableForViewPager = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                itemPosition++;
+                mHandler.postDelayed(this, TIME);
+                pager.setCurrentItem(itemPosition % mlist.size());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     @Override
     public void showHorList(List<HorlistModel.HorData> list) {

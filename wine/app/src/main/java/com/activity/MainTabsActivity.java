@@ -4,12 +4,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.Event.GoHomeEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
@@ -229,6 +231,26 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
         switchFragment(oldFragment, fragmentHome);
         newFragment = fragmentHome;
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        exitApp();
+    }
+
+    long[] mHits = new long[2];
+
+    //定义一个所需的数组
+    private void exitApp() {
+//         数组向左移位操作
+        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+        if (mHits[0] >= (SystemClock.uptimeMillis() - 2000)) {// 2000代表设定的间隔时间
+            finish();
+        } else {
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
