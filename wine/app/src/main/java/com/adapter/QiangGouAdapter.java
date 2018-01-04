@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -84,7 +85,7 @@ public class QiangGouAdapter extends RecyclerView.Adapter<QiangGouAdapter.Holder
                     holder.counttime3.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            notifyDataSetChanged();
+                            //notifyDataSetChanged();
                         }
                     }, 200);
 

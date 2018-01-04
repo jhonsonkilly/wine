@@ -117,7 +117,7 @@ public abstract class QMWebview extends WebView {
                     }
                     return true;
                 }
-                if (url.contains("homePage.html") || url.contains("myself")) {
+                if (url.contains("homePage.html") || url.contains("myself.html")) {
                     try {
 
                         ((Activity) context).finish();

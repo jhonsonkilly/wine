@@ -351,9 +351,14 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             } else {
                 name_text.setText(model.nick);
             }
+            if (model.isMale()) {
+                FrescoUtils.displayUrl(circle_small, "res:///" + R.mipmap.nan);
+            } else {
+                FrescoUtils.displayUrl(circle_small, "res:///" + R.mipmap.nv);
+            }
 
             mine_juibi.setText(model.wine);
-            FrescoUtils.displayUrl(circle_small, "res:///" + R.mipmap.nan);
+
             if (model.grade >= 0 && model.grade <= 499) {
                 mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_03));
             } else if (model.grade >= 500 && model.grade <= 999) {

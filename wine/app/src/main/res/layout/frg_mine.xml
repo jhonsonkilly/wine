@@ -38,15 +38,15 @@
 
             <RelativeLayout
                 android:id="@+id/circle_rl"
-                android:layout_width="62dp"
-                android:layout_height="62dp"
+                android:layout_width="77dp"
+                android:layout_height="77dp"
                 android:layout_below="@+id/img_03">
 
                 <com.facebook.drawee.view.SimpleDraweeView
 
                     android:id="@+id/circle"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
 
                     android:layout_marginLeft="20dp"
                     fresco:actualImageScaleType="centerInside"
@@ -55,10 +55,11 @@
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/circle_small"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="48dp"
+
                     fresco:actualImageScaleType="centerInside"
                     fresco:roundAsCircle="true"
                     fresco:roundingBorderWidth="1dp" />
