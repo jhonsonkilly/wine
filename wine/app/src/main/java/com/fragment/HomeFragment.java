@@ -155,7 +155,8 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                                     Intent intent = new Intent(getContext(), WebViewActivity.class);
                                     LinkedHashMap<String, String> map = new LinkedHashMap<>();
                                     map.put("currentLocation", URLEncoder.encode(location.address));
-                                    map.put("coordinate", location.x + "-" + location.y);
+                                    map.put("lng", location.x);
+                                    map.put("lat", location.y);
                                     intent.putExtra("objetParms", new MapWrapper().setMap(map));
                                     intent.putExtra("url", Urls.getBaseUrl() + "/eshop/managerAddress/changeAdress.html");
                                     startActivity(intent);

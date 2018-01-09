@@ -106,6 +106,8 @@ public abstract class QMWebview extends WebView {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.indexOf("quanmin://") == 0) {
+
+
                     try {
 
                         Uri uri = Uri.parse(url);
