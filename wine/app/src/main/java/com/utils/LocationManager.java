@@ -31,10 +31,12 @@ public class LocationManager {
         public void onLocationChanged(AMapLocation aMapLocation) {
             if (listener != null) {
                 MapLocation location = new MapLocation();
+                location.x = aMapLocation.getLongitude() + "";
+                location.y = aMapLocation.getLatitude() + "";
                 location.province = aMapLocation.getProvince();
                 location.city = aMapLocation.getCity();
                 location.district = aMapLocation.getDistrict();
-                location.address=aMapLocation.getAddress();
+                location.address = aMapLocation.getAddress();
                 location.lan = aMapLocation.getLatitude();
                 location.lon = aMapLocation.getLongitude();
                 listener.onLocationChanged(location);
@@ -49,8 +51,6 @@ public class LocationManager {
         //设置定位回调监听
         mLocationClient.setLocationListener(mLocationListener);
     }
-
-
 
 
     public LocationManager setOnceLocation(boolean isOnce) {
@@ -74,12 +74,10 @@ public class LocationManager {
                             mLocationClient.startLocation();
                         } else {
 
-                            Toast.makeText(activity,"为了更好的使用体验，请开启定位权限!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(activity, "为了更好的使用体验，请开启定位权限!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-
-
 
 
     }
@@ -106,5 +104,7 @@ public class LocationManager {
         public double lan;
         public double lon;
         public String address;
+        public String x;
+        public String y;
     }
 }

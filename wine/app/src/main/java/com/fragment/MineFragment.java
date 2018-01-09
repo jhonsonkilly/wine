@@ -249,7 +249,10 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 break;
             case R.id.mine_yaoqing:
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-
+                    
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myInvited/wdyq.html");
+                    startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
@@ -352,9 +355,9 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 name_text.setText(model.nick);
             }
 
-            if(TextUtils.isEmpty(model.wine)){
+            if (TextUtils.isEmpty(model.wine)) {
                 mine_juibi.setText("0");
-            }else{
+            } else {
                 mine_juibi.setText(model.wine);
             }
 

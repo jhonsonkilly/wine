@@ -153,9 +153,10 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                                 //Toast.makeText(getContext(), location.address, Toast.LENGTH_LONG).show();
                                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                                     Intent intent = new Intent(getContext(), WebViewActivity.class);
-                                    HashMap<String, String> map = new HashMap<>();
+                                    LinkedHashMap<String, String> map = new LinkedHashMap<>();
                                     map.put("currentLocation", URLEncoder.encode(location.address));
-                                    intent.putExtra("parms", map);
+                                    map.put("coordinate", location.x + "-" + location.y);
+                                    intent.putExtra("objetParms", new MapWrapper().setMap(map));
                                     intent.putExtra("url", Urls.getBaseUrl() + "/eshop/managerAddress/changeAdress.html");
                                     startActivity(intent);
                                 } else {
