@@ -92,7 +92,12 @@ public class ProductListAdapter extends BaseAdapter {
             FrescoUtils.displayUrl(img, Urls.getBaseUrl() + "/em/es_pro/" + list.get(position).image);
             textView.setText(list.get(position).name);
             textPrice.setText("￥ " + list.get(position).price);
-            saleText.setText("销量:  " + list.get(position).salenum);
+            if (TextUtils.isEmpty(list.get(position).salenum)) {
+                saleText.setText("销量:  " + 0);
+            } else {
+                saleText.setText("销量:  " + list.get(position).salenum);
+            }
+
             pro_rl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
