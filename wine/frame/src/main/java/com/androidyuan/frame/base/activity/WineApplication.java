@@ -31,5 +31,8 @@ public class WineApplication extends Application {
         //SharedPreferencesUtil.saveStringData(this, "ut", "abc");
 
 
+
     }
+
+
 }

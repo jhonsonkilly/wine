@@ -145,9 +145,6 @@ public class UiUtils {
      */
 
 
-
-
-
     /**
      * 字符大小 "¥"符号跟小数点后两位缩小
      * @param context
@@ -163,6 +160,7 @@ public class UiUtils {
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     *
      * @param context
      * @param dpValue
      * @return
@@ -171,8 +169,6 @@ public class UiUtils {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-
-
 
 
     /**
@@ -233,8 +229,7 @@ public class UiUtils {
             return;
         }
         view.setBackgroundResource(R.drawable.radius_theme_7);
-//        view.setTextSize(PxUtils.pxTodip(24));这个不好用
-//        view.setTextSize(R.dimen.textsize_12sp);
+        view.setTextSize(PxUtils.pxTodip(24));
 
         view.setGravity(Gravity.CENTER);
         view.setPadding(PxUtils.dipTopx(2), 0, PxUtils.dipTopx(2), 0);
@@ -244,16 +239,16 @@ public class UiUtils {
         if (number > 0) {
             if (number > 99) {
                 view.setText(R.string.othermore);
-//                para.width = PxUtils.dipTopx(20);
+                para.width = PxUtils.dipTopx(20);
             } else {
                 view.setText(number + "");
                 if (number > 9) {
-//                    para.width = PxUtils.dipTopx(16);
+                    para.width = PxUtils.dipTopx(16);
                     if (type == 1) {//消息类最大为9+
                         view.setText("9+");
                     }
                 } else {
-//                    para.width = PxUtils.dipTopx(14);
+                    para.width = PxUtils.dipTopx(14);
                 }
             }
             view.setVisibility(View.VISIBLE);

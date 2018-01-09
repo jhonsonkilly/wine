@@ -20,5 +20,5 @@ public interface ICartListView extends IBaseCommView {
 
     void showMes(String id,int type);
 
-    void delateGoods(int type);
+    void delateGoods(String number,int type);
 }

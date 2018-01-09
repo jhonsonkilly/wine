@@ -142,7 +142,7 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
         if (res instanceof AddtoCartResMsg) {
             AddtoCartResMsg msg = (AddtoCartResMsg) res;
             if(msg.isSuc()){
-                iView.showMes(msg.getMsg());
+                iView.showMes(msg.getMsg(),msg.getData().result);
             }
 
 

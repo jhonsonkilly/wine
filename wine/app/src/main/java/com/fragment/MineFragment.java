@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.Event.AddToCartNumberEvent;
 import com.activity.LoginActivity;
 import com.activity.SettingActivity;
 import com.activity.WebViewActivity;
@@ -15,6 +16,7 @@ import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.iview.IMineView;
 import com.model.PersonalModel;
+import com.otto.OttoBus;
 import com.presenter.MinePresenter;
 import com.utils.Urls;
 
@@ -31,8 +33,9 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
     private SimpleDraweeView circle, circle_small;
     private TextView name_text;
-    private ImageView mHunyuanImg;
+    private SimpleDraweeView mHunyuanImg;
     private TextView mine_juibi;
+    private TextView text_exp;
 
     @Override
     protected int getLayoutId() {
@@ -47,8 +50,9 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
         circle_small = view.findViewById(R.id.circle_small);
         circle.setOnClickListener(this);
         circle_small.setOnClickListener(this);
-        mHunyuanImg = (ImageView) view.findViewById(R.id.huiyuan);
+        mHunyuanImg = view.findViewById(R.id.huiyuan);
         mHunyuanImg.setOnClickListener(this);
+        text_exp = view.findViewById(R.id.text_exp);
         name_text = (TextView) view.findViewById(R.id.name);
         name_text.setOnClickListener(this);
         view.findViewById(R.id.setting).setOnClickListener(this);
@@ -249,7 +253,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 break;
             case R.id.mine_yaoqing:
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-                    
+
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
                     intent.putExtra("url", Urls.getBaseUrl() + "/eshop/myInvited/wdyq.html");
                     startActivity(intent);
@@ -327,11 +331,13 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             name_text.setVisibility(View.GONE);
 
             circle_small.setVisibility(View.GONE);
+            text_exp.setVisibility(View.GONE);
         } else {
 
             mHunyuanImg.setVisibility(View.VISIBLE);
             name_text.setVisibility(View.VISIBLE);
             circle_small.setVisibility(View.VISIBLE);
+            text_exp.setVisibility(View.VISIBLE);
             presenter.getPersonalMes();
 
         }
@@ -343,6 +349,8 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
     @Override
     public void setData(PersonalModel.PersonalResult model) {
         if (model != null) {
+
+
             if (TextUtils.isEmpty(model.img)) {
                 FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.login);
             } else {
@@ -368,19 +376,11 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             }
 
 
-            if (model.grade >= 0 && model.grade <= 499) {
-                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_03));
-            } else if (model.grade >= 500 && model.grade <= 999) {
-                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_06));
-            } else if (model.grade >= 1000 && model.grade <= 4999) {
-                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_08));
-            } else if (model.grade >= 5000 && model.grade <= 9999) {
-                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_10));
-            } else if (model.grade >= 10000 && model.grade <= 49999) {
-                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_12));
-            } else if (model.grade >= 50000) {
-                mHunyuanImg.setImageDrawable(this.getResources().getDrawable(R.mipmap.jf_14));
-            }
+            FrescoUtils.displayUrl(mHunyuanImg, Urls.getBaseUrl() + "/em/es_grade/" + model.gradeInfo.levelIcon);
+
+            text_exp.setText(model.evalue + "/" + (model.gradeInfo.right - model.gradeInfo.left) + "");
+
+
         }
 
     }

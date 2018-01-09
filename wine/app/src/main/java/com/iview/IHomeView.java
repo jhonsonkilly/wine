@@ -25,5 +25,5 @@ public interface IHomeView extends IBaseCommView {
 
     void showProductList(List<ProductModel.Result> list);
 
-    void showMes(String id);
+    void showMes(String id,String number);
 }

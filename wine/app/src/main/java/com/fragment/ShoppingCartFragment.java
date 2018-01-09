@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Event.AddToCartNumberEvent;
 import com.Event.GoHomeEvent;
 import com.activity.LoginActivity;
 import com.activity.WebViewActivity;
@@ -253,8 +254,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     }
 
     @Override
-    public void delateGoods(int type) {
-        //全不选
+    public void delateGoods(String number, int type) {
         if (type == TYPE5) {
             //unselectBean.setChoose(false);
             //presenter.getCartList();
@@ -267,6 +267,9 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                 if (x.isChoose()) {
 
                     it.remove();
+                    AddToCartNumberEvent event = new AddToCartNumberEvent();
+                    event.result = number;
+                    OttoBus.getInstance().post(event);
                 }
             }
             if (shoppingCartBeanList.size() == 0) {
@@ -292,9 +295,13 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         if (type == TYPE6) {
             Toast.makeText(getContext(), "删除成功", Toast.LENGTH_LONG).show();
             shoppingCartAdapter.notifyDataSetChanged();
+            AddToCartNumberEvent event = new AddToCartNumberEvent();
+            event.result = number;
+            OttoBus.getInstance().post(event);
         }
-
     }
+
+
 
     @Override
     public void checkGroup(int position, boolean isChecked) {

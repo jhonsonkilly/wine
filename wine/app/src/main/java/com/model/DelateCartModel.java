@@ -14,4 +14,5 @@ import java.io.Serializable;
 public class DelateCartModel implements Serializable {
     public String code;
     public String message;
+    public String result;
 }

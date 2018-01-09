@@ -6,10 +6,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.Event.AddToCartNumberEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.iview.ILoginView;
 import com.model.PersonalModel;
+import com.otto.OttoBus;
 import com.presenter.LoginPresenter;
 import com.widget.CountDownTextView;
 import com.widget.ToolBar;
@@ -116,6 +118,9 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
             SharedPreferencesUtil.saveStringData(this, "uid", model.guid);
             SharedPreferencesUtil.saveStringData(this, "img", model.img);
             SharedPreferencesUtil.saveStringData(this, "nick", model.nick);
+            AddToCartNumberEvent event = new AddToCartNumberEvent();
+            event.result = model.cartItemCount;
+            OttoBus.getInstance().post(event);
             finish();
 
 

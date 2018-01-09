@@ -93,7 +93,7 @@ public class ShoppingCartPresenter extends BaseCommPresenter<ICartListView> {
         if (res instanceof DelateResMsg) {
             DelateResMsg msg = (DelateResMsg) res;
             if(msg.isSuc()){
-                iView.delateGoods(type);
+                iView.delateGoods(msg.getData().result,type);
             }
 
         }

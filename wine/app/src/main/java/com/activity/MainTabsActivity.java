@@ -7,22 +7,29 @@ import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Event.AddToCartNumberEvent;
 import com.Event.GoHomeEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
+import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.fragment.ClassifyFragment;
 import com.fragment.HomeFragment;
 import com.fragment.MineFragment;
 import com.fragment.ServiceFragment;
 import com.fragment.ShoppingCartFragment;
+import com.iview.IMainTabsView;
+import com.model.PersonalModel;
 import com.otto.OttoBus;
 import com.otto.Subscribe;
 import com.presenter.MainTabsPresenter;
+import com.utils.Urls;
+import com.viewpagerindicator.TabPageIndicator;
 import com.widget.TabChooser;
 import com.widget.TabChooserBean;
 import com.widget.TabSelectListener;
@@ -37,7 +44,7 @@ import zjw.wine.R;
  * Created by mac on 2017/10/16.
  */
 
-public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
+public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implements IMainTabsView {
 
     public static final int HOME_FRAGMENT = 0;
     public static final int CLASS_FRAGMENT = 1;
@@ -136,10 +143,23 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
         addFragment(newFragment);
         tab_bar.setTabList(list);
         findViewById(R.id.img_kefu).setOnClickListener(this);
+        //请求购物车数量
 
         OttoBus.getInstance().register(this);
 
+        if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(this, "ut", ""))) {
 
+            presenter.getPersonalMes();
+        }
+
+
+    }
+
+    @Override
+    public void setData(PersonalModel.PersonalResult model) {
+        AddToCartNumberEvent event = new AddToCartNumberEvent();
+        event.result = model.cartItemCount;
+        OttoBus.getInstance().post(event);
     }
 
     public void switchFragment(Fragment from, Fragment to) {
@@ -233,6 +253,12 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
 
     }
 
+    @Subscribe
+    public void getNumber(AddToCartNumberEvent event) {
+
+        tab_bar.showDot(3, true, Integer.parseInt(event.result));
+    }
+
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
@@ -272,4 +298,6 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> {
         }
         return super.dispatchKeyEvent(event);
     }
+
+
 }

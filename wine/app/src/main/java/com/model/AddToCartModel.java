@@ -9,4 +9,5 @@ import java.io.Serializable;
 public class AddToCartModel implements Serializable {
     public String code;
     public String message;
+    public String result;
 }

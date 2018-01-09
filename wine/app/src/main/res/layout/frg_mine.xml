@@ -76,13 +76,38 @@
                 android:text=""
                 android:textColor="@color/theme_color" />
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
+
                 android:id="@+id/huiyuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
                 android:layout_below="@+id/img_03"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/name" />
+
+            <ProgressBar
+
+                android:id="@+id/progress_bar"
+                android:layout_width="100dp"
+                android:layout_height="8dp"
+                android:layout_alignLeft="@id/name"
+                android:layout_below="@+id/huiyuan"
+
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/progress_bar_drawable"
+                android:layout_marginTop="25dp" />
+
+            <TextView
+                android:id="@+id/text_exp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/huiyuan"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/progress_bar"
+                android:textColor="@color/theme_color" />
 
 
         </RelativeLayout>

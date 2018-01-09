@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.Event.AddToCartEvent;
+import com.Event.AddToCartNumberEvent;
 import com.activity.LoginActivity;
 import com.activity.MainTabsActivity;
 import com.activity.SweepActivity;
@@ -40,6 +41,7 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 import com.utils.LocationManager;
 import com.utils.Urls;
 import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.TabPageIndicator;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -178,7 +180,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                 RxPermissions rxPermissions = new RxPermissions(getActivity());
                 rxPermissions.request(
                         //mTODO:meiyizhi 定位需要的权限
-                        android.Manifest.permission.CAMERA, android.Manifest.permission.READ_PHONE_STATE)
+                        android.Manifest.permission.CAMERA)
                         .subscribe(new Action1<Boolean>() {
                             @Override
                             public void call(Boolean granted) {
@@ -305,19 +307,19 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
 
     @Override
-    public void showMes(String mes) {
-        Toast.makeText(getContext(), mes, Toast.LENGTH_LONG).show();
-
-
-    }
-
-
-    @Override
     public void showProductList(List<ProductModel.Result> list) {
         productAdapter = new ProductListAdapter(getContext(), list);
         productListView.setAdapter(productAdapter);
 
 
+    }
+
+    @Override
+    public void showMes(String mes, String number) {
+        Toast.makeText(getContext(), mes, Toast.LENGTH_LONG).show();
+        AddToCartNumberEvent event = new AddToCartNumberEvent();
+        event.result = number;
+        OttoBus.getInstance().post(event);
     }
 
     @Subscribe
@@ -328,6 +330,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
             getContext().startActivity(new Intent(getContext(), LoginActivity.class));
         }
     }
+
 
     public void getSearchText() {
         Intent intent = new Intent(getContext(), WebViewActivity.class);

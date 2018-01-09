@@ -50,9 +50,10 @@
         android:background="@drawable/radius_theme_7"
         android:gravity="center"
         android:maxLength="3"
-        android:text="99+"
+
+        android:text="20"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
 </RelativeLayout>

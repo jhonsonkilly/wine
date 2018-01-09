@@ -25,6 +25,15 @@ public class PersonalModel implements Serializable {
         public String nick;
         public String phone;
         public int sex;
+        public String cartItemCount;
+        public GradeInfo gradeInfo;
+        public int evalue;
+
+        public static class GradeInfo {
+            public String levelIcon;
+            public int left;
+            public int right;
+        }
 
         public boolean isMale() {
             return sex == 1 ? true : false;
