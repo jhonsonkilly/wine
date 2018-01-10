@@ -17,6 +17,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.Event.GoHomeEvent;
+import com.Event.GoShoppingCartEvent;
 import com.Event.PayEvent;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.otto.OttoBus;
@@ -122,6 +124,15 @@ public abstract class QMWebview extends WebView {
                 if (url.contains("homePage.html") || url.contains("myself.html")) {
                     try {
 
+                        ((Activity) context).finish();
+                    } catch (Exception ex) {
+
+                    }
+                    return true;
+                }
+                if (url.contains("gotoCart.html")) {
+                    try {
+                        OttoBus.getInstance().post(new GoShoppingCartEvent());
                         ((Activity) context).finish();
                     } catch (Exception ex) {
 
