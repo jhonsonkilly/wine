@@ -57,20 +57,18 @@
 
     <application
         android:name="com.androidyuan.frame.base.activity.WineApplication"
-
         android:icon="@mipmap/ic_launch"
         android:label="@string/app_name"
+        android:windowSoftInputMode="adjustResize|stateHidden"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/WineTheme">
         <activity
             android:name="com.activity.MainTabsActivity"
-
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity

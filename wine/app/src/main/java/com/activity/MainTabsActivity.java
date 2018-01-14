@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.Event.AddToCartNumberEvent;
 import com.Event.GoHomeEvent;
-import com.Event.JumpToCartEvent;
+import com.Event.GoShoppingCartEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.fragment.ClassifyFragment;
@@ -163,6 +163,7 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implem
         OttoBus.getInstance().post(event);
     }
 
+
     public void switchFragment(Fragment from, Fragment to) {
         if (!bActive) return;
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -255,19 +256,18 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implem
     }
 
     @Subscribe
-    public void jumpToCart(JumpToCartEvent event) {
+    public void getNumber(AddToCartNumberEvent event) {
+
+        tab_bar.showDot(3, true, Integer.parseInt(event.result));
+    }
+
+    @Subscribe
+    public void backToShopCart(GoShoppingCartEvent event) {
         tab_bar.setCurrentItem(3);
         oldFragment = newFragment;
         switchFragment(oldFragment, fragmentShoppingCart);
         newFragment = fragmentShoppingCart;
 
-
-    }
-
-    @Subscribe
-    public void getNumber(AddToCartNumberEvent event) {
-
-        tab_bar.showDot(3, true, Integer.parseInt(event.result));
     }
 
     @Override

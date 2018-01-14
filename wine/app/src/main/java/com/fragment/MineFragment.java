@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.Event.AddToCartNumberEvent;
@@ -36,6 +37,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
     private SimpleDraweeView mHunyuanImg;
     private TextView mine_juibi;
     private TextView text_exp;
+    private ProgressBar progressBar;
 
     @Override
     protected int getLayoutId() {
@@ -53,6 +55,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
         mHunyuanImg = view.findViewById(R.id.huiyuan);
         mHunyuanImg.setOnClickListener(this);
         text_exp = view.findViewById(R.id.text_exp);
+        progressBar = view.findViewById(R.id.progress_bar);
         name_text = (TextView) view.findViewById(R.id.name);
         name_text.setOnClickListener(this);
         view.findViewById(R.id.setting).setOnClickListener(this);
@@ -332,12 +335,14 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
             circle_small.setVisibility(View.GONE);
             text_exp.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
         } else {
 
             mHunyuanImg.setVisibility(View.VISIBLE);
             name_text.setVisibility(View.VISIBLE);
             circle_small.setVisibility(View.VISIBLE);
             text_exp.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
             presenter.getPersonalMes();
 
         }
@@ -379,6 +384,8 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             FrescoUtils.displayUrl(mHunyuanImg, Urls.getBaseUrl() + "/em/es_grade/" + model.gradeInfo.levelIcon);
 
             text_exp.setText(model.evalue + "/" + (model.gradeInfo.right - model.gradeInfo.left) + "");
+
+            progressBar.setProgress((int) ((model.evalue - model.gradeInfo.left) * 1.0f / (model.gradeInfo.right - model.gradeInfo.left) * 100f));
 
 
         }
