@@ -17,6 +17,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.Event.GoShoppingCartEvent;
 import com.Event.PayEvent;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.otto.OttoBus;

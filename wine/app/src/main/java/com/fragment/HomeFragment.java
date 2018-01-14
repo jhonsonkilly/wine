@@ -2,10 +2,12 @@ package com.fragment;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -58,7 +60,7 @@ import zjw.wine.R;
 
 public class HomeFragment extends BaseCommFragment<HomePresenter> implements View.OnClickListener, IHomeView {
 
-    private FixReBackViewPager pager;
+    private ViewPager pager;
 
     List<View> mlist = new ArrayList<>();
 
@@ -96,7 +98,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     protected void initAllWidget(View view) {
         view.findViewById(R.id.img_dignwei).setOnClickListener(this);
         view.findViewById(R.id.img_scan).setOnClickListener(this);
-        pager = (FixReBackViewPager) view.findViewById(R.id.viewPager);
+        pager =  view.findViewById(R.id.viewPager);
         indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
 
         horRecycle = (RecyclerView) view.findViewById(R.id.hor_recycle);
@@ -251,9 +253,11 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
 
         for (final BannerModel.BannerData data:list) {
             View view = View.inflate(getContext(), R.layout.banner_item, null);
-            SimpleDraweeView img1 = (SimpleDraweeView) view.findViewById(R.id.img_1);
+
+            SimpleDraweeView img1 =view.findViewById(R.id.img_1);
             FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "/em/es_carousel/" + data.img);
-            img1.setOnClickListener(this);
+
+
             img1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -283,6 +287,9 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                     }
                 }
             });
+
+
+
             mlist.add(view);
         }
 
