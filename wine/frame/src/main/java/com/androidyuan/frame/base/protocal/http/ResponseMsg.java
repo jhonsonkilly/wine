@@ -30,6 +30,10 @@ public abstract class ResponseMsg<T> {
         resmsgWhat = what;
     }
 
+    public ResponseMsg() {
+
+    }
+
     public int getMsgWhat() {
 
         return resmsgWhat;
@@ -99,8 +103,6 @@ public abstract class ResponseMsg<T> {
 
         return result == 200;
     }
-
-
 
 
     //一堆 get set 方法

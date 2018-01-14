@@ -3,6 +3,7 @@ package com.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +14,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.activity.WebViewActivity;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.model.MapWrapper;
 import com.model.ShoppingListModel;
 import com.utils.Urls;
 
 import java.text.DecimalFormat;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import zjw.wine.R;
@@ -174,6 +178,23 @@ public class ShoppingCartAdapter extends BaseAdapter {
 
         holder.tvCommodityDelete.setVisibility(View.GONE);
 
+        holder.ll_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, WebViewActivity.class);
+                LinkedHashMap<String, String> map = new LinkedHashMap<>();
+
+                map.put("productGuid", shoppingCartBean.productGuid);
+                map.put("name", shoppingCartBean.goodName);
+                map.put("cost", shoppingCartBean.price);
+                map.put("goodGuid", shoppingCartBean.goodGuid);
+
+                intent.putExtra("objetParms", new MapWrapper().setMap(map));
+                intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
+                context.startActivity(intent);
+            }
+        });
+
 
         return convertView;
     }
@@ -185,6 +206,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         TextView tvCommodityName, tvCommodityPrice, tvCommodityShowNum, ivSub, ivAdd, totalTx;
         CheckBox ckOneChose;
         LinearLayout rlEdit;
+        LinearLayout ll_layout;
 
         public ViewHolder(View itemView) {
             ckOneChose = (CheckBox) itemView.findViewById(R.id.ck_chose);
@@ -199,6 +221,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             tvCommodityDelete = (ImageView) itemView.findViewById(R.id.tv_commodity_delete);
             rlEdit = (LinearLayout) itemView.findViewById(R.id.rl_edit);
             totalTx = (TextView) itemView.findViewById(R.id.total_tx);
+            ll_layout=itemView.findViewById(R.id.ll_item);
 
 
         }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.Event.AddToCartNumberEvent;
 import com.Event.GoHomeEvent;
+import com.Event.JumpToCartEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.fragment.ClassifyFragment;
@@ -250,6 +251,16 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implem
         oldFragment = newFragment;
         switchFragment(oldFragment, fragmentHome);
         newFragment = fragmentHome;
+
+    }
+
+    @Subscribe
+    public void jumpToCart(JumpToCartEvent event) {
+        tab_bar.setCurrentItem(3);
+        oldFragment = newFragment;
+        switchFragment(oldFragment, fragmentShoppingCart);
+        newFragment = fragmentShoppingCart;
+
 
     }
 

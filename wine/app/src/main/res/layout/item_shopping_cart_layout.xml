@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:background="@color/white">
@@ -24,8 +25,7 @@
 
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@id/ck_chose"
-             />
+            android:layout_toRightOf="@id/ck_chose" />
 
         <TextView
 
@@ -38,8 +38,7 @@
             android:maxLines="1"
             android:text="hahassssss"
             android:textColor="@color/sub_title_color"
-            android:textSize="17dp"
-             />
+            android:textSize="17dp" />
 
         <TextView
             android:id="@+id/tv_commodity_price"
@@ -138,12 +137,12 @@
 
         <TextView
             android:id="@+id/total_tx"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginRight="20dp"
-            android:textColor="@color/red"
-            android:text="1000" />
+            android:gravity="center"
+            android:text="1000"
+            android:textColor="@color/red" />
     </LinearLayout>
 
     <View

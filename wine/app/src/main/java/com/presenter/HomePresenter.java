@@ -2,6 +2,7 @@ package com.presenter;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.widget.Toast;
 
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.iview.IHomeView;
@@ -9,6 +10,8 @@ import com.msg.AddtoCartReqMsg;
 import com.msg.AddtoCartResMsg;
 import com.msg.BannerReqMsg;
 import com.msg.BannerResMsg;
+import com.msg.HomePageReqMsg;
+import com.msg.HomePageResMsg;
 import com.msg.HorListReqMsg;
 import com.msg.HorListResMsg;
 import com.msg.JingXuanReqMsg;
@@ -17,6 +20,8 @@ import com.msg.ProductReqMsg;
 import com.msg.ProductResMsg;
 import com.msg.QiangGouReqMsg;
 import com.msg.QiangGouResMsg;
+import com.msg.RegistReqMsg;
+import com.msg.RegistResMsg;
 
 /**
  * Created by mac on 2017/10/16.
@@ -38,6 +43,8 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
     private static final int RES_ADDTOCART_MES = 0x1027;
 
+    private static final int RES_HOME_MES = 5;
+
     @Override
     public void initData(Bundle saveInstnce) {
         getList();
@@ -54,6 +61,7 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
             case RES_JINGXUAN_MES:
             case RES_PRODUCT_MES:
             case RES_ADDTOCART_MES:
+            case RES_HOME_MES:
 
                 if (msg.obj != null) {
 
@@ -69,6 +77,12 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
         AddtoCartReqMsg req = new AddtoCartReqMsg(id, number);
         AddtoCartResMsg res = new AddtoCartResMsg(RES_ADDTOCART_MES);
         sendHttpPostJson(req, res);
+    }
+
+    public void getHomePage() {
+        HomePageReqMsg req = new HomePageReqMsg();
+        HomePageResMsg res = new HomePageResMsg(RES_HOME_MES);
+        sendHttpGet(req, res);
     }
 
     public void getList() {
@@ -141,10 +155,9 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
         if (res instanceof AddtoCartResMsg) {
             AddtoCartResMsg msg = (AddtoCartResMsg) res;
-            if(msg.isSuc()){
-                iView.showMes(msg.getMsg(),msg.getData().result);
+            if (msg.isSuc()) {
+                iView.showMes(msg.getMsg(), msg.getData().result);
             }
-
 
 
         }
@@ -154,6 +167,20 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
             if (msg.getData() != null) {
 
                 iView.showQiangGouList(msg.getData().result);
+
+            }
+        }
+
+        if (res instanceof HomePageResMsg) {
+            HomePageResMsg msg = (HomePageResMsg) res;
+            if (msg.getData() != null) {
+                if (msg.isSuc()) {
+                    Toast.makeText(iView.getActivity(), msg.getData().rotate.get(1), Toast.LENGTH_LONG).show();
+                } else {
+
+                    Toast.makeText(iView.getActivity(), msg.getMsg(), Toast.LENGTH_LONG).show();
+                }
+
 
             }
         }

@@ -21,6 +21,7 @@ public class ShoppingListModel implements Serializable {
         public int id;
         public String goodGuid;
         public String goodName;
+        public String productGuid;
         public int quantity;
         public String image;
         public String price;

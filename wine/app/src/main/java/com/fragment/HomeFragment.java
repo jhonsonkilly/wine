@@ -202,6 +202,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
+                //presenter.getHomePage();
                 break;
             case R.id.img_2:
 
@@ -241,16 +242,47 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
+
         }
     }
 
     @Override
-    public void showBannerList(List<BannerModel.BannerData> list) {
+    public void showBannerList(final List<BannerModel.BannerData> list) {
 
-        for (int i = 0; i < list.size(); i++) {
+        for (final BannerModel.BannerData data:list) {
             View view = View.inflate(getContext(), R.layout.banner_item, null);
             SimpleDraweeView img1 = (SimpleDraweeView) view.findViewById(R.id.img_1);
-            FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "/em/es_carousel/" + list.get(i).img);
+            FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "/em/es_carousel/" + data.img);
+            img1.setOnClickListener(this);
+            img1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!TextUtils.isEmpty(data.linkUrl)){
+                        if(data.linkUrl.startsWith("http")){
+                            Intent intent = new Intent(getContext(), WebViewActivity.class);
+                            intent.putExtra("url", data.linkUrl);
+                            getContext().startActivity(intent);
+                        }else{
+
+                            if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                                Intent intent = new Intent(getContext(), WebViewActivity.class);
+                                LinkedHashMap<String, String> map = new LinkedHashMap<>();
+
+                                map.put("productGuid", data.linkUrl);
+
+
+                                intent.putExtra("objetParms", new MapWrapper().setMap(map));
+                                intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
+                                getContext().startActivity(intent);
+                            } else {
+                                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+
+                            }
+
+                        }
+                    }
+                }
+            });
             mlist.add(view);
         }
 

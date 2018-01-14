@@ -34,6 +34,7 @@ public class BannerAdapter extends PagerAdapter {
 
     public Object instantiateItem(ViewGroup container, int position) {
         container.addView(list.get(position), 0);// 添加页卡
+
         return list.get(position);
     }
 }

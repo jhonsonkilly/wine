@@ -134,8 +134,10 @@ public abstract class BaseCommActivity<P extends BaseCommPresenter> extends AppC
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        int flag=getIntent().getFlags();
 
-       // getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       
+        // getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(getLayoutId());
         presenter.initData(savedInstanceState);
 

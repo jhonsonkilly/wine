@@ -17,5 +17,6 @@ public class BannerModel implements Serializable {
         public String finishTime;
         public String guid;
         public String img;
+        public String linkUrl;
     }
 }
