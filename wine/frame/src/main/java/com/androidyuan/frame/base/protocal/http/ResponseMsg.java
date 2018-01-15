@@ -1,8 +1,10 @@
 package com.androidyuan.frame.base.protocal.http;
 
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
+import com.androidyuan.frame.base.activity.WineApplication;
 import com.androidyuan.frame.cores.log.CommonLogger;
 import com.androidyuan.frame.cores.utils.FastJSONHelper;
 
@@ -19,11 +21,14 @@ public abstract class ResponseMsg<T> {
     protected T data;
 
     protected int resmsgWhat = 0;
+    //成功的200
     protected int result = 0; // 状态位
     protected JSONObject fastjsonObject;
     private String msg = ""; // 消息名称
     //
     private String response;
+    //自己的code
+    private int code;
 
     public ResponseMsg(int what) {
 
@@ -59,6 +64,10 @@ public abstract class ResponseMsg<T> {
 
             if (fastjsonObject.containsKey("message")) {
                 msg = fastjsonObject.getString("message");
+
+            }
+            if (fastjsonObject.containsKey("code")) {
+                code = fastjsonObject.getInteger("code");
             }
         }
 
@@ -100,8 +109,10 @@ public abstract class ResponseMsg<T> {
 
     //这个可以重写有时候会有多种状态 都代表成功
     public boolean isSuc() {
-
-        return result == 200;
+        if (result != 200 || code != 1) {
+            Toast.makeText(WineApplication.gainContext(), msg, Toast.LENGTH_LONG).show();
+        }
+        return result == 200 && code == 1;
     }
 
 

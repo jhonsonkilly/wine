@@ -126,7 +126,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
 
         } else {
 
-            Toast.makeText(this, "个人信息获取失败", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "个人信息获取失败", Toast.LENGTH_LONG).show();
             finish();
 
         }

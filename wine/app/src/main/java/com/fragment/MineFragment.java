@@ -355,37 +355,41 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
     public void setData(PersonalModel.PersonalResult model) {
         if (model != null) {
 
+            try{
+                if (TextUtils.isEmpty(model.img)) {
+                    FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.login);
+                } else {
+                    FrescoUtils.displayUrl(circle, Urls.getBaseUrl() + "/nmw/thumb/" + model.img);
+                }
 
-            if (TextUtils.isEmpty(model.img)) {
-                FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.login);
-            } else {
-                FrescoUtils.displayUrl(circle, Urls.getBaseUrl() + "/nmw/thumb/" + model.img);
+                if (TextUtils.isEmpty(model.nick)) {
+                    name_text.setText("a" + model.phone);
+                } else {
+                    name_text.setText(model.nick);
+                }
+
+                if (TextUtils.isEmpty(model.wine)) {
+                    mine_juibi.setText("0");
+                } else {
+                    mine_juibi.setText(model.wine);
+                }
+
+                if (model.isMale()) {
+                    FrescoUtils.displayUrl(circle_small, "res:///" + R.mipmap.nan);
+                } else {
+                    FrescoUtils.displayUrl(circle_small, "res:///" + R.mipmap.nv);
+                }
+
+
+                FrescoUtils.displayUrl(mHunyuanImg, Urls.getBaseUrl() + "/em/es_grade/" + model.gradeInfo.levelIcon);
+
+                text_exp.setText(model.evalue + "/" + (model.gradeInfo.right - model.gradeInfo.left) + "");
+
+                progressBar.setProgress((int) ((model.evalue - model.gradeInfo.left) * 1.0f / (model.gradeInfo.right - model.gradeInfo.left) * 100f));
+            }catch (Exception e){
+
             }
 
-            if (TextUtils.isEmpty(model.nick)) {
-                name_text.setText("a" + model.phone);
-            } else {
-                name_text.setText(model.nick);
-            }
-
-            if (TextUtils.isEmpty(model.wine)) {
-                mine_juibi.setText("0");
-            } else {
-                mine_juibi.setText(model.wine);
-            }
-
-            if (model.isMale()) {
-                FrescoUtils.displayUrl(circle_small, "res:///" + R.mipmap.nan);
-            } else {
-                FrescoUtils.displayUrl(circle_small, "res:///" + R.mipmap.nv);
-            }
-
-
-            FrescoUtils.displayUrl(mHunyuanImg, Urls.getBaseUrl() + "/em/es_grade/" + model.gradeInfo.levelIcon);
-
-            text_exp.setText(model.evalue + "/" + (model.gradeInfo.right - model.gradeInfo.left) + "");
-
-            progressBar.setProgress((int) ((model.evalue - model.gradeInfo.left) * 1.0f / (model.gradeInfo.right - model.gradeInfo.left) * 100f));
 
 
         }
