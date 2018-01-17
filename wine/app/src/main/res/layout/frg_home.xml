@@ -26,11 +26,11 @@
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/shape_sousuo_back">
+            android:background="@drawable/shape_sousuo_back"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
 
             <EditText
@@ -38,14 +38,14 @@
                 android:id="@+id/search_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:textSize="14dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:padding="3dp"
+                android:background="@null"
                 android:hint="搜索商品"
+                android:padding="3dp"
                 android:textColor="@color/sub_title_color"
-                android:textColorHint="@color/white80" />
+                android:textColorHint="@color/white80"
+                android:textSize="14dp" />
         </RelativeLayout>
 
         <ImageView
@@ -59,11 +59,11 @@
     </LinearLayout>
 
     <ScrollView
-        android:fadingEdge="vertical"
-        android:fadingEdgeLength="200dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/home_top"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="200dp"
         android:scrollbars="none">
 
         <LinearLayout
@@ -78,24 +78,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
 
-                <android.support.v4.view.ViewPager
-
-                    android:id="@+id/viewPager"
+                <com.banner.BannerView
+                    android:id="@+id/bannerView"
                     android:layout_width="match_parent"
-                    android:layout_height="144dp"
-                    android:layout_marginLeft="0.5dp"
-                    android:layout_marginRight="0.5dp" />
+                    android:layout_height="match_parent" />
 
-                <com.viewpagerindicator.CirclePageIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/corn_ll"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:padding="10dp"
-                    app:fillColor="@color/theme_color"
-                    app:pageColor="@color/divider_color"
-                    app:radius="6dp"
-                    app:strokeWidth="0dp" />
+                    android:layout_alignBottom="@+id/bannerView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+                </LinearLayout>
+
+
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView

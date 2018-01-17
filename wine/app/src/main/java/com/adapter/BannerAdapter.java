@@ -31,8 +31,13 @@ public class BannerAdapter extends PagerAdapter {
     }
 
     @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View) object);
+    }
+
+    @Override
     public int getCount() {
-        return list.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -41,9 +46,20 @@ public class BannerAdapter extends PagerAdapter {
     }
 
     public Object instantiateItem(ViewGroup container, int position) {
-        container.addView(list.get(position), 0);// 添加页卡
 
 
+
+        if (list != null && list.size() != 0) {
+            position = position % list.size();
+        }
+        ViewGroup parent = (ViewGroup) list.get(position).getParent();
+
+        if (parent != null) {
+
+            parent.removeAllViews();
+
+        }
+        container.addView(list.get(position));// 添加页卡
         return list.get(position);
     }
 }

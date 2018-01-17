@@ -1,5 +1,6 @@
 package com.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +31,8 @@ import com.androidyuan.frame.base.fragment.BaseCommFragment;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.androidyuan.frame.cores.utils.image.FrescoUtils;
 import com.androidyuan.frame.cores.widget.bugfixview.FixReBackViewPager;
+import com.banner.BannerBaseAdapter;
+import com.banner.BannerView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.iview.IHomeView;
 import com.model.BannerModel;
@@ -88,6 +93,9 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     private Handler mHandler = new Handler();
     private static final int TIME = 2500;
     private int itemPosition;
+    private BannerView bannerView;
+    private LinearLayout ll;
+    private ArrayList<View> indicationList;
 
     @Override
     protected int getLayoutId() {
@@ -98,8 +106,11 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     protected void initAllWidget(View view) {
         view.findViewById(R.id.img_dignwei).setOnClickListener(this);
         view.findViewById(R.id.img_scan).setOnClickListener(this);
-        pager =  view.findViewById(R.id.viewPager);
-        indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+
+        bannerView = (BannerView) view.findViewById(R.id.bannerView);
+
+        ll = view.findViewById(R.id.corn_ll);
+
 
         horRecycle = (RecyclerView) view.findViewById(R.id.hor_recycle);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -141,6 +152,16 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         OttoBus.getInstance().register(this);
 
 
+    }
+
+    private void bannerPointLight(int currentPoint) {
+        for (int i = 0; i < indicationList.size(); i++) {
+            if (currentPoint == i) {
+                indicationList.get(i).setBackgroundResource(R.drawable.home_top_ic_point_on);
+            } else {
+                indicationList.get(i).setBackgroundResource(R.drawable.home_top_ic_point_off);
+            }
+        }
     }
 
     @Override
@@ -248,73 +269,117 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
         }
     }
 
+    BannerAdapter mAdapter;
+
     @Override
     public void showBannerList(final List<BannerModel.BannerData> list) {
 
-        for (final BannerModel.BannerData data:list) {
-            View view = View.inflate(getContext(), R.layout.banner_item, null);
 
-            SimpleDraweeView img1 =view.findViewById(R.id.img_1);
-            FrescoUtils.displayUrl(img1, Urls.getBaseUrl() + "/em/es_carousel/" + data.img);
+        bannerView.setAdapter(mAdapter = new BannerAdapter(getContext()));
+        mAdapter.setOnPageTouchListener(new BannerBaseAdapter.OnPageTouchListener<BannerModel.BannerData>() {
+            @Override
+            public void onPageClick(int position, BannerModel.BannerData bannerBean) {
+                // 页面点击
+                if(!TextUtils.isEmpty(bannerBean.linkUrl)){
+                    if(bannerBean.linkUrl.startsWith("http")){
+                        Intent intent = new Intent(getContext(), WebViewActivity.class);
+                        intent.putExtra("url", bannerBean.linkUrl);
+                        getContext().startActivity(intent);
+                    }else{
 
-
-            img1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(!TextUtils.isEmpty(data.linkUrl)){
-                        if(data.linkUrl.startsWith("http")){
+                        if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                             Intent intent = new Intent(getContext(), WebViewActivity.class);
-                            intent.putExtra("url", data.linkUrl);
+                            LinkedHashMap<String, String> map = new LinkedHashMap<>();
+
+                            map.put("productGuid", bannerBean.linkUrl);
+
+
+                            intent.putExtra("objetParms", new MapWrapper().setMap(map));
+                            intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
                             getContext().startActivity(intent);
-                        }else{
-
-                            if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-                                Intent intent = new Intent(getContext(), WebViewActivity.class);
-                                LinkedHashMap<String, String> map = new LinkedHashMap<>();
-
-                                map.put("productGuid", data.linkUrl);
-
-
-                                intent.putExtra("objetParms", new MapWrapper().setMap(map));
-                                intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
-                                getContext().startActivity(intent);
-                            } else {
-                                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
-
-                            }
+                        } else {
+                            getContext().startActivity(new Intent(getContext(), LoginActivity.class));
 
                         }
+
                     }
                 }
-            });
+            }
 
+            @Override
+            public void onPageDown() {
 
+                bannerView.stopAutoScroll();
+            }
 
-            mlist.add(view);
+            @Override
+            public void onPageUp() {
+
+                bannerView.startAutoScroll();
+            }
+        });
+        mAdapter.setData(list);
+
+        indicationList = new ArrayList<View>();
+        for (int i = 0; i < list.size(); i++) {
+
+            ImageView iv2 = new ImageView(getContext());
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(12, 0, 0, 0);
+            iv2.setLayoutParams(lp);
+            if (i == 0) {
+                iv2.setBackgroundResource(R.drawable.home_top_ic_point_on);
+            } else {
+                iv2.setBackgroundResource(R.drawable.home_top_ic_point_off);
+            }
+            indicationList.add(iv2);
+            //添加到圆点布局
+            ll.addView(iv2);
         }
 
-        adapter = new BannerAdapter(mlist);
+        bannerView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        pager.setAdapter(adapter);
+            }
 
-        indicator.setViewPager(pager);
+            @Override
+            public void onPageSelected(int position) {
 
-        mHandler.postDelayed(runnableForViewPager, TIME);
+                bannerPointLight(position % indicationList.size());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
 
     }
 
-    Runnable runnableForViewPager = new Runnable() {
+
+
+    private class BannerAdapter extends BannerBaseAdapter<BannerModel.BannerData> {
+
         @Override
-        public void run() {
-            try {
-                itemPosition++;
-                mHandler.postDelayed(this, TIME);
-                pager.setCurrentItem(itemPosition % mlist.size());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        protected void convert(View convertView, BannerModel.BannerData data) {
+            setImageUrl(R.id.img_1, Urls.getBaseUrl() + "/em/es_carousel/" + data.img);
+
         }
-    };
+
+        public BannerAdapter(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected int getLayoutResID() {
+            return R.layout.banner_item;
+        }
+
+
+    }
 
     @Override
     public void showHorList(List<HorlistModel.HorData> list) {
