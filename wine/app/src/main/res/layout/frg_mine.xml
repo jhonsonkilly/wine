@@ -460,6 +460,32 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/peisong_rl"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/icon_peisong"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:text="配送管理"
+                android:textColor="@color/sub_title_color" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:src="@mipmap/w0_37" />
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/mine_tiezi"

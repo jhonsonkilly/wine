@@ -10,6 +10,7 @@ import com.Event.AddToCartNumberEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.iview.ILoginView;
+import com.model.LoginModel;
 import com.model.PersonalModel;
 import com.otto.OttoBus;
 import com.presenter.LoginPresenter;
@@ -107,12 +108,13 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
     }
 
     @Override
-    public void showLogin(String token) {
-
-        SharedPreferencesUtil.saveStringData(this, "ut", token);
+    public void showLogin(LoginModel.Result result) {
+        SharedPreferencesUtil.saveStringData(this, "ut", result.token);
+        SharedPreferencesUtil.saveStringData(this, "agent", result.agent);
         presenter.getPersonalMes();
-
     }
+
+
 
     @Override
     public void showPersonal(PersonalModel.PersonalResult model) {

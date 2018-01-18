@@ -1,6 +1,7 @@
 package com.iview;
 
 import com.androidyuan.frame.base.view.IBaseCommView;
+import com.model.LoginModel;
 import com.model.PersonalModel;
 
 /**
@@ -17,7 +18,7 @@ public interface ILoginView extends IBaseCommView {
     void showResult(String result);
 
 
-    void showLogin(String id);
+    void showLogin(LoginModel.Result result);
 
     void showPersonal(PersonalModel.PersonalResult model);
 }

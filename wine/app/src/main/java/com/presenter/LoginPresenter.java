@@ -120,7 +120,7 @@ public class LoginPresenter extends BaseCommPresenter<ILoginView> {
             if (msg.isSuc()) {
                 if (msg.getData() != null) {
 
-                    iView.showLogin(msg.getData().result.token);
+                    iView.showLogin(msg.getData().result);
 
                 } else {
                     LoginActivity act = (LoginActivity) getActivity();

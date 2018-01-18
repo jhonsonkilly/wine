@@ -59,9 +59,10 @@ public class SettingPresenter extends BaseCommPresenter {
         if (res instanceof QuitLoginResMsg) {
             QuitLoginResMsg msg = (QuitLoginResMsg) res;
             if (msg.getData() != null) {
-
+                //清空配送员
                 Toast.makeText(getActivity(), msg.getData().result, Toast.LENGTH_LONG).show();
                 SharedPreferencesUtil.saveStringData(WineApplication.gainContext(), "ut", "");
+                SharedPreferencesUtil.saveStringData(WineApplication.gainContext(), "agent", "N");
                 AddToCartNumberEvent event = new AddToCartNumberEvent();
                 event.result = 0 + "";
                 OttoBus.getInstance().post(event);

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.Event.AddToCartNumberEvent;
@@ -38,6 +39,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
     private TextView mine_juibi;
     private TextView text_exp;
     private ProgressBar progressBar;
+    private RelativeLayout peisong_rl;
 
     @Override
     protected int getLayoutId() {
@@ -86,6 +88,9 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
         view.findViewById(R.id.huifu_mine).setOnClickListener(this);
 
         view.findViewById(R.id.door).setOnClickListener(this);
+
+        peisong_rl = view.findViewById(R.id.peisong_rl);
+        peisong_rl.setOnClickListener(this);
 
 
     }
@@ -318,6 +323,15 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
+            case R.id.peisong_rl:
+                //配送员的信息
+                if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "eshop/SendCargo/adqh.html");
+                    startActivity(intent);
+                } else {
+                    getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                }
 
 
         }
@@ -347,6 +361,12 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
         }
 
+        if (SharedPreferencesUtil.getStringData(getContext(), "agent", "N").equalsIgnoreCase("N")) {
+            peisong_rl.setVisibility(View.GONE);
+        } else {
+            peisong_rl.setVisibility(View.VISIBLE);
+        }
+
 
     }
 
@@ -355,7 +375,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
     public void setData(PersonalModel.PersonalResult model) {
         if (model != null) {
 
-            try{
+            try {
                 if (TextUtils.isEmpty(model.img)) {
                     FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.login);
                 } else {
@@ -386,10 +406,9 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 text_exp.setText(model.evalue + "/" + (model.gradeInfo.right - model.gradeInfo.left) + "");
 
                 progressBar.setProgress((int) ((model.evalue - model.gradeInfo.left) * 1.0f / (model.gradeInfo.right - model.gradeInfo.left) * 100f));
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
-
 
 
         }

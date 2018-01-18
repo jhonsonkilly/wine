@@ -20,5 +20,6 @@ public class LoginModel implements Serializable {
 
     public static class Result implements Serializable {
         public String token;
+        public String agent;
     }
 }
