@@ -32,6 +32,8 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
 
     CountDownTextView tx_click;
 
+    private EditText ed_yao;
+
     @Override
     protected int getLayoutId() {
 
@@ -48,6 +50,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
         tx_click.setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
         findViewById(R.id.zhuce_text).setOnClickListener(this);
+        ed_yao = (EditText) findViewById(R.id.ed_yao);
 
     }
 
@@ -63,7 +66,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
             if (vertifyMes(true)) {
 
 
-                presenter.login(ed_phone.getText().toString(), ed_yan.getText().toString());
+                presenter.login(ed_phone.getText().toString(), ed_yan.getText().toString(),"");
             }
 
         }

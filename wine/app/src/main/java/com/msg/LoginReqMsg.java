@@ -1,5 +1,7 @@
 package com.msg;
 
+import android.text.TextUtils;
+
 import com.androidyuan.frame.base.protocal.http.RequestMsg;
 import com.utils.Urls;
 
@@ -18,12 +20,15 @@ public class LoginReqMsg extends RequestMsg {
         return Urls.m_login;
     }
 
-    public LoginReqMsg(String phone, String vertify) {
+    public LoginReqMsg(String phone, String vertify,String yaoqing) {
         super();
 
 
         params.put("mobile", phone);
         params.put("verifyCode", vertify);
+        if (!TextUtils.isEmpty(yaoqing)) {
+            params.put("inviteCode", yaoqing);
+        }
 
     }
 }

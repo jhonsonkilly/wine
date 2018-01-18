@@ -64,6 +64,8 @@ public class Urls {
 
     public static final String m_WxPayMes = getBaseUrl() + "/eshop/pay/wxPrepay";
 
+    public static final String m_delateAllGoods = getBaseUrl() + "/eshop/app/purchase/deleteFromCart";
+
 
 
 

@@ -52,7 +52,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
     ShoppingCartAdapter shoppingCartAdapter;
 
-    List<ShoppingListModel.ShoppingResult> shoppingCartBeanList=new ArrayList<>();
+    List<ShoppingListModel.ShoppingResult> shoppingCartBeanList = new ArrayList<>();
 
     private double totalPrice = 0.00;// 购买的商品总价
 
@@ -70,9 +70,6 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
     private static final int TYPE1 = 1;
     private static final int TYPE2 = 2;
     private static final int TYPE3 = 3;
-    private static final int TYPE4 = 4;
-    private static final int TYPE5 = 5;
-    private static final int TYPE6 = 6;
 
     private ShoppingListModel.ShoppingResult selectBean;
 
@@ -117,11 +114,20 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                StringBuilder builder = new StringBuilder();
                                 for (ShoppingListModel.ShoppingResult result : shoppingCartBeanList) {
                                     if (result.isChoose()) {
-                                        presenter.delateCart(result.goodGuid, TYPE5);
+                                        if (builder.length() > 0) {
+                                            builder.append(",").append(result.goodGuid);
+                                        } else {
+                                            builder.append(result.goodGuid);
+                                        }
+
+
                                     }
                                 }
+                                presenter.delateAllCart(builder.toString());
+
 
                             }
                         });
@@ -222,7 +228,12 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
                 shoppingCartAdapter.setShoppingCartBeanList(list);
             }
 
+
         }
+        AddToCartNumberEvent event = new AddToCartNumberEvent();
+        event.result = list.size() + "";
+        OttoBus.getInstance().post(event);
+
 
     }
 
@@ -244,7 +255,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         }
         //全选
         if (type == TYPE3) {
-            //Toast.makeText(getContext(), id, Toast.LENGTH_LONG).show();
+
             selectBean.setChoose(true);
             shoppingCartAdapter.notifyDataSetChanged();
             statistics();
@@ -253,54 +264,44 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
     }
 
+
     @Override
-    public void delateGoods(String number, int type) {
-        if (type == TYPE5) {
-            //unselectBean.setChoose(false);
-            //presenter.getCartList();
+    public void delateAllGoods(String number) {
 
-            Iterator<ShoppingListModel.ShoppingResult> it = shoppingCartBeanList.iterator();
+        Iterator<ShoppingListModel.ShoppingResult> it = shoppingCartBeanList.iterator();
 
-            while (it.hasNext()) {
+        while (it.hasNext()) {
 
-                ShoppingListModel.ShoppingResult x = it.next();
-                if (x.isChoose()) {
+            ShoppingListModel.ShoppingResult x = it.next();
+            if (x.isChoose()) {
 
-                    it.remove();
-                    AddToCartNumberEvent event = new AddToCartNumberEvent();
-                    event.result = number;
-                    OttoBus.getInstance().post(event);
-                }
+                it.remove();
+
             }
-            if (shoppingCartBeanList.size() == 0) {
-
-                empty_cart.setVisibility(View.VISIBLE);
-                listView.setVisibility(View.GONE);
-
-
-            } else {
-                shoppingCartAdapter.notifyDataSetChanged();
-            }
-
-            if (isAllCheck()) {
-                ckAll.setChecked(true);
-            } else {
-                ckAll.setChecked(false);
-            }
-            statistics();
-
-
         }
-        //删除一个
-        if (type == TYPE6) {
-            Toast.makeText(getContext(), "删除成功", Toast.LENGTH_LONG).show();
+        if (shoppingCartBeanList.size() == 0) {
+
+            empty_cart.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+
+
+        } else {
             shoppingCartAdapter.notifyDataSetChanged();
-            AddToCartNumberEvent event = new AddToCartNumberEvent();
-            event.result = number;
-            OttoBus.getInstance().post(event);
         }
-    }
 
+        if (isAllCheck()) {
+            ckAll.setChecked(true);
+        } else {
+            ckAll.setChecked(false);
+        }
+        statistics();
+
+        Toast.makeText(getContext(), "删除成功", Toast.LENGTH_LONG).show();
+
+        AddToCartNumberEvent event = new AddToCartNumberEvent();
+        event.result = number;
+        OttoBus.getInstance().post(event);
+    }
 
 
     @Override

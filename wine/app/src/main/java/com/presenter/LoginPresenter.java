@@ -73,8 +73,8 @@ public class LoginPresenter extends BaseCommPresenter<ILoginView> {
         sendHttpGet(req, res);
     }
 
-    public void login(String phone, String yan) {
-        LoginReqMsg req = new LoginReqMsg(phone, yan);
+    public void login(String phone, String yan,String yao) {
+        LoginReqMsg req = new LoginReqMsg(phone, yan,yao);
         LoginResMsg res = new LoginResMsg(RES_LOGIN_MES);
         sendHttpPostJson(req, res);
     }

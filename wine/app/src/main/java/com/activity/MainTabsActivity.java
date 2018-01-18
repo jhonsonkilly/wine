@@ -47,11 +47,6 @@ import zjw.wine.R;
 
 public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implements IMainTabsView {
 
-    public static final int HOME_FRAGMENT = 0;
-    public static final int CLASS_FRAGMENT = 1;
-    public static final int LIVE_FRAGMETN = 2;
-    public static final int SHOPCART_FRAGMENT = 3;
-    public static final int MY_FRAGMENT = 4;
 
     private String[] titleArr;
     private TabChooser tab_bar;
@@ -63,13 +58,13 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implem
     private HomeFragment fragmentHome;
     private ClassifyFragment fragmentClass;
     private ServiceFragment fragmentDiscover;
-    //    private LiveListFragment liveFragment;
+
     private MineFragment fragmentMy;
     private ShoppingCartFragment fragmentShoppingCart;
 
     protected boolean bActive = true;
 
-    private List<Fragment> fragments = new ArrayList<>();
+
 
     private int[] imgArr = new int[]{R.drawable.select_home, R.drawable.select_classification, R.drawable.select_discover, R.drawable.select_buycart, R.drawable.select_my};
     private Dialog dialog;
@@ -129,11 +124,7 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implem
 
 //        fragmentMy.setUrl(OdyApplication.H5URL + "/test.html");
         fragmentShoppingCart = new ShoppingCartFragment();
-        fragments.add(fragmentHome);
-        fragments.add(fragmentClass);
-//        fragments.add(liveFragment);
-        fragments.add(fragmentShoppingCart);
-        fragments.add(fragmentMy);
+
         for (int i = 0; i < titleArr.length; i++) {
             TabChooserBean bean = new TabChooserBean();
             bean.imagesrc = imgArr[i];
