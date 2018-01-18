@@ -47,6 +47,7 @@
                         android:textSize="20dp" />
 
                     <TextView
+
                         android:id="@+id/text_go_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
                         android:background="@drawable/shape_main_color_transport"
                         android:text="去首页"
                         android:textColor="@color/theme_color"
-                        android:textSize="20dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <com.androidyuan.frame.cores.widget.FixHeightListView

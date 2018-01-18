@@ -4,10 +4,10 @@
         android:width="1dp"
         android:color="@color/theme_color" />
     <padding
-        android:bottom="10dp"
-        android:left="25dp"
-        android:right="25dp"
-        android:top="10dp" />
+        android:bottom="8dp"
+        android:left="20dp"
+        android:right="20dp"
+        android:top="8dp" />
     <corners android:radius="1dp" />
 
 </shape>

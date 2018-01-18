@@ -66,7 +66,7 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
             if (vertifyMes(true)) {
 
 
-                presenter.login(ed_phone.getText().toString(), ed_yan.getText().toString(),"");
+                presenter.login(ed_phone.getText().toString(), ed_yan.getText().toString(), ed_yao.getText().toString());
             }
 
         }
