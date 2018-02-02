@@ -327,7 +327,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
                 //配送员的信息
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
-                    intent.putExtra("url", Urls.getBaseUrl() + "eshop/SendCargo/adqh.html");
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/SendCargo/adqh.html");
                     startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));

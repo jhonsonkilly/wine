@@ -27,8 +27,7 @@ public class WineApplication extends Application {
         instance = this;
 
         Fresco.initialize(this);
-        //设置假ut测试
-        //SharedPreferencesUtil.saveStringData(this, "ut", "abc");
+
 
 
 

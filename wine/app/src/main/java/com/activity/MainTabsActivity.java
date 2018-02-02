@@ -149,9 +149,12 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implem
 
     @Override
     public void setData(PersonalModel.PersonalResult model) {
-        AddToCartNumberEvent event = new AddToCartNumberEvent();
-        event.result = model.cartItemCount;
-        OttoBus.getInstance().post(event);
+        if(model!=null){
+            AddToCartNumberEvent event = new AddToCartNumberEvent();
+            event.result = model.cartItemCount;
+            OttoBus.getInstance().post(event);
+        }
+
     }
 
 
@@ -248,8 +251,10 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implem
 
     @Subscribe
     public void getNumber(AddToCartNumberEvent event) {
+        if(!TextUtils.isEmpty(event.result)){
+            tab_bar.showDot(3, true, Integer.parseInt(event.result));
+        }
 
-        tab_bar.showDot(3, true, Integer.parseInt(event.result));
     }
 
     @Subscribe

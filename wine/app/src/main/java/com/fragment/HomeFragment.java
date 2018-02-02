@@ -283,7 +283,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                 if(!TextUtils.isEmpty(bannerBean.linkUrl)){
                     if(bannerBean.linkUrl.startsWith("http")){
                         Intent intent = new Intent(getContext(), WebViewActivity.class);
-                        intent.putExtra("url", bannerBean.linkUrl);
+                        intent.putExtra("url", "http://180110fg0025.umaman.com/hongbao/game.html?nickname=&mobile=15818888887&avatar=&ut=abc&activity_id=5a607604d3df9001a5343685");
                         getContext().startActivity(intent);
                     }else{
 
@@ -291,11 +291,9 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                             Intent intent = new Intent(getContext(), WebViewActivity.class);
                             LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
-                            map.put("productGuid", bannerBean.linkUrl);
 
-
-                            intent.putExtra("objetParms", new MapWrapper().setMap(map));
-                            intent.putExtra("url", Urls.getBaseUrl() + "/eshop/commodity/commodity.html");
+                            //intent.putExtra("objetParms", new MapWrapper().setMap(map));
+                            intent.putExtra("url", "http://180110fg0025.umaman.com/hongbao/game.html?nickname=&mobile=2&avatar=&ut=abc&activity_id=5a607604d3df9001a5343685");
                             getContext().startActivity(intent);
                         } else {
                             getContext().startActivity(new Intent(getContext(), LoginActivity.class));
