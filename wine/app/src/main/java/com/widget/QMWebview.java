@@ -19,12 +19,19 @@ import android.webkit.WebViewClient;
 
 import com.Event.GoShoppingCartEvent;
 import com.Event.PayEvent;
+import com.Event.ReloadUrlEvent;
+import com.activity.LoginActivity;
+import com.activity.WebViewActivity;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
+import com.model.MapWrapper;
 import com.otto.OttoBus;
+import com.utils.LocationManager;
 import com.utils.ParamsUtils;
 import com.utils.Urls;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 /**
@@ -138,6 +145,22 @@ public abstract class QMWebview extends WebView {
                     }
                     return true;
                 }
+                if (url.contains("addAdress.html")) {
+                    try {
+                        //OttoBus.getInstance().post(new GoShoppingCartEvent());
+                        //((Activity) context).finish();
+                        //loadUrl();
+
+                        ReloadUrlEvent event = new ReloadUrlEvent();
+
+                        OttoBus.getInstance().post(event);
+
+
+                    } catch (Exception ex) {
+
+                    }
+                    return true;
+                }
 
                 if (url.contains("tel")) {
 
@@ -167,9 +190,9 @@ public abstract class QMWebview extends WebView {
 
                     }
                     return true;
-                } else {
-                    return super.shouldOverrideUrlLoading(view, url);
                 }
+                return super.shouldOverrideUrlLoading(view, url);
+
             }
 
 

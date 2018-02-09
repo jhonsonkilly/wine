@@ -21,7 +21,7 @@ android {
 
 
     defaultConfig {
-        applicationId "zjw.wine"
+
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1

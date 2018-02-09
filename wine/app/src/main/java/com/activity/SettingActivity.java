@@ -1,5 +1,6 @@
 package com.activity;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.presenter.SettingPresenter;
+import com.utils.Urls;
 import com.widget.ToolBar;
 
 import zjw.wine.R;
@@ -51,6 +53,10 @@ public class SettingActivity extends BaseCommActivity<SettingPresenter> {
     @Override
     protected void clickView(View v) {
         if (v.getId() == R.id.lin_ll) {
+
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("url", Urls.getBaseUrl() + "/eshop/setup/about.html");
+            startActivity(intent);
 
         }
         if (v.getId() == R.id.cancel_login) {

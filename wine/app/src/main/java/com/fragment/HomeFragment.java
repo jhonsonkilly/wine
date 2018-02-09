@@ -65,13 +65,7 @@ import zjw.wine.R;
 
 public class HomeFragment extends BaseCommFragment<HomePresenter> implements View.OnClickListener, IHomeView {
 
-    private ViewPager pager;
 
-    List<View> mlist = new ArrayList<>();
-
-
-    private BannerAdapter adapter;
-    private CirclePageIndicator indicator;
 
     LocationManager locationManager;
     private RecyclerView horRecycle;
@@ -90,9 +84,7 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     private static final int HOME = 1;
 
 
-    private Handler mHandler = new Handler();
-    private static final int TIME = 2500;
-    private int itemPosition;
+
     private BannerView bannerView;
     private LinearLayout ll;
     private ArrayList<View> indicationList;

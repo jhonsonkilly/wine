@@ -4,16 +4,20 @@ import android.content.Intent;
 import android.view.View;
 
 import com.Event.PayEvent;
+import com.Event.ReloadUrlEvent;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.androidyuan.frame.cores.log.CommonLogger;
 import com.model.MapWrapper;
 import com.otto.OttoBus;
 import com.otto.Subscribe;
 import com.presenter.WebViewPresenter;
+import com.utils.LocationManager;
 import com.utils.Urls;
 import com.widget.H5InputWebView;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import zjw.wine.R;
 
@@ -102,6 +106,36 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
             qmWebview.loadUrl(Urls.getBaseUrl() + "/eshop/shoppingCart/pay.html");
 
         }
+    }
+
+    @Subscribe
+    public void reload(ReloadUrlEvent event) {
+
+        new LocationManager(this).setLocationListener(new LocationManager.LocationListener() {
+            @Override
+            public void onLocationChanged(LocationManager.MapLocation location) {
+                if (location != null) {
+
+                    //Toast.makeText(getContext(), location.address, Toast.LENGTH_LONG).show();
+
+
+
+                    parms=new LinkedHashMap<>();
+                    parms.put("lat", location.y);
+                    parms.put("lng", location.x);
+                    if (parms != null) {
+                        qmWebview.putExParams(parms);
+                    }
+                    qmWebview.loadUrl(Urls.getBaseUrl() + "/eshop/managerAddress/addAdress.html");
+
+
+                }
+            }
+        }).setOnceLocation(true)
+                .startLocation(this);
+
+
+
 
 
     }
