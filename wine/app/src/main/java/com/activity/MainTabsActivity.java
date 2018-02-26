@@ -149,7 +149,7 @@ public class MainTabsActivity extends BaseCommActivity<MainTabsPresenter> implem
 
     @Override
     public void setData(PersonalModel.PersonalResult model) {
-        if(model!=null){
+        if (model != null && !TextUtils.isEmpty(model.cartItemCount)) {
             AddToCartNumberEvent event = new AddToCartNumberEvent();
             event.result = model.cartItemCount;
             OttoBus.getInstance().post(event);

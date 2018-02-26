@@ -125,7 +125,10 @@ public class LoginActivity extends BaseCommActivity<LoginPresenter> implements I
             SharedPreferencesUtil.saveStringData(this, "nick", model.nick);
             AddToCartNumberEvent event = new AddToCartNumberEvent();
             event.result = model.cartItemCount;
-            OttoBus.getInstance().post(event);
+            if(!TextUtils.isEmpty(model.cartItemCount)){
+                OttoBus.getInstance().post(event);
+            }
+
             finish();
 
 

@@ -377,7 +377,12 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
             try {
                 if (TextUtils.isEmpty(model.img)) {
-                    FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.login);
+                    if(model.isMale()){
+                        FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.icon_mile);
+                    }else{
+                        FrescoUtils.displayUrl(circle, "res:///" + R.mipmap.icon_female);
+                    }
+
                 } else {
                     FrescoUtils.displayUrl(circle, Urls.getBaseUrl() + "/nmw/thumb/" + model.img);
                 }
