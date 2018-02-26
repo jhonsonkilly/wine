@@ -403,7 +403,7 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
 
                 FrescoUtils.displayUrl(mHunyuanImg, Urls.getBaseUrl() + "/em/es_grade/" + model.gradeInfo.levelIcon);
 
-                text_exp.setText(model.evalue + "/" + (model.gradeInfo.right - model.gradeInfo.left) + "");
+                text_exp.setText(model.evalue + "/" + (model.gradeInfo.right) + "");
 
                 progressBar.setProgress((int) ((model.evalue - model.gradeInfo.left) * 1.0f / (model.gradeInfo.right - model.gradeInfo.left) * 100f));
             } catch (Exception e) {

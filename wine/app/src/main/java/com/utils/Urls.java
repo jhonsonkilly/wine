@@ -10,7 +10,7 @@ public class Urls {
     public static final boolean isDebug = WineApplication.isDebug;
 
     //如下几个地方无法在服务端配置
-    private static final String TEST_INTERFACE_CONFIGURE_URL = "http://47.93.18.21";
+    private static final String TEST_INTERFACE_CONFIGURE_URL = "http://222.73.44.20:88";
     private static final String ONLINE_INTERFACE_CONFIGURE_URL = "";
 
     public static String getInterfaceConfigureUrl() {
