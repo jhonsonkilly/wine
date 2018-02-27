@@ -229,13 +229,13 @@ public class UiUtils {
             return;
         }
         view.setBackgroundResource(R.drawable.radius_theme_7);
-        view.setTextSize(PxUtils.pxTodip(24));
+        view.setTextSize(PxUtils.pxTodip(26));
 
         view.setGravity(Gravity.CENTER);
         view.setPadding(PxUtils.dipTopx(2), 0, PxUtils.dipTopx(2), 0);
-        view.setMinWidth(PxUtils.dipTopx(14));
+        view.setMinWidth(PxUtils.dipTopx(16));
         ViewGroup.LayoutParams para = view.getLayoutParams();
-        para.height = PxUtils.dipTopx(14);
+        para.height = PxUtils.dipTopx(16);
         if (number > 0) {
             if (number > 99) {
                 view.setText(R.string.othermore);
@@ -248,7 +248,7 @@ public class UiUtils {
                         view.setText("9+");
                     }
                 } else {
-                    para.width = PxUtils.dipTopx(14);
+                    para.width = PxUtils.dipTopx(16);
                 }
             }
             view.setVisibility(View.VISIBLE);
