@@ -38,7 +38,7 @@ public class SettingActivity extends BaseCommActivity<SettingPresenter> {
     protected void initAllWidget() {
         toolBar = (ToolBar) findViewById(R.id.toolbar);
         toolBar.setTitle("设置");
-        findViewById(R.id.lin_ll).setOnClickListener(this);
+        findViewById(R.id.name_rl).setOnClickListener(this);
         button = (Button) findViewById(R.id.cancel_login);
         button.setOnClickListener(this);
         if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(this, "ut", ""))) {
@@ -52,7 +52,7 @@ public class SettingActivity extends BaseCommActivity<SettingPresenter> {
 
     @Override
     protected void clickView(View v) {
-        if (v.getId() == R.id.lin_ll) {
+        if (v.getId() == R.id.name_rl) {
 
             Intent intent = new Intent(this, WebViewActivity.class);
             intent.putExtra("url", Urls.getBaseUrl() + "/eshop/setup/about.html");

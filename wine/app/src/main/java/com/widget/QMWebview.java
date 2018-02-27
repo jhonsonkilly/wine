@@ -22,6 +22,7 @@ import com.Event.PayEvent;
 import com.Event.ReloadUrlEvent;
 import com.activity.LoginActivity;
 import com.activity.WebViewActivity;
+import com.androidyuan.frame.base.activity.WineApplication;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.model.MapWrapper;
 import com.otto.OttoBus;
@@ -97,6 +98,7 @@ public abstract class QMWebview extends WebView {
         settings.setLoadWithOverviewMode(true);
 
 
+
         settings.setDisplayZoomControls(false);
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(false);
@@ -107,7 +109,7 @@ public abstract class QMWebview extends WebView {
 
         String str = settings.getUserAgentString() + " QMTV/" + getVersionName(context);
         settings.setUserAgentString(str);
-
+        addJavascriptInterface(new JavaScriptMethods(WineApplication.gainContext(),this), "mobileAPI");
 
         setWebViewClient(new WebViewClient() {
 

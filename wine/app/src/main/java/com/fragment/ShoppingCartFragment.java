@@ -144,6 +144,8 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
         showButton = (Button) view.findViewById(R.id.tv_settlement);
         showButton.setOnClickListener(this);
 
+        presenter.getCartList();
+
     }
 
     @Override
@@ -182,7 +184,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
 
             empty_cart.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
-            presenter.getCartList();
+
         }
 
     }
@@ -410,7 +412,7 @@ public class ShoppingCartFragment extends BaseCommFragment<ShoppingCartPresenter
             return;
         }
 
-        Toast.makeText(getContext(), "总价：" + totalPrice, Toast.LENGTH_LONG).show();
+
 
 
         if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
