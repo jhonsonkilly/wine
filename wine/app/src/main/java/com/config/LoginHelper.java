@@ -1,7 +1,5 @@
 package com.config;
 
-import android.text.TextUtils;
-
 import com.androidyuan.frame.base.activity.WineApplication;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.model.UserModel;

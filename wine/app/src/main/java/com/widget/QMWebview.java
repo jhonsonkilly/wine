@@ -20,19 +20,13 @@ import android.webkit.WebViewClient;
 import com.Event.GoShoppingCartEvent;
 import com.Event.PayEvent;
 import com.Event.ReloadUrlEvent;
-import com.activity.LoginActivity;
-import com.activity.WebViewActivity;
 import com.androidyuan.frame.base.activity.WineApplication;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
-import com.model.MapWrapper;
 import com.otto.OttoBus;
-import com.utils.LocationManager;
 import com.utils.ParamsUtils;
 import com.utils.Urls;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 
 /**
@@ -66,7 +60,7 @@ public abstract class QMWebview extends WebView {
 
     String[] AliPayPar = {"body", "sn", "subject", "total_amount"};
 
-    String[] WXPar = {"sn", "total_fee"};
+    String[] WXPar = {"sn", "total_fee", "sign", "appid", "timestamp", "noncestr", "package","partnerid","prepayid"};
 
 
     public QMWebview(Context context) {
@@ -98,7 +92,6 @@ public abstract class QMWebview extends WebView {
         settings.setLoadWithOverviewMode(true);
 
 
-
         settings.setDisplayZoomControls(false);
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(false);
@@ -109,7 +102,7 @@ public abstract class QMWebview extends WebView {
 
         String str = settings.getUserAgentString() + " QMTV/" + getVersionName(context);
         settings.setUserAgentString(str);
-        addJavascriptInterface(new JavaScriptMethods(WineApplication.gainContext(),this), "mobileAPI");
+        addJavascriptInterface(new JavaScriptMethods(WineApplication.gainContext(), this), "mobileAPI");
 
         setWebViewClient(new WebViewClient() {
 

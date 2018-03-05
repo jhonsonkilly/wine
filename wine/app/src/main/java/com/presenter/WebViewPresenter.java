@@ -14,9 +14,15 @@ import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.androidyuan.frame.cores.FrameApplication;
 import com.msg.AliPayReqMsg;
 import com.msg.AliPayResMsg;
+import com.msg.WXPayReqMsg;
+import com.msg.WXPayResMsg;
 import com.otto.OttoBus;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.Map;
+
 
 /**
  * <p>Copyright:Copyright(c) 2016</p>
@@ -41,9 +47,12 @@ public class WebViewPresenter extends BaseCommPresenter {
     private static final String ALIPAY_CACEL = "6001";//	用户中途取消
     private static final String ALIPAY_CON_ERR = "6002";//	网络连接出错
 
+    private IWXAPI msgApi = null;//微信支付api
+
     @Override
     public void initData(Bundle saveInstnce) {
-
+        msgApi = WXAPIFactory.createWXAPI(iView.getActivity(), null);
+        msgApi.registerApp("wx1ab2725d03ce8cc6");
     }
 
     @Override
@@ -69,6 +78,7 @@ public class WebViewPresenter extends BaseCommPresenter {
             AliPayResMsg res = new AliPayResMsg(RES_ALIPAY);
             sendHttpPostJson(req, res);
         } else {
+            callWxPay(map);
 
         }
     }
@@ -82,7 +92,9 @@ public class WebViewPresenter extends BaseCommPresenter {
                 callAliPay(msg.getData().result);
 
             }
+
         }
+
     }
 
     public void callAliPay(final String response) {
@@ -149,5 +161,26 @@ public class WebViewPresenter extends BaseCommPresenter {
         };
         task.execute();
 
+    }
+
+
+    public void callWxPay(Map<String, String> map){
+        PayReq request = new PayReq();
+
+        request.appId = "wx1ab2725d03ce8cc6";
+
+        request.partnerId = map.get("partnerid");
+
+        request.prepayId= map.get("prepayid");
+
+        request.packageValue = map.get("package");
+
+        request.nonceStr= map.get("noncestr");
+
+        request.timeStamp= map.get("timestamp");
+
+        request.sign= map.get("sign");
+
+        msgApi.sendReq(request);
     }
 }

@@ -1,6 +1,7 @@
 package com.androidyuan.frame.base.protocal.http;
 
 
+
 import com.androidyuan.frame.base.activity.WineApplication;
 import com.androidyuan.frame.cores.utils.FastJSONHelper;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;

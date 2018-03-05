@@ -115,7 +115,9 @@ public class MineFragment extends BaseCommFragment<MinePresenter> implements Vie
             //消息栏
             case R.id.img_03:
                 if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
-
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("url", Urls.getBaseUrl() + "/eshop/msgcenter/index.html");
+                    startActivity(intent);
                 } else {
                     getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 }
