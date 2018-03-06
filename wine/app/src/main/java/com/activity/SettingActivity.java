@@ -1,12 +1,15 @@
 package com.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
+import com.model.ShoppingListModel;
 import com.presenter.SettingPresenter;
 import com.utils.Urls;
 import com.widget.ToolBar;
@@ -39,6 +42,7 @@ public class SettingActivity extends BaseCommActivity<SettingPresenter> {
         toolBar = (ToolBar) findViewById(R.id.toolbar);
         toolBar.setTitle("设置");
         findViewById(R.id.name_rl).setOnClickListener(this);
+        findViewById(R.id.name_yanzheng).setOnClickListener(this);
         button = (Button) findViewById(R.id.cancel_login);
         button.setOnClickListener(this);
         if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(this, "ut", ""))) {
@@ -58,6 +62,40 @@ public class SettingActivity extends BaseCommActivity<SettingPresenter> {
             intent.putExtra("url", Urls.getBaseUrl() + "/eshop/setup/about.html");
             startActivity(intent);
 
+        }
+        if(v.getId()==R.id.name_yanzheng){
+            AlertDialog alert = new AlertDialog.Builder(this).create();
+            alert.setTitle("操作提示");
+            alert.setMessage("您确定要清除缓存么");
+            alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    });
+            alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                           /* StringBuilder builder = new StringBuilder();
+                            for (ShoppingListModel.ShoppingResult result : shoppingCartBeanList) {
+                                if (result.isChoose()) {
+                                    if (builder.length() > 0) {
+                                        builder.append(",").append(result.goodGuid);
+                                    } else {
+                                        builder.append(result.goodGuid);
+                                    }
+
+
+                                }
+                            }
+                            presenter.delateAllCart(builder.toString());*/
+
+
+                        }
+                    });
+            alert.show();
         }
         if (v.getId() == R.id.cancel_login) {
             presenter.quitLogin();
