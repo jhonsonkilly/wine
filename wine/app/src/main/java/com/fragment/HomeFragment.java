@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -66,7 +67,6 @@ import zjw.wine.R;
 public class HomeFragment extends BaseCommFragment<HomePresenter> implements View.OnClickListener, IHomeView {
 
 
-
     LocationManager locationManager;
     private RecyclerView horRecycle;
 
@@ -84,10 +84,10 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     private static final int HOME = 1;
 
 
-
     private BannerView bannerView;
     private LinearLayout ll;
-    private ArrayList<View> indicationList;
+    private ArrayList<View> indicationList=new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected int getLayoutId() {
@@ -141,7 +141,26 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
                 return false;
             }
         });
+
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setColorSchemeResources(R.color.theme_color);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        presenter.getList();
+
+                    }
+                });
+
+            }
+        });
         OttoBus.getInstance().register(this);
+
+        presenter.getList();
 
 
     }
@@ -266,89 +285,92 @@ public class HomeFragment extends BaseCommFragment<HomePresenter> implements Vie
     @Override
     public void showBannerList(final List<BannerModel.BannerData> list) {
 
-
-        bannerView.setAdapter(mAdapter = new BannerAdapter(getContext()));
-        mAdapter.setOnPageTouchListener(new BannerBaseAdapter.OnPageTouchListener<BannerModel.BannerData>() {
-            @Override
-            public void onPageClick(int position, BannerModel.BannerData bannerBean) {
-                // 页面点击
-                if(!TextUtils.isEmpty(bannerBean.linkUrl)){
-                    if(bannerBean.linkUrl.startsWith("http")){
-                        Intent intent = new Intent(getContext(), WebViewActivity.class);
-                        intent.putExtra("url", "http://180110fg0025.umaman.com/hongbao/game.html?nickname=&mobile=15818888887&avatar=&ut=abc&activity_id=5a607604d3df9001a5343685");
-                        getContext().startActivity(intent);
-                    }else{
-
-                        if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+        swipeRefreshLayout.setRefreshing(false);
+        if(mAdapter==null){
+            bannerView.setAdapter(mAdapter = new BannerAdapter(getContext()));
+            mAdapter.setOnPageTouchListener(new BannerBaseAdapter.OnPageTouchListener<BannerModel.BannerData>() {
+                @Override
+                public void onPageClick(int position, BannerModel.BannerData bannerBean) {
+                    // 页面点击
+                    if (!TextUtils.isEmpty(bannerBean.linkUrl)) {
+                        if (bannerBean.linkUrl.startsWith("http")) {
                             Intent intent = new Intent(getContext(), WebViewActivity.class);
-                            LinkedHashMap<String, String> map = new LinkedHashMap<>();
-
-
-                            //intent.putExtra("objetParms", new MapWrapper().setMap(map));
-                            intent.putExtra("url", "http://180110fg0025.umaman.com/hongbao/game.html?nickname=&mobile=2&avatar=&ut=abc&activity_id=5a607604d3df9001a5343685");
+                            intent.putExtra("url", "http://180110fg0025.umaman.com/hongbao/game.html?nickname=&mobile=15818888887&avatar=&ut=abc&activity_id=5a607604d3df9001a5343685");
                             getContext().startActivity(intent);
                         } else {
-                            getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+
+                            if (!TextUtils.isEmpty(SharedPreferencesUtil.getStringData(getContext(), "ut", ""))) {
+                                Intent intent = new Intent(getContext(), WebViewActivity.class);
+                                LinkedHashMap<String, String> map = new LinkedHashMap<>();
+
+
+                                //intent.putExtra("objetParms", new MapWrapper().setMap(map));
+                                intent.putExtra("url", "http://180110fg0025.umaman.com/hongbao/game.html?nickname=&mobile=2&avatar=&ut=abc&activity_id=5a607604d3df9001a5343685");
+                                getContext().startActivity(intent);
+                            } else {
+                                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+
+                            }
 
                         }
-
                     }
                 }
+
+                @Override
+                public void onPageDown() {
+
+                    bannerView.stopAutoScroll();
+                }
+
+                @Override
+                public void onPageUp() {
+
+                    bannerView.startAutoScroll();
+                }
+            });
+            mAdapter.setData(list);
+
+            indicationList = new ArrayList<View>();
+            for (int i = 0; i < list.size(); i++) {
+
+                ImageView iv2 = new ImageView(getContext());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(12, 0, 0, 0);
+                iv2.setLayoutParams(lp);
+                if (i == 0) {
+                    iv2.setBackgroundResource(R.drawable.home_top_ic_point_on);
+                } else {
+                    iv2.setBackgroundResource(R.drawable.home_top_ic_point_off);
+                }
+                indicationList.add(iv2);
+                //添加到圆点布局
+                ll.addView(iv2);
             }
 
-            @Override
-            public void onPageDown() {
+            bannerView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                bannerView.stopAutoScroll();
-            }
+                }
 
-            @Override
-            public void onPageUp() {
+                @Override
+                public void onPageSelected(int position) {
 
-                bannerView.startAutoScroll();
-            }
-        });
-        mAdapter.setData(list);
+                    bannerPointLight(position % indicationList.size());
+                }
 
-        indicationList = new ArrayList<View>();
-        for (int i = 0; i < list.size(); i++) {
+                @Override
+                public void onPageScrollStateChanged(int state) {
 
-            ImageView iv2 = new ImageView(getContext());
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(12, 0, 0, 0);
-            iv2.setLayoutParams(lp);
-            if (i == 0) {
-                iv2.setBackgroundResource(R.drawable.home_top_ic_point_on);
-            } else {
-                iv2.setBackgroundResource(R.drawable.home_top_ic_point_off);
-            }
-            indicationList.add(iv2);
-            //添加到圆点布局
-            ll.addView(iv2);
+                }
+            });
+
+        }else{
+            mAdapter.notifyDataSetChanged();
         }
-
-        bannerView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                bannerPointLight(position % indicationList.size());
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
 
 
     }
-
 
 
     private class BannerAdapter extends BannerBaseAdapter<BannerModel.BannerData> {

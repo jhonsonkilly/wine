@@ -47,7 +47,7 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
 
     @Override
     public void initData(Bundle saveInstnce) {
-        getList();
+
 
     }
 
@@ -79,11 +79,7 @@ public class HomePresenter extends BaseCommPresenter<IHomeView> {
         sendHttpPostJson(req, res);
     }
 
-    public void getHomePage() {
-        HomePageReqMsg req = new HomePageReqMsg();
-        HomePageResMsg res = new HomePageResMsg(RES_HOME_MES);
-        sendHttpGet(req, res);
-    }
+
 
     public void getList() {
 

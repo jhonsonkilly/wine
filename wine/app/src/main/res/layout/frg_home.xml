@@ -58,181 +58,186 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/home_top"
-        android:fadingEdge="vertical"
-        android:fadingEdgeLength="200dp"
-        android:scrollbars="none">
+        android:layout_below="@id/home_top">
 
-        <LinearLayout
-
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:orientation="vertical">
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="150dp">
-
-                <com.banner.BannerView
-                    android:id="@+id/bannerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
-                    android:id="@+id/corn_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/bannerView"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/hor_recycle"
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:background="@color/white" />
+            android:scrollbars="none">
 
             <LinearLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_height="match_parent"
+
                 android:orientation="vertical">
 
+
                 <RelativeLayout
-                    android:id="@+id/huodong_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white">
+                    android:layout_height="150dp">
 
-                    <TextView
+                    <com.banner.BannerView
+                        android:id="@+id/bannerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:id="@+id/corn_ll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@mipmap/hot"
-                        android:drawablePadding="10dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="热门活动"
-                        android:textColor="@color/main_title_color" />
+                        android:layout_alignBottom="@+id/bannerView"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal"></LinearLayout>
 
-                    <TextView
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:drawablePadding="10dp"
-                        android:drawableRight="@mipmap/w0_37"
-                        android:padding="10dp"
-                        android:text="更多"
-                        android:textColor="@color/divider_color" />
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
-
-                    android:id="@+id/qianggou_recycle"
+                    android:id="@+id/hor_recycle"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="110dp"
                     android:background="@color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:orientation="horizontal"
-                    android:padding="2dp">
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/img_1"
-                        android:layout_width="0dp"
+                    <RelativeLayout
+                        android:id="@+id/huodong_rl"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:src="@mipmap/sys_03" />
+                        android:background="@color/white">
 
-                    <ImageView
-                        android:id="@+id/img_2"
-                        android:layout_width="0dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/hot"
+                            android:drawablePadding="10dp"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="热门活动"
+                            android:textColor="@color/main_title_color" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:drawablePadding="10dp"
+                            android:drawableRight="@mipmap/w0_37"
+                            android:padding="10dp"
+                            android:text="更多"
+                            android:textColor="@color/divider_color" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+
+                        android:id="@+id/qianggou_recycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:background="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:src="@mipmap/sys_05" />
+                        android:layout_marginTop="3dp"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:id="@+id/img_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:src="@mipmap/sys_03" />
+
+                        <ImageView
+                            android:id="@+id/img_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:src="@mipmap/sys_05" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:id="@+id/img_3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:src="@mipmap/sys_09" />
+
+                        <ImageView
+                            android:id="@+id/img_4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:src="@mipmap/sys_10" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="精选"
+                    android:textColor="@color/main_title_color" />
 
-                    android:padding="2dp">
 
-                    <ImageView
-                        android:id="@+id/img_3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:src="@mipmap/sys_09" />
+                <com.androidyuan.frame.cores.widget.FixHeightListView
+                    android:id="@+id/jingxuan_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white" />
 
-                    <ImageView
-                        android:id="@+id/img_4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:src="@mipmap/sys_10" />
-                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="产品"
+
+                    android:textColor="@color/main_title_color" />
+
+
+                <com.androidyuan.frame.cores.widget.FixHeightListView
+                    android:id="@+id/product_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white" />
 
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="精选"
-                android:textColor="@color/main_title_color" />
-
-
-            <com.androidyuan.frame.cores.widget.FixHeightListView
-                android:id="@+id/jingxuan_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/white" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="产品"
-
-                android:textColor="@color/main_title_color" />
-
-
-            <com.androidyuan.frame.cores.widget.FixHeightListView
-                android:id="@+id/product_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/white" />
-
-
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
