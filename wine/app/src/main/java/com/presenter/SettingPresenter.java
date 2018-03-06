@@ -5,7 +5,7 @@ import android.os.Message;
 import android.widget.Toast;
 
 import com.Event.AddToCartNumberEvent;
-import com.androidyuan.frame.base.activity.WineApplication;
+import com.androidyuan.frame.base.activity.BaseApplication;
 import com.androidyuan.frame.base.presenter.BaseCommPresenter;
 import com.androidyuan.frame.cores.utils.SharedPreferencesUtil;
 import com.msg.QuitLoginReqMsg;
@@ -61,8 +61,8 @@ public class SettingPresenter extends BaseCommPresenter {
             if (msg.getData() != null) {
                 //清空配送员
                 Toast.makeText(getActivity(), msg.getData().result, Toast.LENGTH_LONG).show();
-                SharedPreferencesUtil.saveStringData(WineApplication.gainContext(), "ut", "");
-                SharedPreferencesUtil.saveStringData(WineApplication.gainContext(), "agent", "N");
+                SharedPreferencesUtil.saveStringData(BaseApplication.gainContext(), "ut", "");
+                SharedPreferencesUtil.saveStringData(BaseApplication.gainContext(), "agent", "N");
                 AddToCartNumberEvent event = new AddToCartNumberEvent();
                 event.result = 0 + "";
                 OttoBus.getInstance().post(event);

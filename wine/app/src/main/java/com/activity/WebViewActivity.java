@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.Event.PayEvent;
 import com.Event.ReloadUrlEvent;
+import com.androidyuan.frame.base.activity.BaseApplication;
 import com.androidyuan.frame.base.activity.BaseCommActivity;
 import com.androidyuan.frame.cores.log.CommonLogger;
 import com.model.MapWrapper;
@@ -14,6 +15,7 @@ import com.presenter.WebViewPresenter;
 import com.utils.LocationManager;
 import com.utils.Urls;
 import com.widget.H5InputWebView;
+import com.widget.JavaScriptMethods;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -48,6 +50,7 @@ public class WebViewActivity extends BaseCommActivity<WebViewPresenter> {
     @Override
     protected void initAllWidget() {
         qmWebview = (H5InputWebView) findViewById(R.id.webview);
+        qmWebview.addJavascriptInterface(new JavaScriptMethods(this, qmWebview), "mobileAPI");
         url = getIntent().getStringExtra("url");
 
         parms = (HashMap<String, String>) getIntent().getSerializableExtra("parms");

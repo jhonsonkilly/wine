@@ -67,6 +67,10 @@ dependencies {
     compile files('libs/alipaySingle-20160825.jar')
     compile files('libs/alipaySdk-20170922.jar')
 
+    compile files('libs/SharePlugin.jar')
+    compile files('libs/SocialSDK_WeiXin_Full.jar')
+
+
 
 
 

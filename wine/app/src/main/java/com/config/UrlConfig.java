@@ -1,6 +1,6 @@
 package com.config;
 
-import com.androidyuan.frame.base.activity.WineApplication;
+import com.androidyuan.frame.base.activity.BaseApplication;
 import com.utils.Md5Utils;
 
 /**
@@ -10,7 +10,7 @@ import com.utils.Md5Utils;
 public class UrlConfig {
 
 
-    public static final boolean isDebug = WineApplication.isDebug;
+    public static final boolean isDebug = BaseApplication.isDebug;
 
     //如下几个地方无法在服务端配置
     private static final String TEST_INTERFACE_CONFIGURE_URL = "http://tz.tensdo.com";

@@ -16,7 +16,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.androidyuan.frame.base.activity.WineApplication;
+import com.androidyuan.frame.base.activity.BaseApplication;
 
 
 import java.io.BufferedReader;
@@ -41,7 +41,7 @@ public final class OdySysEnv {
 	private static final DisplayMetrics mDisplayMetrics = new DisplayMetrics();
 	
 	/**上下文**/
-	private static final Context context = WineApplication.gainContext();
+	private static final Context context = BaseApplication.gainContext();
 	
 	/**操作系统名称(GT-I9100G)***/
 	public static final String MODEL_NUMBER = Build.MODEL;

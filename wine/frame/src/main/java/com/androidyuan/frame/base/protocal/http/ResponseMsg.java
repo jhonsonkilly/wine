@@ -4,7 +4,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
-import com.androidyuan.frame.base.activity.WineApplication;
+import com.androidyuan.frame.base.activity.BaseApplication;
 import com.androidyuan.frame.cores.log.CommonLogger;
 import com.androidyuan.frame.cores.utils.FastJSONHelper;
 
@@ -110,7 +110,7 @@ public abstract class ResponseMsg<T> {
     //这个可以重写有时候会有多种状态 都代表成功
     public boolean isSuc() {
         if (result != 200 || code != 1) {
-            Toast.makeText(WineApplication.gainContext(), msg, Toast.LENGTH_LONG).show();
+            Toast.makeText(BaseApplication.gainContext(), msg, Toast.LENGTH_LONG).show();
         }
         return result == 200 && code == 1;
     }

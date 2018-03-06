@@ -10,7 +10,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
  * Created by mac on 2017/10/16.
  */
 
-public class WineApplication extends Application {
+public class BaseApplication extends Application {
 
     private static Context instance;
 
@@ -28,6 +28,9 @@ public class WineApplication extends Application {
         instance = this;
 
         Fresco.initialize(this);
+
+
+
 
 
 

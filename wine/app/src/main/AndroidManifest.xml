@@ -56,7 +56,7 @@
 
 
     <application
-        android:name="com.androidyuan.frame.base.activity.WineApplication"
+        android:name="com.activity.WineApplication"
         android:icon="@mipmap/ic_launch"
         android:label="@string/app_name"
         android:windowSoftInputMode="adjustResize|stateHidden"
@@ -125,12 +125,16 @@
         </activity>
 
         <activity
-            android:name="wxapi.WXPayEntryActivity"
+            android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"/>
 
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5a9e3095f29d981c78000023" >
 
+        </meta-data>
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="0b44c3a80b98e4773ad7ed3f71b2c0ed" />
